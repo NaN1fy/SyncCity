@@ -44,7 +44,7 @@ class SimulatorControllerFactory():
                                 latitude=config["coordinates"]["values"][1]
                                 )
                             ),
-                        wrt_class()
+                        wrt_clss()
                     )
                 )
 
