@@ -1,0 +1,16 @@
+[
+  {
+    "type": "temperature",
+    "name": "Padova, via Luzzatti 3",
+    "temporal_second_delay": 1,
+    "coordinates": {
+            "type": "geolocalization",
+            "coordinates": [
+                45.408569,
+                11.887278
+            ]
+        }
+
+  },
+
+]

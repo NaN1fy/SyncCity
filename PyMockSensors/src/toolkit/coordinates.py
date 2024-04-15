@@ -1,3 +1,5 @@
+import json
+
 class Coordinates:
   """
     Class that represents some of the attributes for sensors: in particular, a
@@ -42,3 +44,31 @@ class Coordinates:
 
     self.__longitude = longitude
     self.__latitude = latitude
+
+def getCoordinates(self, longitude: float, latitude: float) -> tuple[float, float]:
+  """
+  Getter method for Coordinates class.
+
+  Return:
+        Tuple of floats
+  """
+
+    return self.__longitude, self.__latitude
+
+def toJson(self) -> str:
+  """
+   Method that converts a set of coordinates into a json format.
+
+  Return:
+        Json string
+  """
+
+    return json.dumps(
+        {
+            "type": "geolocalization",
+            "coordinates": [
+                self.__longitude,
+                self.__latitude
+            ]
+        }
+    )

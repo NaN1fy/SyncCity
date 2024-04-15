@@ -8,7 +8,7 @@ class SimulatorThread(threading.Thread):
     Container apt to run and manage each Sensor with the corresponding stream output
 
     Attributes:
-        is_running: shows the state of the simulation
+        __is_running: shows the state of the simulation
         __temporal_second_delay: seconds between each refresh
         __stream_writer: see StreamWriterInterface class (./src/stream_writer/stream_writer_interface.py)
         __sensor: see Sensor class (./src/sensor/sensor_interface.py)
@@ -16,15 +16,15 @@ class SimulatorThread(threading.Thread):
     Methods:
         __init__(self, is_running: bool, temporal_second_delay: int, stream_writer: StreamWriterInterface, sensor: SensorInterface):
             Constructor method for SimulatorThread class.
-        
+
         start(self) -> None:
             Starts the simulation loop.
-        
+
         stop(self) -> None:
             Stops the simulation loop.
     """
 
-    is_running: bool = True
+    __is_running: bool = True
     __temporal_second_delay: int = 1
     __stream_writer: StreamWriterInterface = None
     __sensor: SensorInterface = None
@@ -41,7 +41,7 @@ class SimulatorThread(threading.Thread):
         """
 
         super().__init__()
-        self.is_running = is_running
+        self.__is_running = is_running
         self.__temporal_second_delay = temporal_second_delay
         self.__stream_writer = stream_writer
         self.__sensor = sensor
@@ -51,7 +51,7 @@ class SimulatorThread(threading.Thread):
         Starts the simulation loop.
         """
 
-        while self.is_running:
+        while self.__is_running:
             self.__stream_writer.write(self.__sensor.simulate())
             sleep(self.__temporal_second_delay)
 
@@ -60,5 +60,4 @@ class SimulatorThread(threading.Thread):
         Stops the simulation loop.
         """
 
-        self.is_running = False
-
+        self.__is_running = False
