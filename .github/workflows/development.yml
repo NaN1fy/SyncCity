@@ -1,4 +1,4 @@
-name: dev 
+name: format python syntax
 run-name: format syntax
 on: ["push"]
 jobs:
