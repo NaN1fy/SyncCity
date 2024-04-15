@@ -24,5 +24,5 @@ class TemperatureSensor(SensorInterface):
         """
         Method to simulate the sensor's data gathering.
         """
-        data = None 
+        data = "lettura fittizzia\n"
         return data

@@ -5,7 +5,7 @@
     "temporal_second_delay": 1,
     "coordinates": {
             "type": "geolocalization",
-            "coordinates": [
+            "values": [
                 45.408569,
                 11.887278
             ]
