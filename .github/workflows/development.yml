@@ -1,6 +1,9 @@
 name: format python syntax
 run-name: format syntax
-on: ["push"]
+on:
+    push:
+        paths:
+          - 'PyMockSensors/**'
 jobs:
     formatting:
       runs-on: ubuntu-latest
