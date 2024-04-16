@@ -8,7 +8,7 @@ class SimulatorController:
 
     def __init__(self, simulators: List[SimulatorThread]):
         self.__simulators = simulators
-        signal.signal(signal.SIGINT, self.handle_kb_interrupt)
+        signal.signal(signal.SIGINT, self.handle_interrupt)
 
     def start_all(self) -> None:
         for simulator in self.__simulators:
@@ -18,6 +18,6 @@ class SimulatorController:
         for simulator in self.__simulators:
             simulator.stop()
 
-    def handle_kb_interrupt(self, sig, frame):
+    def handle_interrupt(self, sig, frame):
         self.stop_all()
-        print("\nKeyboard interrupt detected. Stopping all simulators...")
+        print("\nInterrupt detected. Stopping all simulators...")

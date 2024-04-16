@@ -18,7 +18,7 @@ class Coordinates:
   def toJson(self) -> str:
     return json.dumps(
             {
-                "type": "geolocalization",
+                "type": "point",
                 "coordinates": [
                     self.__longitude,
                     self.__latitude
