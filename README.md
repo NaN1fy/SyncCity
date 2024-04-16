@@ -14,6 +14,7 @@ Una volta installato, puoi avviare il servizio PyMockSensors eseguendo i seguent
 2. Naviga nella directory del progetto.
 3. Esegui il seguente comando:
 4. 
+
     ```bash
     docker-compose --profile dev up
     ```
