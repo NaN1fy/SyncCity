@@ -1,0 +1,9 @@
+services:
+  pymocksensors:
+    build:
+      context: ./PyMockSensors
+    hostname: app
+    container_name: pymocksensors
+    environment: 
+      INDENT_JSON: True
+    profiles: ["dev"]
