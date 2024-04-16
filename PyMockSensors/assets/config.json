@@ -2,25 +2,12 @@
   {
     "type": "temperature",
     "name": "Padova, via Luzzatti 3",
-    "temporal_second_delay": 1,
+    "temporal_second_delay": 0.2,
     "coordinates": {
             "type": "geolocalization",
             "values": [
                 45.408569,
                 11.887278
-            ]
-        }
-
-  },
-  {
-    "type": "temperature",
-    "name": "Padova, Arcella",
-    "temporal_second_delay": 0.5,
-    "coordinates": {
-            "type": "geolocalization",
-            "values": [
-                45.424191,
-                11.884134
             ]
         }
 

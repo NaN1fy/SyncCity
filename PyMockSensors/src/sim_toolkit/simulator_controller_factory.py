@@ -1,6 +1,7 @@
 import json
-from typing import Dict, Type, List
 from datetime import datetime
+from random import Random
+from typing import Dict, List, Type
 
 from src.sensor.sensor_interface import SensorInterface
 
@@ -45,7 +46,8 @@ class SimulatorControllerFactory():
                             coordinates = Coordinates(
                                 longitude=config["coordinates"]["values"][0],
                                 latitude=config["coordinates"]["values"][1]
-                                )
+                                ),
+                            socrates = Random()
                             ),
                         stream_writer = wrt_clss()
                     )
