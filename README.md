@@ -15,6 +15,6 @@ Una volta installato, puoi avviare il servizio PyMockSensors eseguendo i seguent
 3. Esegui il seguente comando:
 4. 
     ```bash
-    docker-compose --profile dev up
+    docker-compose --profile dev up -d
     ```
-    Secondo le necessità puoi aggiungere le flag `--force-recreate` e `--build`.
+    Dove `--detach, -d` esegue i container in background. Secondo le necessità puoi aggiungere le flag `--force-recreate` e `--build` per forzare nuovamente la costruzione dei container.
