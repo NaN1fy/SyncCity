@@ -35,7 +35,7 @@ class SimulatorControllerFactory():
                 raise DuplicateSensorNameError("Cannot set the same name for two different sensors.")
             sensor_idx = str(config["name"])
         else:
-            self.__simulators_inventory[sensor_type] = self.__simulators_inventory.get(sensor_type, 0) + 1;
+            self.__simulators_inventory[sensor_type] = self.__simulators_inventory.get(sensor_type, 0) + 1
             sensor_idx += str(self.__simulators_inventory[sensor_type])
         self.__simulators.append(
                 SimulatorThread(
