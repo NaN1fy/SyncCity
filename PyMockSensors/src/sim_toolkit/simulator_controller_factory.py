@@ -29,19 +29,20 @@ class SimulatorControllerFactory():
         self.__stream_writer = stream_writer
 
     def _createSimulator(self, sensor_type: SensorType, sim_clss: Type[SensorInterface], wrt_clss: Type[StreamWriterInterface], config: Dict) -> int:
-        sensor_idx = sensor_type
+        sensor = sensor_type
         if "name" in config:
             if "name" in self.__simulators_inventory:
                 raise DuplicateSensorNameError("Cannot set the same name for two different sensors.")
-            sensor_idx = str(config["name"])
+            sensor = str(config["name"])
+            self.__simulators_inventory[sensor] = 1
         else:
             self.__simulators_inventory[sensor_type] = self.__simulators_inventory.get(sensor_type, 0) + 1
-            sensor_idx += str(self.__simulators_inventory[sensor_type])
+            sensor += str(self.__simulators_inventory[sensor_type])
         self.__simulators.append(
                 SimulatorThread(
                         temporal_second_delay = config["temporal_second_delay"],
                         sensor = sim_clss(
-                            sensor_name = sensor_idx,
+                            sensor_name = sensor,
                             gather_time = datetime,
                             coordinates = Coordinates(
                                 longitude=config["coordinates"]["values"][0],
