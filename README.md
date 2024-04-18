@@ -1,20 +1,32 @@
-# SyncCity (temporaneo)
+# SyncCity
 
-## PyMockSensors
+[Progetto del corso di Ingegneria del Software 2023-2024](https://didattica.unipd.it/off/2021/LT/SC/SC1167/000ZZ/SC01103936/N0) @ [Università degli Studi di Padova](https://www.unipd.it)
+Proponente: [SyncLab](https://www.synclab.it/home)
 
-Questo è un README temporaneo per la branch `dev`, in attesa della creazione di un README completo, prevista per la fine dello sprint il `2024-04-19`.
+## Tecnologie utilizzate
+- [Docker](https://www.docker.com): come sistema di containerizzazione;
+- [pytest](https://docs.pytest.org/en/8.0.x/): framework di test Python per unit ed integration testing;
+- [Apache Kafka](https://kafka.apache.org): per gestire il gathering dei dati da più fonti;
+- [ClickHouse](https://clickhouse.com): come database noSql colonnare;
+- [Grafana](https://grafana.com): come piattaforma di data visualization delle informazioni. 
 
-### Avvio del servizio con Docker
+## Utilizzo
 
-Assicurati di avere Docker installato sulla tua macchina. Puoi trovare le istruzioni per l'installazione sul [sito web di Docker](https://docs.docker.com/get-docker/).
+### Creazione container Docker 
+Per l'avvio tramite Docker, è possibile utilizare il seguente comando `docker-compose --profile my-profile up` dove `--profile`seleziona i profili da avviare specificati nel `docker-compose.yaml`.
+```ymal
+services:
+  pymocksensors:
+    ...
+    profiles: ["dev"]
 
-Una volta installato, puoi avviare il servizio PyMockSensors eseguendo i seguenti passaggi:
-
-1. Apri un terminale.
-2. Naviga nella directory del progetto.
-3. Esegui il seguente comando:
-4. 
-    ```bash
-    docker-compose --profile dev up -d
-    ```
-    Dove `--detach, -d` esegue i container in background. Secondo le necessità puoi aggiungere `--force-recreate` e `--build` per forzare nuovamente la costruzione dei container.
+```
+#### Eseguire il container in background
+```bash
+docker-compose --profile my-profile -d
+```
+#### Forzare la creazione e la build del container
+```bash
+docker-compose --profile my-profile --build --force-recreate
+```
+### Impostazione variabili d'ambiente
