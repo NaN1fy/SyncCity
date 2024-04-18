@@ -15,7 +15,9 @@ Proponente: [SyncLab](https://www.synclab.it/home)
 
 ### Creazione container Docker 
 Per l'avvio tramite Docker, è possibile utilizare il seguente comando 
+
 `docker-compose --profile my-profile up` 
+
 dove 
 `--profile`seleziona i profili da avviare specificati nel `docker-compose.yaml`.
 ```yml
