@@ -2,8 +2,18 @@ services:
   pymocksensors:
     build:
       context: ./PyMockSensors
+      target: dev
     hostname: app
     container_name: pymocksensors
     environment: 
       INDENT_JSON: True
     profiles: ["dev"]
+  
+  pymocksensors-test:
+    build:
+      context: ./PyMockSensors
+      target: test
+    hostname: app
+    container_name: pymocksensors-tests
+    profiles: ["test"]
+
