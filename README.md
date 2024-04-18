@@ -14,7 +14,7 @@ Proponente: [SyncLab](https://www.synclab.it/home)
 ## Utilizzo
 
 ### Creazione container Docker 
-Per l'avvio tramite Docker, è possibile utilizare il seguente comando 
+Per l'avvio tramite Docker è possibile utilizare il seguente comando 
 
 `docker-compose --profile my-profile up` 
 
@@ -36,3 +36,16 @@ docker-compose --profile my-profile -d
 docker-compose --profile my-profile --build --force-recreate
 ```
 ### Impostazione variabili d'ambiente
+È possibile impostare delle variabili d'ambiente per il corretto funzionamento del progetto (se non definite, le variabili utilizzeranno i loro valori predefiniti). Per farlo, è necessario creare un file `.env` nella root del progetto specificando `VAR=[valore]`.
+In alternativa, è possibile impostare le variabili d'ambiente direttamente nel sistema operativo, con il comando:
+```bash
+export VAR=[valore]
+```
+È possibile ritornare al valore di default delle varibili d'ambiente con il comando:
+```bash
+unset VAR
+```
+#### Abilitare l'indentazione per `STDOUT`
+```bash
+export INDENT_JSON=True
+```
