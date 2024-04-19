@@ -1,4 +1,12 @@
 services:
+  kafka:
+    image: "bitnami/kafka:latest"
+    container_name: kafka
+    hostname: app
+    ports:
+      - "9093:9093"
+    profiles: ["dev"]
+
   pymocksensors:
     build:
       context: ./PyMockSensors
