@@ -1,0 +1,2 @@
+# These are the required Python packages for running the PyMockSensors application.
+# Make sure to install these dependencies using 'pip install -r requirements.txt'
