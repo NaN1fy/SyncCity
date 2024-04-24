@@ -35,6 +35,7 @@ class TemperatureSensor(SensorInterface):
             }
         return jsonfy(
                     sensor_name = self._sensor_name,
+                    sensor_id = self._sensor_id,
                     sensor_type = SensorType.TEMPERATURE,
                     gather_time = str(self._gather_time.now()),
                     coordinates = self._coordinates,
