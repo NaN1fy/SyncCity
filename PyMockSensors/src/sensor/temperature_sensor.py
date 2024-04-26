@@ -39,5 +39,5 @@ class TemperatureSensor(SensorInterface):
                     sensor_type = SensorType.TEMPERATURE,
                     gather_time = str(self._gather_time.now()),
                     coordinates = self._coordinates,
-                    readings = reading
+                    readings = [reading]
                     )
