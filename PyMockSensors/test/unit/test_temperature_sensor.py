@@ -27,7 +27,7 @@ def test_temperature_sensor():
                         "sensor_name": "Arcella",
                         "sensor_id": "mocked-id",
                         "gather_time": "2024-04-26 12:10:00.123456",
-                        "readings": [{"type": "Degrees Celsius", "value": 25.85}],
+                        "readings": [{"type": "Degrees Celsius", "value":  24.12}],
                         "coordinates": {"type": "point", "coordinates": [45.406434, 11.879008]}
                     }
                     assert parsed_json == expected_json
