@@ -1,27 +1,54 @@
 services:
   kafka:
-    image: "bitnami/kafka:latest"
+    image: "bitnami/kafka:3.7.0"
     container_name: kafka
-    hostname: app
     ports:
       - "9093:9093"
+    environment:
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_LISTENERS: CONTROLLER://:19092,INTERNAL://:9092,EXTERNAL://:9093
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9093
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:19092
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CFG_PROCESS_ROLES: broker,controller
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_CFG_MESSAGE_MAX_BYTES: 1048588
+    healthcheck:
+      test:
+        ["CMD", "kafka-topics.sh", "--bootstrap-server", "kafka:9092", "--list"]
+      interval: 5s
+      timeout: 30s
+      retries: 10
     profiles: ["dev"]
+
+  kafka-console-consumer:
+    image: "bitnami/kafka:3.7.0"
+    container_name: kafka-console-consumer
+    command: ["kafka-console-consumer.sh", "--bootstrap-server", "kafka:9092", "--topic", "temperature"]
+    depends_on:
+      kafka:
+        condition: service_healthy
+    profiles: ["kns"] 
 
   pymocksensors:
     build:
       context: ./PyMockSensors
       target: dev
-    hostname: app
     container_name: pymocksensors
     environment: 
       INDENT_JSON: True
+    depends_on:
+      kafka:
+        condition: service_healthy
     profiles: ["dev"]
-  
+    
   pymocksensors-test:
     build:
       context: ./PyMockSensors
       target: test
-    hostname: app
     container_name: pymocksensors-tests
-    profiles: ["test"]
+    profiles: ["sim-test"]
 

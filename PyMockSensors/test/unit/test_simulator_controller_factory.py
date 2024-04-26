@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Dict, Type
 import unittest
 from unittest.mock import patch
 
@@ -7,8 +7,15 @@ from src.sim_toolkit.simulator_controller_factory import SimulatorControllerFact
 from src.stream_writer.stream_writer_interface import StreamWriterInterface
 
 class MockStreamWriter(StreamWriterInterface):
+    def __init__(self, sensor_type):
+        pass
+
+    def accept(self, visitor, sensor, sim_clss, config: Dict):
+        pass
+
     def write(self, data):
         pass
+
 
 class TestStdoutSimulatorExecutorFactory(unittest.TestCase):
     __config : str
@@ -73,3 +80,11 @@ class TestStdoutSimulatorExecutorFactory(unittest.TestCase):
             self.__factory = SimulatorControllerFactory(config_file = self.__config, stream_writer = self.__stream_writer)
             self.__exec_factory = self.__factory.forgeController()
             assert isinstance(self.__exec_factory, SimulatorController)
+
+        with patch('src.stream_writer.kafka_stream_writer.KafkaStreamWriter', MockStreamWriter):
+            self.__stream_writer = MockStreamWriter
+            self.__config = self.__config.strip()
+            self.__factory = SimulatorControllerFactory(config_file = self.__config, stream_writer = self.__stream_writer)
+            self.__exec_factory = self.__factory.forgeController()
+            assert isinstance(self.__exec_factory, SimulatorController)
+

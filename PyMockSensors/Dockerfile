@@ -1,7 +1,7 @@
 # Copyright 2024 NaN1fy
 # Dockerfile for building a Python application container
 
-FROM python:3.11.9-alpine as dev
+FROM python:3.11-bookworm as dev
 
 WORKDIR /app
 
@@ -13,12 +13,16 @@ COPY . .
 
 CMD ["python3", "main.py"]
 
-FROM python:3.11.9-alpine as test
+FROM python:3.11-bookworm as test
 
 WORKDIR /app
 
-COPY . .
+COPY requirements.txt requirements.txt
 
-RUN pip install pytest
+RUN pip install -r requirements.txt
+
+RUN pip install pytest 
+
+COPY . .
 
 CMD ["pytest"]
