@@ -11,9 +11,10 @@ CREATE TABLE sc_database.temperature
     latitude FLOAT,
     longitude FLOAT,
     readings FLOAT
-) ENGINE = MergeTree;
+) ENGINE = MergeTree()
+ORDER BY (sensor_id, gather_time);
 
-CREATE MATERIALIZED VIEW sc_database.raw_temperature
+CREATE MATERIALIZED VIEW sc_database.temperature_mv
 TO sc_database.temperature
 AS
 SELECT
@@ -22,4 +23,4 @@ SELECT
     JSONExtractFloat(rawJSON, 'coordinates', 1) AS latitude,
     JSONExtractFloat(rawJSON, 'coordinates', 2) AS longitude,
     JSONExtractFloat(rawJSON, 'readings', 1, 'value') AS readings
-FROM sc_database.raw_temperature
+FROM sc_database.raw_temperature;
