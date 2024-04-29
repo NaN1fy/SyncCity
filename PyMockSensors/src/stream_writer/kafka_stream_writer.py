@@ -4,6 +4,7 @@ from src.stream_writer.stream_writer_interface import StreamWriterInterface
 from src.stream_writer.kafka_logic.kafka_producer import KafkaProducer
 from src.toolkit.ack import acked
 
+
 class KafkaStreamWriter(StreamWriterInterface):
     __producer: KafkaProducer
     __topic: str

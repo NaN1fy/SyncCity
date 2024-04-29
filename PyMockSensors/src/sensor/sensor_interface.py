@@ -6,6 +6,7 @@ import uuid
 
 from src.toolkit.coordinates import Coordinates
 
+
 class SensorInterface(ABC):
     _sensor_name: str
     _sensor_id: str
