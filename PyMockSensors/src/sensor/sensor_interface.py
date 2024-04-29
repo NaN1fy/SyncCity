@@ -21,7 +21,7 @@ class SensorInterface(ABC):
         self._socrates = socrates
 
     def getId(self) -> str:
-        return self._sendor_id
+        return self._sensor_id
 
     @abstractmethod
     def simulate(self) -> str:
