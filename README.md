@@ -51,6 +51,6 @@ export INDENT_JSON=True
 ```
 #### Modificare l'accesso a KafKa per  `KafkaStreamWriter` (KAFKAOUT)
 ```bash
-export KAFKA_HOST=kafka
+export KAFKA_HOST=`kafka`
 export KAFKA_PORT=9092
 ```
