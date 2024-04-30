@@ -33,18 +33,14 @@ services:
         condition: service_healthy
     profiles: ["kns"]
 
-  clickhouse-server:
+  clickhouse:
     image: "clickhouse/clickhouse-server:latest"
-    container_name: clickhouse-server
+    container_name: clickhouse
     ports:
       - "8123:8123"
     volumes:
       - ./ClickHouse/initDB:/docker-entrypoint-initdb.d
       - ./ClickHouse/config/timezone.xml:/etc/clickhouse-server/config.d/timezone.xml
-    depends_on:
-      kafka:
-        condition: service_healthy
-    profiles: ["dev"]
     environment:
       CLICKHOUSE_DB: sc_database
       CLICKHOUSE_USER: sc_admin
@@ -56,6 +52,10 @@ services:
       timeout: 10s
       retries: 10
     restart: always
+    depends_on:
+      kafka:
+        condition: service_healthy
+    profiles: ["dev"]
 
   pymocksensors:
     build:
