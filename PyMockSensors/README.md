@@ -1,13 +1,13 @@
 ![UML semplificato del generatore dati](assets/uml.png)
 
-[!CAUTION]
+[!IMPORTANT]
 Il diagramma sopra rappresentato non è da intendersi come un diagramma di classe completo ma come un'astrazione e generalizzazione del generatore di dati `PyMockSensors`. In particolare, non tutte le classi considerate "utility", né tutti i parametri e attributi non essenziali per la comprensione della struttura dell'algoritmo sono mostrati. Per ulteriori dettagli sulla struttura completa del progetto `SyncCity`, si prega di consultare la [repository della documentazione](https://github.com/NaN1fy/docs).
 
-# Schema semplificato del funzionamento di PyMockSensors
-`PyMockSensors` è stato sviluppato adoperando un'approccio orientato agli oggetti (OOP), sfruttando due pattern fondamentali: `factory method` e `visitor`.
-Vista l'impossibilità di definire direttamente nel codice ciascuna istanza dei sensori, è stata introdotta una factory che, utilizzando un formato dati strutturato, agevola l'istanziamento degli stessi.
-`SimulatorContorllerFactory` ha come scopo principale quello d'istanziare un sensore per ogni entry del file `assets/config.json` e associar loro un controller che li gestisca.
-Il controller è rappresentato dalla classe `SimulatorController`. Quest'ultimo non adopera direttamente i sensori ma una classe "wrapper" (la quale eredita da `Thread`) al fine di permettere un'esecuzione concorrente.
-La classe "wrapper" `SimulatorThread` esegue ciclicamente (a meno di eventi di stop) il metodo astratto `simulate()` del sensore il quale ritorna la simulazione del dato in formato JSON.
-Seguendo il model-control-view pattern, la rappresentazione del dato simulato è mantenuta separata dall'implementazione e dalla gestione. Al fine di ottenere ciò è stata definita una classe `StreamWriterInterface` che si occupa del "delivery" dell'informazione (`STDOUT` piuttosto che `Apache Kafka`).
+## Schema semplificato del funzionamento di PyMockSensors
+`PyMockSensors` è stato sviluppato adoperando un'approccio orientato agli oggetti (OOP), sfruttando due pattern fondamentali: `factory method` e `visitor`.  
+Vista l'impossibilità di definire direttamente nel codice ciascuna istanza dei sensori, è stata introdotta una factory che, utilizzando un formato dati strutturato, agevola l'istanziamento degli stessi.  
+`SimulatorContorllerFactory` ha come scopo principale quello d'istanziare un sensore per ogni entry del file `assets/config.json` e associar loro un controller che li gestisca.  
+Il controller è rappresentato dalla classe `SimulatorController`. Quest'ultimo non adopera direttamente i sensori ma una classe "wrapper" (la quale eredita da `Thread`) al fine di permettere un'esecuzione concorrente.  
+La classe "wrapper" `SimulatorThread` esegue ciclicamente (a meno di eventi di stop) il metodo astratto `simulate()` del sensore il quale ritorna la simulazione del dato in formato JSON.  
+Seguendo il model-control-view pattern, la rappresentazione del dato simulato è mantenuta separata dall'implementazione e dalla gestione. Al fine di ottenere ciò è stata definita una classe `StreamWriterInterface` che si occupa del "delivery" dell'informazione (`STDOUT` piuttosto che `Apache Kafka`).  
 L'implementazione dei sensori avviene mediante un'interfaccia comune, `SensorInterface`, dalla quale derivano classi specifiche per ogni tipologia di sensore.  Ogni sensore presenta un metodo `accept()` che funge da discriminante per la factory, la quale agisce in modo diverso a seconda della sorgente di output selezionata.
