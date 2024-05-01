@@ -23,6 +23,7 @@ RUN pip install -r requirements.txt
 
 RUN pip install pytest 
 
+RUN pip install clickhouse-connect
 COPY . .
 
 CMD ["pytest"]
