@@ -1,18 +1,27 @@
-![UML semplificato del generatore dati](assets/uml.png)
+![Diagramma UML Semplificato del Generatore di Dati](assets/uml.png)
 
-Il diagramma sopra rappresentato non è da intendersi come un diagramma di classe completo ma come un'astrazione e generalizzazione del generatore di dati `PyMockSensors`. In particolare, non tutte le classi considerate "utility", né tutti i parametri e attributi non essenziali per la comprensione della struttura dell'algoritmo sono mostrati. Per ulteriori dettagli sulla struttura completa del progetto `SyncCity`, si prega di consultare la [repository della documentazione](https://github.com/NaN1fy/docs).
+*Nota: Il diagramma sopra rappresentato è un'astrazione e una generalizzazione del generatore di dati `PyMockSensors`. Non tutte le classi considerate "utility" o tutti i parametri e attributi non essenziali per la comprensione della struttura dell'algoritmo sono mostrati. Per ulteriori dettagli sulla struttura completa del progetto `SyncCity`, si prega di consultare la [repository della documentazione](https://github.com/NaN1fy/docs).*
 
-## Schema semplificato del funzionamento di PyMockSensors
-`PyMockSensors` è stato sviluppato adoperando un'approccio orientato agli oggetti (OOP), sfruttando due pattern fondamentali: `factory method` e `visitor`.  
-  
-Vista l'impossibilità di definire direttamente nel codice ciascuna istanza dei sensori, è stata introdotta una factory che, utilizzando un formato dati strutturato, agevola l'istanziamento degli stessi.  
-  
-`SimulatorContorllerFactory` ha come scopo principale quello d'istanziare un sensore per ogni entry del file `assets/config.json` e associar loro un controller che li gestisca.  
-  
-Il controller è rappresentato dalla classe `SimulatorController`. Quest'ultimo non adopera direttamente i sensori ma una classe "wrapper" (la quale eredita da `Thread`) al fine di permettere un'esecuzione concorrente.  
-  
-La classe "wrapper" `SimulatorThread` esegue ciclicamente (a meno di eventi di stop) il metodo astratto `simulate()` del sensore il quale ritorna la simulazione del dato in formato JSON.  
-  
-Seguendo il model-control-view pattern, la rappresentazione del dato simulato è mantenuta separata dall'implementazione e dalla gestione. Al fine di ottenere ciò è stata definita una classe `StreamWriterInterface` che si occupa del "delivery" dell'informazione (`STDOUT` piuttosto che `Apache Kafka`).  
-  
-L'implementazione dei sensori avviene mediante un'interfaccia comune, `SensorInterface`, dalla quale derivano classi specifiche per ogni tipologia di sensore.  Ogni sensore presenta un metodo `accept()` che funge da discriminante per la factory, la quale agisce in modo diverso a seconda della sorgente di output selezionata.
+## Schema Semplificato del Funzionamento di PyMockSensors
+
+Il progetto `PyMockSensors` è stato sviluppato adottando un approccio orientato agli oggetti (OOP), utilizzando i pattern `factory method` e `visitor`.
+
+### Factory Method e Visitor Pattern
+
+Vista l'impossibilità di definire direttamente nel codice ciascuna istanza dei sensori, è stata introdotta una factory che, utilizzando un formato dati strutturato, semplifica l'istanziamento degli stessi.
+
+La classe `SimulatorControllerFactory` ha il compito principale di istanziare un sensore per ogni entry del file `assets/config.json` e di associar loro un controller che li gestisca.
+
+### Controller e Wrapper
+
+Il controller è rappresentato dalla classe `SimulatorController`. Quest'ultimo non utilizza direttamente i sensori ma una classe "wrapper" (che eredita da `Thread`) al fine di consentire un'esecuzione concorrente.
+
+La classe "wrapper" `SimulatorThread` esegue ciclicamente (a meno di eventi di stop) il metodo astratto `simulate()` del sensore, che restituisce la simulazione del dato in formato JSON.
+
+### Separazione tra Modello, Controllo e Vista
+
+Seguendo il pattern Model-View-Control, la rappresentazione del dato simulato è mantenuta separata dall'implementazione e dalla gestione. A tal fine è stata definita una classe `StreamWriterInterface` che si occupa della consegna dell'informazione (`STDOUT` o `Apache Kafka`).
+
+### Implementazione dei Sensori
+
+L'implementazione dei sensori avviene attraverso un'interfaccia comune, `SensorInterface`, dalla quale derivano classi specifiche per ogni tipologia di sensore. Ogni sensore presenta un metodo `accept()` che funge da discriminante per la factory, che agisce in modo diverso a seconda della sorgente di output selezionata.
