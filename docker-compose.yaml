@@ -56,6 +56,18 @@ services:
         condition: service_healthy
     profiles: ["dev", "sim-test"]
 
+  grafana:
+    image: "grafana/grafana-oss:latest"
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    profiles: ["dev"]
+
   pymocksensors:
     build:
       context: ./PyMockSensors
