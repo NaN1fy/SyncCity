@@ -63,6 +63,8 @@ services:
       - "3000:3000"
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
+    environment:
+    - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource 
     depends_on:
       clickhouse:
         condition: service_healthy
