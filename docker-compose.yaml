@@ -61,8 +61,12 @@ services:
     container_name: grafana
     ports:
       - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=vertamedia-clickhouse-datasource
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./Grafana/clickhouse.yaml:/etc/grafana/provisioning/datasources/clickhouse.yaml
     depends_on:
       clickhouse:
         condition: service_healthy
@@ -92,3 +96,21 @@ services:
         condition: service_healthy
     profiles: ["sim-test"]
 
+  # dashboard-setup:
+  #   image: appropriate/curl
+  #   depends_on:
+  #     - grafana
+  #   volumes:
+  #     - ./Grafana/dashboards/dashboard.json:/dashboard.json
+  #   command: ["sh", "-c", "sleep 60 && curl -X POST -u admin:admin -H 'Content-Type: application/json' -d @/dashboard.json http://grafana:3000/api/dashboards/db"]
+  #   profiles: ["dev"]
+
+  # grafana-setup:
+  #   image: appropriate/curl
+  #   volumes:
+  #     - ./setup.sh:/setup.sh
+  #   command: /bin/bash -c "/setup.sh"
+  #   depends_on:
+  #     - grafana
+  #   restart: "no"
+  #   profiles: ["dev"]
