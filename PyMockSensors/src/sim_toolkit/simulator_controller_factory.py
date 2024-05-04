@@ -11,6 +11,8 @@ from src.sim_toolkit.simulator_thread import SimulatorThread
 from src.toolkit.sensor_type import SensorType
 
 from src.stream_writer.stdout_stream_writer import StreamWriterInterface
+from src.stream_writer.stdout_stream_writer import StdoutStreamWriter
+from src.stream_writer.kafka_stream_writer import KafkaStreamWriter
 
 from src.toolkit.coordinates import Coordinates
 from src.toolkit.sensor_codex import sensor_codex
@@ -23,6 +25,7 @@ class SimulatorControllerFactory():
     __config_file: str
     __stream_writer: Type[StreamWriterInterface]
     __simulators_inventory: Dict[str, int] = {}
+    __writers_kafka_inventory: Dict[str, KafkaStreamWriter] = {}
 
     def __init__(self, config_file: str, stream_writer: Type[StreamWriterInterface]):
         self.__config_file = config_file
@@ -38,6 +41,9 @@ class SimulatorControllerFactory():
         else:
             self.__simulators_inventory[sensor_type] = self.__simulators_inventory.get(sensor_type, 0) + 1
             sensor += str(self.__simulators_inventory[sensor_type])
+        wrt_clss(sensor_type).accept(self, sensor, sim_clss, config)
+
+    def visit(self, writer: StdoutStreamWriter, sensor, sim_clss, config: Dict, sensor_type: str):
         self.__simulators.append(
                 SimulatorThread(
                         temporal_second_delay = config["temporal_second_delay"],
@@ -50,9 +56,29 @@ class SimulatorControllerFactory():
                                 ),
                             socrates = Random()
                             ),
-                        stream_writer = wrt_clss()
+                        stream_writer = writer
                     )
                 )
+
+    def visit(self, writer: KafkaStreamWriter, sensor, sim_clss, config: Dict, sensor_type: str):
+        if sensor_type not in self.__writers_kafka_inventory:
+            self.__writers_kafka_inventory[sensor_type] = writer
+        self.__simulators.append(
+                SimulatorThread(
+                        temporal_second_delay = config["temporal_second_delay"],
+                        sensor = sim_clss(
+                            sensor_name = sensor,
+                            gather_time = datetime,
+                            coordinates = Coordinates(
+                                longitude=config["coordinates"]["values"][0],
+                                latitude=config["coordinates"]["values"][1]
+                                ),
+                            socrates = Random()
+                            ),
+                        stream_writer = self.__writers_kafka_inventory[sensor_type]
+                    )
+                )
+
 
     def forgeController(self) -> SimulatorController:
         config_file = json.loads(self.__config_file)

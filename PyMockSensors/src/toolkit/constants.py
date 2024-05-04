@@ -1,9 +1,12 @@
 import os
 
 from src.stream_writer.stdout_stream_writer import StdoutStreamWriter
+from src.stream_writer.kafka_stream_writer import KafkaStreamWriter
 
 STDOUT = StdoutStreamWriter
-INDENT_JSON = os.environ.get("INDENT_JSON", False)
+KAFKAOUT = KafkaStreamWriter
+
+INDENT_JSON = os.environ.get('INDENT_JSON', False)
 
 SEC_IN_HOUR = 3600
 SEC_IN_DAY = 86400

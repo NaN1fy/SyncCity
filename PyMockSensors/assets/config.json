@@ -4,12 +4,48 @@
     "name": "Padova, via Luzzatti 3",
     "temporal_second_delay": 0.2,
     "coordinates": {
-            "type": "geolocalization",
-            "values": [
-                45.408569,
-                11.887278
-            ]
-        }
-
+      "type": "geolocalization",
+      "values": [
+        45.408569,
+        11.887278
+      ]
+    }
+  },
+  {
+    "type": "temperature",
+    "name": "Padova, Piazza dei Signori",
+    "temporal_second_delay": 0.5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.406434,
+        11.879008
+      ]
+    }
+  },
+  {
+    "type": "temperature",
+    "name": "Padova, Prato della Valle",
+    "temporal_second_delay": 0.8,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.406791,
+        11.876173
+      ]
+    }
+  },
+  {
+    "type": "temperature",
+    "name": "Padova, Basilica di Sant'Antonio",
+    "temporal_second_delay": 1.0,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.406778,
+        11.882983
+      ]
+    }
   }
 ]
+
