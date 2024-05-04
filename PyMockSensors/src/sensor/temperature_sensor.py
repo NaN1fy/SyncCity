@@ -11,6 +11,7 @@ from src.toolkit.sensor_type import SensorType
 
 from src.toolkit.jsonfy import jsonfy
 
+
 class TemperatureSensor(SensorInterface):
     __noise = None
 
@@ -27,17 +28,18 @@ class TemperatureSensor(SensorInterface):
         coldest_hour_in_sec = coldest_hour * SEC_IN_HOUR
         amplitude = (common_max - common_min) / 2
         wavelength = 24 * SEC_IN_HOUR
-        simulated_value = common_max - amplitude * -1 * cos(2 * pi * 1 / wavelength * seconds - 2 * pi * coldest_hour_in_sec / wavelength)
+        simulated_value = common_max - amplitude * -1 * cos(
+            2 * pi * 1 / wavelength * seconds - 2 * pi * coldest_hour_in_sec / wavelength)
         simulated_value = round(simulated_value * (1 + round(self.__noise, 3)), 2) + round(self._socrates.random(), 2)
         reading = {
             "type": "Degrees Celsius",
             "value": round(simulated_value, 2)
-            }
+        }
         return jsonfy(
-                    sensor_name = self._sensor_name,
-                    sensor_id = self._sensor_id,
-                    sensor_type = SensorType.TEMPERATURE,
-                    gather_time = str(self._gather_time.now()),
-                    coordinates = self._coordinates,
-                    readings = reading
-                    )
+            sensor_name=self._sensor_name,
+            sensor_id=self._sensor_id,
+            sensor_type=SensorType.TEMPERATURE,
+            gather_time=str(self._gather_time.now()),
+            coordinates=self._coordinates,
+            readings=[reading]
+        )
