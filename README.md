@@ -29,11 +29,11 @@ services:
 ```
 #### Eseguire il container in background
 ```bash
-docker-compose --profile my-profile -d
+docker-compose --profile my-profile up -d
 ```
 #### Forzare la creazione e la build del container
 ```bash
-docker-compose --profile my-profile --build --force-recreate
+docker-compose --profile my-profile up --build --force-recreate
 ```
 ### Impostazione variabili d'ambiente
 È possibile impostare delle variabili d'ambiente per il corretto funzionamento del progetto (se non definite, le variabili utilizzeranno i loro valori predefiniti). Per farlo, è necessario creare un file `.env` nella root del progetto specificando `VAR=[valore]`.
