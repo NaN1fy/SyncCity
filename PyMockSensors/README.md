@@ -14,7 +14,7 @@ La classe `SimulatorControllerFactory` (cfr. [**simualtor_controller_factory.py*
 
 ### Controller e Wrapper
 
-Il controller è rappresentato dalla classe `SimulatorController` (cfr. [**simulator_controller.py**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/sim_toolkit/simulator_controller.py)). Quest'ultimo non utilizza direttamente i sensori ma una classe "wrapper" che eredita da `Thread` (cfr. [**riga 8**](https://github.com/NaN1fy/SyncCity/main/kafka_logic/PyMockSensors/src/sim_toolkit/simulator_thread.py#L8) in **simulator_thread.py**) al fine di consentire un'esecuzione concorrente.
+Il controller è rappresentato dalla classe `SimulatorController` (cfr. [**simulator_controller.py**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/sim_toolkit/simulator_controller.py)). Quest'ultimo non utilizza direttamente i sensori ma una classe "wrapper" che eredita da `Thread` (cfr. [**riga 8**](https://github.com/NaN1fy/SyncCity/main/PyMockSensors/src/sim_toolkit/simulator_thread.py#L8) in **simulator_thread.py**) al fine di consentire un'esecuzione concorrente.
 
 La classe "wrapper" `SimulatorThread` esegue ciclicamente (a meno di eventi di stop) il metodo astratto `simulate()` (cfr. [**riga 27**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/sensor/sensor_interface.py#L27) in **sensor_interface.py**) del sensore, che restituisce la simulazione del dato in formato JSON.
 
