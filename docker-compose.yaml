@@ -52,6 +52,7 @@ services:
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
     - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource 
     depends_on:
@@ -62,7 +63,7 @@ services:
   pymocksensors:
     build:
       context: ./PyMockSensors
-      target: dev
+      target: prod
     container_name: pymocksensors
     environment: 
       INDENT_JSON: True

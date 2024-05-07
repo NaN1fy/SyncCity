@@ -1,7 +1,7 @@
 # Copyright 2024 NaN1fy
 # Dockerfile for building a Python application container
 
-FROM python:3.11-bookworm as dev
+FROM python:3.11-bookworm as prod
 
 WORKDIR /app
 
