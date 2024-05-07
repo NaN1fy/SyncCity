@@ -22,17 +22,8 @@ services:
       interval: 5s
       timeout: 1m
       retries: 10
-    profiles: ["dev", "sim-test"]
-
-  kafka-console-consumer:
-    image: "bitnami/kafka:3.7.0"
-    container_name: kafka-console-consumer
-    command: ["kafka-console-consumer.sh", "--bootstrap-server", "kafka:9092", "--topic", "temperature"]
-    depends_on:
-      kafka:
-        condition: service_healthy
-    profiles: ["kns"]
-
+    profiles: ["prod", "test"]
+  
   clickhouse:
     image: "clickhouse/clickhouse-server:latest"
     container_name: clickhouse
@@ -51,28 +42,22 @@ services:
       interval: 10s
       timeout: 1m
       retries: 10
-    depends_on:
-      kafka:
-        condition: service_healthy
-    profiles: ["dev", "sim-test"]
+    profiles: ["dev", "prod", "test"]
 
   grafana:
     image: "grafana/grafana-oss:latest"
     container_name: grafana
     ports:
       - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=vertamedia-clickhouse-datasource
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
-      - ./Grafana/clickhouse.yaml:/etc/grafana/provisioning/datasources/clickhouse.yaml
+      - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
     environment:
     - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource 
     depends_on:
       clickhouse:
         condition: service_healthy
-    profiles: ["dev"]
+    profiles: ["dev", "prod"]
 
   pymocksensors:
     build:
@@ -81,38 +66,23 @@ services:
     container_name: pymocksensors
     environment: 
       INDENT_JSON: True
+      TZ: "Europe/Rome"
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["dev"]
+    profiles: ["prod"]
     
   pymocksensors-test:
     build:
       context: ./PyMockSensors
       target: test
     container_name: pymocksensors-tests
+    environment:
+      TZ: "Europe/Rome"
     depends_on:
       kafka:
         condition: service_healthy
       clickhouse:
         condition: service_healthy
-    profiles: ["sim-test"]
+    profiles: ["test"]
 
-  # dashboard-setup:
-  #   image: appropriate/curl
-  #   depends_on:
-  #     - grafana
-  #   volumes:
-  #     - ./Grafana/dashboards/dashboard.json:/dashboard.json
-  #   command: ["sh", "-c", "sleep 30 && curl -X POST -u admin:admin -H 'Content-Type: application/json' -d @/dashboard.json http://grafana:3000/api/dashboards/db"]
-  #   profiles: ["dev"]
-
-  # grafana-setup:
-  #   image: appropriate/curl
-  #   volumes:
-  #     - ./setup.sh:/setup.sh
-  #   command: /bin/bash -c "/setup.sh"
-  #   depends_on:
-  #     - grafana
-  #   restart: "no"
-  #   profiles: ["dev"]
