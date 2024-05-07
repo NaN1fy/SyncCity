@@ -66,6 +66,7 @@ services:
     container_name: pymocksensors
     environment: 
       INDENT_JSON: True
+      TZ: "Europe/Rome"
     depends_on:
       kafka:
         condition: service_healthy
@@ -76,6 +77,8 @@ services:
       context: ./PyMockSensors
       target: test
     container_name: pymocksensors-tests
+    environment:
+      TZ: "Europe/Rome"
     depends_on:
       kafka:
         condition: service_healthy
