@@ -1,3 +1,0 @@
-import src.stream_writer.kafka_logic.producer_interface
-import src.stream_writer.kafka_logic.kafka_producer
-
