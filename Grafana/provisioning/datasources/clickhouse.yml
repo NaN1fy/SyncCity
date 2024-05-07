@@ -1,0 +1,14 @@
+apiVersion: 1
+datasources:
+  - name: grafana-clickhouse-datasource
+    type: grafana-clickhouse-datasource
+    jsonData:
+      defaultDatabase: sc_database
+      port: 9000
+      host: clickhouse
+      username: sc_admin
+      # disable check cert
+      tlsSkipVerify: false
+    secureJsonData:
+      password: sc_password
+    isDefault: true

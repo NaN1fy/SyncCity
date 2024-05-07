@@ -1,0 +1,88 @@
+services:
+  kafka:
+    image: "bitnami/kafka:3.7.0"
+    container_name: kafka
+    ports:
+      - "9093:9093"
+    environment:
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_LISTENERS: CONTROLLER://:19092,INTERNAL://:9092,EXTERNAL://:9093
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9093
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:19092
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CFG_PROCESS_ROLES: broker,controller
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_CFG_MESSAGE_MAX_BYTES: 1048588
+    healthcheck:
+      test:
+        ["CMD", "kafka-topics.sh", "--bootstrap-server", "kafka:9092", "--list"]
+      interval: 5s
+      timeout: 1m
+      retries: 10
+    profiles: ["prod", "test"]
+  
+  clickhouse:
+    image: "clickhouse/clickhouse-server:latest"
+    container_name: clickhouse
+    ports:
+      - "8123:8123"
+    volumes:
+      - ./ClickHouse/initDB:/docker-entrypoint-initdb.d
+      - ./ClickHouse/config/timezone.xml:/etc/clickhouse-server/config.d/timezone.xml
+    environment:
+      CLICKHOUSE_DB: sc_database
+      CLICKHOUSE_USER: sc_admin
+      CLICKHOUSE_PASSWORD: sc_password
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    healthcheck:
+      test: ["CMD", "clickhouse-client", "--query", "SELECT 1"]
+      interval: 10s
+      timeout: 1m
+      retries: 10
+    profiles: ["dev", "prod", "test"]
+
+  grafana:
+    image: "grafana/grafana-oss:latest"
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    environment:
+    - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource 
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    profiles: ["dev", "prod"]
+
+  pymocksensors:
+    build:
+      context: ./PyMockSensors
+      target: dev
+    container_name: pymocksensors
+    environment: 
+      INDENT_JSON: True
+      TZ: "Europe/Rome"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    profiles: ["prod"]
+    
+  pymocksensors-test:
+    build:
+      context: ./PyMockSensors
+      target: test
+    container_name: pymocksensors-tests
+    environment:
+      TZ: "Europe/Rome"
+    depends_on:
+      kafka:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    profiles: ["test"]
+
