@@ -22,17 +22,8 @@ services:
       interval: 5s
       timeout: 1m
       retries: 10
-    profiles: ["dev", "sim-test"]
-
-  kafka-console-consumer:
-    image: "bitnami/kafka:3.7.0"
-    container_name: kafka-console-consumer
-    command: ["kafka-console-consumer.sh", "--bootstrap-server", "kafka:9092", "--topic", "temperature"]
-    depends_on:
-      kafka:
-        condition: service_healthy
-    profiles: ["kns"]
-
+    profiles: ["prod", "test"]
+  
   clickhouse:
     image: "clickhouse/clickhouse-server:latest"
     container_name: clickhouse
@@ -51,10 +42,7 @@ services:
       interval: 10s
       timeout: 1m
       retries: 10
-    depends_on:
-      kafka:
-        condition: service_healthy
-    profiles: ["dev", "sim-test"]
+    profiles: ["dev", "prod", "test"]
 
   grafana:
     image: "grafana/grafana-oss:latest"
@@ -69,7 +57,7 @@ services:
     depends_on:
       clickhouse:
         condition: service_healthy
-    profiles: ["dev"]
+    profiles: ["dev", "prod"]
 
   pymocksensors:
     build:
@@ -81,7 +69,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["dev"]
+    profiles: ["prod"]
     
   pymocksensors-test:
     build:
@@ -93,5 +81,5 @@ services:
         condition: service_healthy
       clickhouse:
         condition: service_healthy
-    profiles: ["sim-test"]
+    profiles: ["test"]
 
