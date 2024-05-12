@@ -46,6 +46,54 @@
         11.882983
       ]
     }
+  },
+  {
+    "type": "humidity",
+    "name": "Padova, Fiera di Padova",
+    "temporal_second_delay": 1.2,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.415318, 
+        11.890635
+      ]
+    }
+  },
+  {
+    "type": "humidity",
+    "name": "Padova, Stazione Ferroviaria",
+    "temporal_second_delay": 1.5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.417322, 
+        11.880448
+      ]
+    }
+  },
+  {
+    "type": "humidity",
+    "name": "Padova, Orto Botanico",
+    "temporal_second_delay": 1.8,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.399444, 
+        11.879803
+      ]
+    }
+  },
+  {
+    "type": "humidity",
+    "name": "Padova, Scuola di Psicologia",
+    "temporal_second_delay": 2.0,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.411325, 
+        11.893833
+      ]
+    }
   }
 ]
 

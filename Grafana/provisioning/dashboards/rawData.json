@@ -1,0 +1,135 @@
+{
+  "datasource": {
+    "uid": "PDEE91DDB90597936",
+    "type": "grafana-clickhouse-datasource"
+  },
+  "type": "timeseries",
+  "title": "Raw Data",
+  "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 12,
+    "h": 8
+  },
+  "id": 1,
+  "targets": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "refId": "A",
+      "pluginVersion": "4.0.6",
+      "editorType": "builder",
+      "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC LIMIT 1000",
+      "builderOptions": {
+        "database": "sc_database",
+        "table": "temperature",
+        "queryType": "timeseries",
+        "mode": "aggregate",
+        "columns": [
+          {
+            "name": "readings",
+            "type": "Float64",
+            "custom": false
+          },
+          {
+            "name": "gather_time",
+            "type": "DateTime64(3)",
+            "hint": "time"
+          }
+        ],
+        "meta": {},
+        "limit": 1000,
+        "filters": [
+          {
+            "type": "datetime",
+            "operator": "WITH IN DASHBOARD TIME RANGE",
+            "filterType": "custom",
+            "key": "",
+            "hint": "time",
+            "condition": "AND"
+          }
+        ],
+        "orderBy": [
+          {
+            "name": "",
+            "hint": "time",
+            "dir": "ASC",
+            "default": true
+          }
+        ],
+        "aggregates": [],
+        "groupBy": []
+      },
+      "format": 0
+    }
+  ],
+  "options": {
+    "tooltip": {
+      "mode": "single",
+      "sort": "none"
+    },
+    "legend": {
+      "showLegend": true,
+      "displayMode": "list",
+      "placement": "bottom",
+      "calcs": []
+    }
+  },
+  "fieldConfig": {
+    "defaults": {
+      "custom": {
+        "drawStyle": "line",
+        "lineInterpolation": "linear",
+        "barAlignment": 0,
+        "lineWidth": 1,
+        "fillOpacity": 0,
+        "gradientMode": "none",
+        "spanNulls": false,
+        "insertNulls": false,
+        "showPoints": "auto",
+        "pointSize": 5,
+        "stacking": {
+          "mode": "none",
+          "group": "A"
+        },
+        "axisPlacement": "auto",
+        "axisLabel": "",
+        "axisColorMode": "text",
+        "axisBorderShow": false,
+        "scaleDistribution": {
+          "type": "linear"
+        },
+        "axisCenteredZero": false,
+        "hideFrom": {
+          "tooltip": false,
+          "viz": false,
+          "legend": false
+        },
+        "thresholdsStyle": {
+          "mode": "off"
+        }
+      },
+      "color": {
+        "mode": "palette-classic"
+      },
+      "mappings": [],
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "value": null,
+            "color": "green"
+          },
+          {
+            "value": 80,
+            "color": "red"
+          }
+        ]
+      }
+    },
+    "overrides": []
+  },
+  "description": ""
+}

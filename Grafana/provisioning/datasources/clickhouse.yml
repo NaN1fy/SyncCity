@@ -1,6 +1,6 @@
 apiVersion: 1
 datasources:
-  - name: grafana-clickhouse-datasource
+  - name: ClickHouse
     type: grafana-clickhouse-datasource
     jsonData:
       defaultDatabase: sc_database
