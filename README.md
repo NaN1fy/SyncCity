@@ -24,8 +24,20 @@ dove
 services:
   pymocksensors:
     ...
-    profiles: ["dev"]
+    profiles: ["dev", "prod"]
 
+```
+#### Eseguire l'intero stack
+```bash
+docker-compose --profile prod up
+```
+#### Eseguire la data pipeline
+```bash
+docker-compose --profile dev up
+```
+#### Eseguire i test
+```bash
+docker-compose --profile test up
 ```
 #### Eseguire il container in background
 ```bash
@@ -48,4 +60,9 @@ unset VAR
 #### Abilitare l'indentazione per `STDOUT`
 ```bash
 export INDENT_JSON=True
+```
+#### Modificare l'accesso a KafKa per  `KafkaStreamWriter` (KAFKAOUT)
+```bash
+export KAFKA_HOST=`kafka`
+export KAFKA_PORT=9092
 ```
