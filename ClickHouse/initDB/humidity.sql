@@ -1,9 +1,9 @@
-CREATE TABLE sc_database.topic_humidity
+CREATE TABLE sc_database.topic_park
 (
     rawJSON String
 ) ENGINE = Kafka('kafka:9092', 'humidity', 'SyncCity', 'JSONAsString');
 
-CREATE TABLE sc_database.humidity
+CREATE TABLE sc_database.park
 (
     sensor_name String,
     sensor_id String,
