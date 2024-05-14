@@ -148,7 +148,7 @@
           "editorType": "builder",
           "format": 0,
           "pluginVersion": "4.0.7",
-          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC LIMIT 1000",
+          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
           "refId": "A"
         }
       ],
