@@ -34,10 +34,11 @@ class ParkingSensor(SensorInterface):
     def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random):
         super().__init__(sensor_name, gather_time, coordinates, socrates)
         self.__price_per_hour = round(self._socrates.uniform(1.0, 1.5), 1)
-        self.__parking_dataset = np.array([{'is_available': True, 'timestamp': None, 'lay_off': None, 'plate': None, 'bill': None} for _ in range(self.__num_parking_spots)], dtype = object)
-        self.__morning_peak = GaussianPeak(8 * 60, 300, 40)
-        self.__noon_peak = GaussianPeak(12 * 60, 120, 30)
-        self.__evening_peak = GaussianPeak(16 * 60, 400, 10)
+        self.__parking_dataset = np.array([{'is_available': True, 'timestamp': None, 'lay_off': 0,
+                                            'plate': '', 'bill': 0.0} for _ in range(self.__num_parking_spots)], dtype = object)
+        self.__morning_peak = GaussianPeak(8 * 60, 350, 40)
+        self.__noon_peak = GaussianPeak(12 * 60, 400, 30)
+        self.__evening_peak = GaussianPeak(16 * 60, 400, 30)
         self.__expected_affluence_per_minute = self.__generate_peak()
 
     def __generate_peak(self) -> np.array:
@@ -67,20 +68,19 @@ class ParkingSensor(SensorInterface):
         min = now.strftime("%M")
         minutes_since_midnight = int(min) + int(hour) * 60
 
-        cars_in_spots = sum(1 for car in self.__parking_dataset if car['is_available'] == False)
-        affluence_variance = self.__expected_affluence_per_minute[minutes_since_midnight] - cars_in_spots
-        spots_to_add = 0 if affluence_variance < 0 else self._socrates.randint(0, affluence_variance)
-
         #car leaving
         for idx in range(len(self.__parking_dataset) - 1, -1, -1):
             if self.__parking_dataset[idx]['is_available'] == False:
                 if now > self.__parking_dataset[idx]['timestamp'] + timedelta(minutes = self.__parking_dataset[idx]['lay_off']):
                     self.__parking_dataset[idx]['is_available'] = True
                     self.__parking_dataset[idx]['timestamp'] = None
-                    self.__parking_dataset[idx]['lay_off'] = None
-                    self.__parking_dataset[idx]['plate'] = None
-                    self.__parking_dataset[idx]['bill'] = None
+                    self.__parking_dataset[idx]['lay_off'] = 0
+                    self.__parking_dataset[idx]['plate'] = ''
+                    self.__parking_dataset[idx]['bill'] = 0.0
 
+        cars_in_spots = sum(1 for car in self.__parking_dataset if car['is_available'] == False)
+        affluence_variance = self.__expected_affluence_per_minute[minutes_since_midnight] - cars_in_spots
+        spots_to_add = 0 if affluence_variance < 0 else self._socrates.randint(0, affluence_variance)
         available_dataset = [idx for idx, spot in enumerate(self.__parking_dataset) if spot['is_available'] == True]
 
         #car parking
@@ -98,15 +98,27 @@ class ParkingSensor(SensorInterface):
                 self.__parking_dataset[idx]['bill'] = round(self.__price_per_hour * self.__parking_dataset[idx]['lay_off'] / 60.00, 2)
             
                 np.delete(available_dataset, available_idx)
+        
+        '''
+        print(f"{__file__}:12 {affluence_variance=}\n")
+        print(f"{__file__}:12 {cars_in_spots=}\n")
+        print(f"{__file__}:12 {spots_to_add=}\n")
+        '''
 
-        # print(f"CARS_IN_SPOTS: {cars_in_spots}")
-        # print(f"AFFLUENZA: {affluence_variance}")
-        # print(f"SPOTS_TO_ADD: {spots_to_add}")
-        # print(f"AVAILABLE DATASET: {available_dataset}") 
-        # print(f"DATASET: \n {self.__parking_dataset}")
+        reading1 = {
+            "type": "Number",
+            "value": cars_in_spots
+        }
 
-        # print(f"TIMESTAMP: {self.__expected_affluence_per_minute[minutes_since_midnight]}")
-        # print(self.__expected_affluence_per_minute)
+        reading2 = {
+            "type": "Number",
+            "value": self.__expected_affluence_per_minute[minutes_since_midnight]
+        }
+
+        reading3 = {
+            "type": "Euro",
+            "value": [slot["bill"] for slot in self.__parking_dataset]
+        }
 
         return jsonfy(
             sensor_name=self._sensor_name,
@@ -114,5 +126,5 @@ class ParkingSensor(SensorInterface):
             sensor_type=SensorType.PARKING,
             gather_time=str(self._gather_time.now()),
             coordinates=self._coordinates,
-            readings=json.dumps([str(slot) for slot in self.__parking_dataset])
+            readings= [reading1, reading2, reading3] #json.dumps([str(slot) for slot in self.__parking_dataset])
         )

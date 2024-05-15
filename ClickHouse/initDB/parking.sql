@@ -10,7 +10,9 @@ CREATE TABLE sc_database.parking
     gather_time DATETIME64,
     latitude Float64,
     longitude Float64,
-    -- readings INT
+    cars_in_spots UInt8,
+    expected_affluence UInt8,
+    bills Array(Float64)
 ) ENGINE = MergeTree()
     ORDER BY (sensor_id, gather_time);
 
@@ -23,5 +25,7 @@ SELECT
     toDateTime64(JSONExtractString(rawJSON, 'gather_time'), 0) AS gather_time,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 1) AS latitude,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 2) AS longitude,
-    -- JSONExtractFloat(rawJSON, 'readings', 1, 'value') AS readings
+    JSONExtractFloat(rawJSON, 'readings', 1, 'value') AS cars_in_spots,
+    JSONExtractFloat(rawJSON, 'readings', 2, 'value') AS expected_affluence,
+    JSONExtractArrayRaw(rawJSON, 'readings', 3, 'value') AS bills
 FROM sc_database.topic_parking;
