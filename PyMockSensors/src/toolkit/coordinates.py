@@ -12,10 +12,10 @@ class Coordinates:
     self.__longitude = longitude
     self.__latitude = latitude
 
-  def get_longitude(self):
+  def get_longitude(self) -> float:
     return self.__longitude
 
-  def get_latitude(self):
+  def get_latitude(self) -> float:
     return self.__latitude
 
   def toJson(self) -> str:
