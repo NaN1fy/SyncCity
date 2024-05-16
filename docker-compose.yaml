@@ -54,7 +54,13 @@ services:
       - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
-    - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource 
+      - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
+      # Per il production: Rimuovere le righe precedenti
+      # - GF_AUTH_ORG_ROLE=viewer
+      # - GF_AUTH_ANONYMOUS_ENABLED=true
+      # - GF_AUTH_DISABLE_LOGIN_FORM=true
+      # - GF_USERS_ALLOW_SIGN_IN=false
+      # - GF_AUTH_DISABLE_SIGNOUT_MENU=true
     depends_on:
       clickhouse:
         condition: service_healthy
