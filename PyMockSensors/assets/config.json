@@ -1,7 +1,55 @@
 [
   {
+    "type": "temperature",
+    "name": "Padova, Piazza dei Signori",
+    "temporal_second_delay": 0.5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.406434,
+        11.879008
+      ]
+    }
+  },
+  {
+    "type": "temperature",
+    "name": "Padova, Prato della Valle",
+    "temporal_second_delay": 0.8,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.406791,
+        11.876173
+      ]
+    }
+  },
+  {
+    "type": "humidity",
+    "name": "Padova, Stazione Ferroviaria",
+    "temporal_second_delay": 1.5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.417322, 
+        11.880448
+      ]
+    }
+  },
+  {
+    "type": "humidity",
+    "name": "Padova, Orto Botanico",
+    "temporal_second_delay": 1.8,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.399444, 
+        11.879803
+      ]
+    }
+  },
+  {
     "type": "parking",
-    "name": "Arcella",
+    "name": "Pollaio",
     "temporal_second_delay": 10.0,
     "coordinates": {
       "type": "geolocalization",
