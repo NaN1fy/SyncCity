@@ -12,6 +12,12 @@ class Coordinates:
     self.__longitude = longitude
     self.__latitude = latitude
 
+  def get_longitude(self):
+    return self.__longitude
+
+  def get_latitude(self):
+    return self.__latitude
+
   def toJson(self) -> str:
     return json.dumps(
             {

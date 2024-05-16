@@ -10,6 +10,7 @@ INDENT_JSON = os.environ.get('INDENT_JSON', False)
 
 SEC_IN_HOUR = 3600
 SEC_IN_DAY = 86400
+MIN_IN_DAY = 1440
 TEMP_RANGE = {
     0: (5, 9),
     1: (4, 9),
