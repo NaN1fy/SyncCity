@@ -1,14 +1,16 @@
-from dataclasses import dataclass
-from datetime import datetime, timedelta
 import json
 import numpy as np
-from random import Random
-from random import randint
 import re
 import string
+
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from random import Random
+from random import randint
+from time import sleep
 from typing import Dict, Type
 
-from src.toolkit.constants import MIN_IN_DAY
+from src.toolkit.constants import signal_list, signal_lock, SEC_IN_HOUR
 from src.toolkit.coordinates import Coordinates
 from src.sensor.sensor_interface import SensorInterface
 
@@ -23,34 +25,37 @@ class GaussianPeak:
     weight: float
 
 class ParkingSensor(SensorInterface):
-    __num_parking_spots = 100
-    __price_per_hour: float
-    __parking_dataset: np.ndarray[Dict]
-    __morning_peak: GaussianPeak
-    __noon_peak: GaussianPeak
-    __evening_peak: GaussianPeak
-    __expected_affluence_per_minute: int
-    
-    def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random):
-        super().__init__(sensor_name, gather_time, coordinates, socrates)
-        self.__price_per_hour = round(self._socrates.uniform(1.0, 1.5), 1)
-        self.__parking_dataset = np.array([{'is_available': True, 'timestamp': None, 'lay_off': 0,
-                                            'plate': '', 'bill': 0.0} for _ in range(self.__num_parking_spots)], dtype = object)
-        self.__morning_peak = GaussianPeak(8 * 60, 350, 40)
-        self.__noon_peak = GaussianPeak(12 * 60, 400, 30)
-        self.__evening_peak = GaussianPeak(16 * 60, 400, 30)
-        self.__expected_affluence_per_minute = self.__generate_peak()
+    __is_available: bool = True
+    __plate: str = ''
+    __lay_off: int = 0
+    __arrival: None
+   
+    def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random, temporal_second_delay: int):
+        super().__init__(sensor_name, gather_time, coordinates, socrates, temporal_second_delay)
 
-    def __generate_peak(self) -> np.array:
-        minutes = np.arange(MIN_IN_DAY)
-        morning_peak_values: list = (self.__morning_peak.weight * np.exp(-((minutes - self.__morning_peak.position_in_minutes) / self.__morning_peak.standard_deviation_in_minutes) ** 2))
-        noon_peak_values: list = (self.__noon_peak.weight * np.exp(-((minutes - self.__noon_peak.position_in_minutes) / self.__noon_peak.standard_deviation_in_minutes) ** 2))
-        evening_peak_values: list = (self.__evening_peak.weight * np.exp(-((minutes - self.__evening_peak.position_in_minutes) / self.__evening_peak.standard_deviation_in_minutes) ** 2))
-        
-        morning_peak_values = [0 if x < 0 else round(x) for x in morning_peak_values]
-        noon_peak_values = [0 if x < 0 else round(x) for x in noon_peak_values]
-        evening_peak_values = [0 if x < 0 else round(x) for x in evening_peak_values]
-        return morning_peak_values + noon_peak_values + evening_peak_values
+    def getType(self) -> str:
+        return SensorType.PARKING
+
+    def _send_signal(self) -> None:
+        now = self._gather_time.now()
+        gambling = self._socrates.randint(0, 100)
+        if not self.__is_available:
+            # sleep(5)
+            print(now)
+            print(self.__arrival + timedelta(seconds = self.__lay_off))
+            print(self.__arrival)
+            print(timedelta(seconds = self.__lay_off))
+            print(now > (self.__arrival + timedelta(seconds = self.__lay_off)))
+            if now > (self.__arrival + timedelta(seconds = self.__lay_off)):
+                with signal_lock[SensorType.PARKING]:
+                    signal_list[SensorType.PARKING] = np.append(signal_list[SensorType.PARKING], self._sensor_id)   
+        elif self.__is_available: 
+            if gambling > 80:
+                with signal_lock[SensorType.PARKING]:
+                    signal_list[SensorType.PARKING] = np.append(signal_list[SensorType.PARKING], self._sensor_id)
+            else:
+                cool_down = self._socrates.randint(5, 10)
+                sleep(cool_down)
 
     def __generate_plate(self) -> str:
         pattern = re.compile(r"^[A-Z]{2}[\d]{3}[A-Z]{2}$")
@@ -63,61 +68,22 @@ class ParkingSensor(SensorInterface):
                 return plate
 
     def simulate(self) -> str:
-        now = self._gather_time.now()
-        hour = now.strftime("%H")
-        min = now.strftime("%M")
-        minutes_since_midnight = int(min) + int(hour) * 60
+        if self.__is_available:
+            self.__is_available = False
+            self.__plate = self.__generate_plate()
+            self.__lay_off = self._socrates.randint(300, SEC_IN_HOUR*2)
+            self.__arrival = self._gather_time.now()
+        else:
+            self.__is_available = True
+            self.__plate = ''
+            self.__lay_off = 0
+            self.__arrival = None
 
-        #car leaving
-        for idx in range(len(self.__parking_dataset) - 1, -1, -1):
-            if self.__parking_dataset[idx]['is_available'] == False:
-                if now > self.__parking_dataset[idx]['timestamp'] + timedelta(minutes = self.__parking_dataset[idx]['lay_off']):
-                    self.__parking_dataset[idx]['is_available'] = True
-                    self.__parking_dataset[idx]['timestamp'] = None
-                    self.__parking_dataset[idx]['lay_off'] = 0
-                    self.__parking_dataset[idx]['plate'] = ''
-                    self.__parking_dataset[idx]['bill'] = 0.0
-
-        cars_in_spots = sum(1 for car in self.__parking_dataset if car['is_available'] == False)
-        affluence_variance = self.__expected_affluence_per_minute[minutes_since_midnight] - cars_in_spots
-        spots_to_add = 0 if affluence_variance < 0 else self._socrates.randint(0, affluence_variance)
-        available_dataset = [idx for idx, spot in enumerate(self.__parking_dataset) if spot['is_available'] == True]
-
-        #car parking
-        if cars_in_spots < self.__num_parking_spots:
-            for _ in range(spots_to_add):
-                if cars_in_spots == self.__num_parking_spots:
-                    break
-
-                available_idx = self._socrates.randint(0, len(available_dataset) - 1)
-                idx = available_dataset[available_idx]
-                self.__parking_dataset[idx]['is_available'] = False
-                self.__parking_dataset[idx]['timestamp'] = now
-                self.__parking_dataset[idx]['lay_off'] = self._socrates.randint(20,240)
-                self.__parking_dataset[idx]['plate'] = self.__generate_plate()
-                self.__parking_dataset[idx]['bill'] = round(self.__price_per_hour * self.__parking_dataset[idx]['lay_off'] / 60.00, 2)
-            
-                np.delete(available_dataset, available_idx)
-        
-        '''
-        print(f"{__file__}:12 {affluence_variance=}\n")
-        print(f"{__file__}:12 {cars_in_spots=}\n")
-        print(f"{__file__}:12 {spots_to_add=}\n")
-        '''
-
-        reading1 = {
-            "type": "Number",
-            "value": cars_in_spots
-        }
-
-        reading2 = {
-            "type": "Number",
-            "value": self.__expected_affluence_per_minute[minutes_since_midnight]
-        }
-
-        reading3 = {
-            "type": "Euro",
-            "value": [slot["bill"] for slot in self.__parking_dataset]
+        reading = {
+            "is_available": self.__is_available,
+            "arrival": str(self.__arrival),
+            "layoff": self.__lay_off,
+            "plate": self.__plate
         }
 
         return jsonfy(
@@ -126,5 +92,5 @@ class ParkingSensor(SensorInterface):
             sensor_type=SensorType.PARKING,
             gather_time=str(self._gather_time.now()),
             coordinates=self._coordinates,
-            readings= [reading1, reading2, reading3] #json.dumps([str(slot) for slot in self.__parking_dataset])
+            readings= [reading]
         )

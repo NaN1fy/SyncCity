@@ -50,7 +50,6 @@
   {
     "type": "parking",
     "name": "Pollaio",
-    "temporal_second_delay": 10.0,
     "coordinates": {
       "type": "geolocalization",
       "values": [
