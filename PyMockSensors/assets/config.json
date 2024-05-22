@@ -112,5 +112,16 @@
         11.890149
       ]
     }
+  },
+  {
+    "type": "payment_parking",
+    "name": "Pollaio",
+     "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.419938, 
+        11.890149
+      ]
+    }
   }
 ]

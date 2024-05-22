@@ -65,7 +65,7 @@ class ParkingSensor(SensorInterface):
 
         reading = {
             "is_available": self.__is_available,
-            "layoff": self.__lay_off,
+            "lay_off": self.__lay_off,
             "plate": self.__plate
         }
 

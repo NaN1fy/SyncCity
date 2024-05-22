@@ -11,7 +11,7 @@ CREATE TABLE sc_database.parking
     latitude Float64,
     longitude Float64,
     is_available Bool,
-    layoff UInt16,
+    layoff Int32,
     plate String
 ) ENGINE = MergeTree()
     ORDER BY (sensor_id, gather_time);
@@ -25,7 +25,7 @@ SELECT
     toDateTime64(JSONExtractString(rawJSON, 'gather_time'), 0) AS gather_time,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 1) AS latitude,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 2) AS longitude,
-    JSONExtractFloat(rawJSON, 'readings', 1) AS is_available,
-    JSONExtractFloat(rawJSON, 'readings', 2) AS layoff,
-    JSONExtractArrayRaw(rawJSON, 'readings', 3) AS plate
+    JSONExtractBool(rawJSON, 'readings', 1, 'is_available') AS is_available,
+    JSONExtractInt(rawJSON, 'readings', 1, 'lay_off') AS layoff,
+    JSONExtractString(rawJSON, 'readings', 1, 'plate') AS plate
 FROM sc_database.topic_parking;

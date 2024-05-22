@@ -23,5 +23,5 @@ SELECT
     toDateTime64(JSONExtractString(rawJSON, 'gather_time'), 0) AS gather_time,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 1) AS latitude,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 2) AS longitude,
-    JSONExtractFloat(rawJSON, 'readings', 1, 'value') AS readings
+    JSONExtractInt(rawJSON, 'readings', 1, 'value') AS readings
 FROM sc_database.topic_humidity;
