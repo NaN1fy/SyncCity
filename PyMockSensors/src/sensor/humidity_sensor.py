@@ -1,5 +1,3 @@
-import numpy as np
-
 from datetime import datetime
 from random import Random
 from time import sleep
@@ -27,7 +25,7 @@ class HumiditySensor(SensorInterface):
     def _send_signal(self) -> None:
         sleep(self._temporal_second_delay)
         with signal_lock[SensorType.HUMIDITY]:
-            signal_list[SensorType.HUMIDITY] = np.append(signal_list[SensorType.HUMIDITY], self._sensor_id)
+            signal_list[SensorType.HUMIDITY].append(self._sensor_id)
 
     def simulate(self) -> str:
         now = self._gather_time.now()

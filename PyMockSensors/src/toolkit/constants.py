@@ -11,7 +11,7 @@ KAFKAOUT = KafkaStreamWriter
 
 INDENT_JSON = os.environ.get('INDENT_JSON', False)
 
-signal_list = {sensor: np.array([]) for sensor in SensorType}
+signal_list = {sensor: list() for sensor in SensorType}
 signal_lock = {sensor: threading.Lock() for sensor in SensorType}
 
 SEC_IN_HOUR = 3600

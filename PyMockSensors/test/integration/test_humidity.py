@@ -24,7 +24,7 @@ class TestHumidity():
     
     @pytest.fixture(scope = 'class')
     def setup_sensor(self):
-        return HumiditySensor(sensor_name = 'test', gather_time = datetime, coordinates = Coordinates(0.0, 0.0), socrates = Random())
+        return HumiditySensor(sensor_name = 'test', gather_time = datetime, coordinates = Coordinates(0.0, 0.0), socrates = Random(), temporal_second_delay = 1)
     
     def before_test(self, setup_producer, setup_sensor):
         producer = setup_producer

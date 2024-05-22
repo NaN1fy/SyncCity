@@ -1,14 +1,10 @@
-import json
-import numpy as np
 import re
 import string
 
-from dataclasses import dataclass
 from datetime import datetime, timedelta
 from random import Random
-from random import randint
 from time import sleep
-from typing import Dict, Type
+from typing import Type
 
 from src.toolkit.constants import signal_list, signal_lock, SEC_IN_HOUR
 from src.toolkit.coordinates import Coordinates
@@ -17,12 +13,6 @@ from src.sensor.sensor_interface import SensorInterface
 from src.toolkit.sensor_type import SensorType
 
 from src.toolkit.jsonfy import jsonfy
-
-@dataclass
-class GaussianPeak:
-    position_in_minutes: int
-    standard_deviation_in_minutes: int
-    weight: float
 
 class ParkingSensor(SensorInterface):
     __is_available: bool = True
@@ -39,23 +29,16 @@ class ParkingSensor(SensorInterface):
     def _send_signal(self) -> None:
         now = self._gather_time.now()
         gambling = self._socrates.randint(0, 100)
+        cool_down = self._socrates.randint(5, 10)
         if not self.__is_available:
-            # sleep(5)
-            print(now)
-            print(self.__arrival + timedelta(seconds = self.__lay_off))
-            print(self.__arrival)
-            print(timedelta(seconds = self.__lay_off))
-            print(now > (self.__arrival + timedelta(seconds = self.__lay_off)))
             if now > (self.__arrival + timedelta(seconds = self.__lay_off)):
                 with signal_lock[SensorType.PARKING]:
-                    signal_list[SensorType.PARKING] = np.append(signal_list[SensorType.PARKING], self._sensor_id)   
-        elif self.__is_available: 
-            if gambling > 80:
+                    signal_list[SensorType.PARKING].append(self._sensor_id) 
+        elif self.__is_available:
+            sleep(cool_down)
+            if gambling > 40:
                 with signal_lock[SensorType.PARKING]:
-                    signal_list[SensorType.PARKING] = np.append(signal_list[SensorType.PARKING], self._sensor_id)
-            else:
-                cool_down = self._socrates.randint(5, 10)
-                sleep(cool_down)
+                    signal_list[SensorType.PARKING].append(self._sensor_id)
 
     def __generate_plate(self) -> str:
         pattern = re.compile(r"^[A-Z]{2}[\d]{3}[A-Z]{2}$")
@@ -71,7 +54,8 @@ class ParkingSensor(SensorInterface):
         if self.__is_available:
             self.__is_available = False
             self.__plate = self.__generate_plate()
-            self.__lay_off = self._socrates.randint(300, SEC_IN_HOUR*2)
+            # self.__lay_off = self._socrates.randint(300, SEC_IN_HOUR*2)
+            self.__lay_off = self._socrates.randint(100, 300)
             self.__arrival = self._gather_time.now()
         else:
             self.__is_available = True
@@ -81,7 +65,6 @@ class ParkingSensor(SensorInterface):
 
         reading = {
             "is_available": self.__is_available,
-            "arrival": str(self.__arrival),
             "layoff": self.__lay_off,
             "plate": self.__plate
         }

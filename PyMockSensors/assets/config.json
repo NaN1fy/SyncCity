@@ -25,7 +25,7 @@
   },
   {
     "type": "humidity",
-    "name": "Padova, Stazione Ferroviaria",
+    "name": "Padova, Piazza dei Signori",
     "temporal_second_delay": 1.5,
     "coordinates": {
       "type": "geolocalization",
@@ -37,7 +37,7 @@
   },
   {
     "type": "humidity",
-    "name": "Padova, Orto Botanico",
+    "name": "Padova, Prato della Valle",
     "temporal_second_delay": 1.8,
     "coordinates": {
       "type": "geolocalization",
@@ -49,7 +49,62 @@
   },
   {
     "type": "parking",
-    "name": "Pollaio",
+    "name": "Pollaio - stallo 1",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.419938, 
+        11.890149
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Pollaio - stallo 2",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.419938, 
+        11.890149
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Pollaio - stallo 3",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.419938, 
+        11.890149
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Pollaio - stallo 4",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.419938, 
+        11.890149
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Pollaio - stallo 5",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.419938, 
+        11.890149
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Pollaio - stallo 6",
     "coordinates": {
       "type": "geolocalization",
       "values": [

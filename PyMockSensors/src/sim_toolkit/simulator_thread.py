@@ -1,4 +1,3 @@
-import numpy as np
 import threading
 
 from src.sensor.sensor_interface import SensorInterface
@@ -25,11 +24,14 @@ class SimulatorThread(threading.Thread):
             self.__sensor._send_signal()
             with signal_lock[self.__sensor.getType()]:
                 signals = signal_list[self.__sensor.getType()]
-                idx = np.where(signals == self.__sensor.getId())
-                if idx:
+                idx = -1
+                for i in range(len(signals)):
+                    if signals[i] == self.__sensor.getId():
+                        idx = i
+                        break
+                if idx != -1:
                     self.__handle_signal()
-                    signals = np.delete(signals, idx)
-            print(signal_list[self.__sensor.getType()])
+                    signals.pop(idx)
 
     def stop(self) -> None:
         self.__stop_event.set()
