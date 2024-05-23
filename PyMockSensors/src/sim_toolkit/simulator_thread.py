@@ -15,7 +15,7 @@ class SimulatorThread(threading.Thread):
         self.__sensor = sensor
         self.__stream_writer = stream_writer
         self.__stop_event = threading.Event()
-    
+
     def __handle_signal(self):
         self.__stream_writer.write(self.__sensor.simulate())
 
