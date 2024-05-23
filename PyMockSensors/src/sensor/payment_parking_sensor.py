@@ -31,7 +31,7 @@ class PaymentParkingSensor(SensorInterface):
             signal_list[SensorType.PAYMENT_PARKING].append(self._sensor_id)
 
     def simulate(self) -> str:
-        self.__bill = round(self._socrates.randint(300, 2 * SEC_IN_HOUR) * self.__price_per_hour, 2)
+        self.__bill = round(self._socrates.randint(300, 2 * SEC_IN_HOUR) * self.__price_per_hour / SEC_IN_HOUR, 2)
 
         reading = {
             "type": "Euro",
