@@ -1,16 +1,21 @@
 import os
+import numpy as np
+import threading
 
 from src.stream_writer.stdout_stream_writer import StdoutStreamWriter
 from src.stream_writer.kafka_stream_writer import KafkaStreamWriter
+from src.toolkit.sensor_type import SensorType
 
 STDOUT = StdoutStreamWriter
 KAFKAOUT = KafkaStreamWriter
 
 INDENT_JSON = os.environ.get('INDENT_JSON', False)
 
+signal_list = {sensor: list() for sensor in SensorType}
+signal_lock = {sensor: threading.Lock() for sensor in SensorType}
+
 SEC_IN_HOUR = 3600
 SEC_IN_DAY = 86400
-MIN_IN_DAY = 1440
 TEMP_RANGE = {
     0: (5, 9),
     1: (4, 9),
@@ -42,42 +47,15 @@ TEMP_RANGE = {
 # month: (umid_assoluta_media, saturazione_notte, sat_mattina_sera, sat_pomeriggio)
 HUMID_RANGE = {
     1: (4.7, 3.3, 4.9, 6.8),
-    2: (4.7, 4.9, 6.8, 8.9),
-    3: (5.7, 6.8, 8.4, 11.5),
+    2: (4.7, 4.9, 6.8, 7.8),
+    3: (6.5, 6.8, 8.4, 10),
     4: (8.0, 8.4, 10.8, 14.7),
-    5: (9.4, 11.5, 13.8, 22.5),
-    6: (11.7, 14.7, 17.3, 24.5),
-    7: (13.9, 17.3, 22.5, 30.0),
-    8: (14.9, 15.5, 18.5, 25.9),
-    9: (10.8, 12.9, 14.7, 21.9),
+    5: (10.5, 11.5, 13.8, 19.8),
+    6: (11.7, 14.7, 17.3, 22),
+    7: (16, 17.3, 22.5, 28),
+    8: (15, 16, 18.5, 25.9),
+    9: (10.8, 12.9, 14.7, 20.5),
     10: (8.5, 8.9, 10.8, 13.8),
     11: (6.0, 6.8, 7.8, 10.8),
     12: (4.7, 4.9, 6.8, 7.8)
 }
-
-# HUMID_RANGE = {
-#     0: (6.8, 8.9),
-#     1: (6.4, 8.9),
-#     2: (6.0, 8.4),
-#     3: (6.0, 8.4),
-#     4: (6.4, 8.4),
-#     5: (7.3, 10.1),
-#     6: (8.9, 12.9),
-#     7: (10.8, 15.5),
-#     8: (12.9, 18.5),
-#     9: (15.5, 21.9),
-#     10: (16.4, 23.1),
-#     11: (16.4, 23.1),
-#     12: (16.4, 24.5),
-#     13: (16.4, 24.5),
-#     14: (17.3, 23.1),
-#     15: (17.3, 23.1),
-#     16: (17.3, 23.1),
-#     17: (17.3, 23.1),
-#     18: (13.8, 19.6),
-#     19: (10.8, 15.5),
-#     20: (8.9, 12.2),
-#     21: (7.8, 10.8),
-#     22: (7.3, 10.1),
-#     23: (6.8, 9.4)
-# }

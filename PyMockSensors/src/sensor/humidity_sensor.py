@@ -1,10 +1,11 @@
 from datetime import datetime
 from random import Random
+from time import sleep
 from typing import Type
 
 from src.sensor.sensor_interface import SensorInterface
 
-from src.toolkit.constants import HUMID_RANGE
+from src.toolkit.constants import HUMID_RANGE, signal_list, signal_lock
 from src.toolkit.coordinates import Coordinates
 from src.toolkit.sensor_type import SensorType
 
@@ -14,9 +15,17 @@ from src.toolkit.jsonfy import jsonfy
 class HumiditySensor(SensorInterface):
     # __noise = None
 
-    def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random):
-        super().__init__(sensor_name, gather_time, coordinates, socrates)
+    def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random, temporal_second_delay: int):
+        super().__init__(sensor_name, gather_time, coordinates, socrates, temporal_second_delay)
         # self.__noise = self._socrates.uniform(0.0, 10.0)
+
+    def getType(self) -> str:
+        return SensorType.HUMIDITY
+
+    def _send_signal(self) -> None:
+        sleep(self._temporal_second_delay)
+        with signal_lock[SensorType.HUMIDITY]:
+            signal_list[SensorType.HUMIDITY].append(self._sensor_id)
 
     def simulate(self) -> str:
         now = self._gather_time.now()

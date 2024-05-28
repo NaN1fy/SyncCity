@@ -1,11 +1,12 @@
 from datetime import datetime
 from math import cos, pi
 from random import Random
+from time import sleep
 from typing import Type
 
 from src.sensor.sensor_interface import SensorInterface
 
-from src.toolkit.constants import SEC_IN_DAY, SEC_IN_HOUR, TEMP_RANGE
+from src.toolkit.constants import SEC_IN_DAY, SEC_IN_HOUR, TEMP_RANGE, signal_list, signal_lock
 from src.toolkit.coordinates import Coordinates
 from src.toolkit.sensor_type import SensorType
 
@@ -15,9 +16,17 @@ from src.toolkit.jsonfy import jsonfy
 class TemperatureSensor(SensorInterface):
     __noise = None
 
-    def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random):
-        super().__init__(sensor_name, gather_time, coordinates, socrates)
+    def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random, temporal_second_delay: int):
+        super().__init__(sensor_name, gather_time, coordinates, socrates, temporal_second_delay)
         self.__noise = self._socrates.uniform(-0.02, 0.02)
+
+    def getType(self) -> str:
+        return SensorType.TEMPERATURE
+
+    def _send_signal(self) -> None:
+        sleep(self._temporal_second_delay)
+        with signal_lock[SensorType.TEMPERATURE]:
+            signal_list[SensorType.TEMPERATURE].append( self._sensor_id)   
 
     def simulate(self) -> str:
         now = self._gather_time.now()

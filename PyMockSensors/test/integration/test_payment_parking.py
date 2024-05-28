@@ -1,21 +1,23 @@
 import clickhouse_connect
+import json
+import os
 import pytest
 import time
 
 from datetime import datetime
 from random import Random
 
-from src.sensor.humidity_sensor import HumiditySensor
+from src.sensor.payment_parking_sensor import PaymentParkingSensor
 
 from src.stream_writer.kafka_logic.kafka_producer import KafkaProducer
 
 from src.toolkit.coordinates import Coordinates
 from src.toolkit.sensor_type import SensorType
 
-class TestHumidity():
+class TestParking():
     @pytest.fixture(scope = 'class')
     def setup_producer(self) -> KafkaProducer:
-        topic = SensorType.HUMIDITY.value
+        topic = SensorType.PAYMENT_PARKING.value
         return KafkaProducer(topic)
 
     @pytest.fixture(scope = 'class')
@@ -24,7 +26,7 @@ class TestHumidity():
     
     @pytest.fixture(scope = 'class')
     def setup_sensor(self):
-        return HumiditySensor(sensor_name = 'test', gather_time = datetime, coordinates = Coordinates(0.0, 0.0), socrates = Random(), temporal_second_delay = 1)
+        return PaymentParkingSensor(sensor_name = 'test', gather_time = datetime, coordinates = Coordinates(0.0, 0.0), socrates = Random(), temporal_second_delay = 0)
     
     def before_test(self, setup_producer, setup_sensor):
         producer = setup_producer
@@ -33,15 +35,15 @@ class TestHumidity():
         producer.produce(data, None)
 
     def after_test(self, setup_clickhouse):
-        query = "DELETE FROM sc_database.humidity WHERE sensor_name = 'test';"
+        query = "DELETE FROM sc_database.payment_parking WHERE sensor_name = 'test';"
         setup_clickhouse.query(query)
 
     def test_persistence(self, setup_clickhouse, setup_producer, setup_sensor):
         self.before_test(setup_producer, setup_sensor)
-        timeout = 20
+        timeout = 300
         start_time = time.time()
         while True:
-            query = "SELECT sensor_name FROM sc_database.humidity WHERE sensor_name = 'test';"
+            query = "SELECT sensor_name FROM sc_database.payment_parking WHERE sensor_name = 'test';"
             ans = setup_clickhouse.query(query)
             if ans.result_rows:
                 fetched_row = (ans.result_rows[0])[0]

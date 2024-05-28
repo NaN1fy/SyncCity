@@ -44,9 +44,11 @@ class SimulatorControllerFactory():
         wrt_clss(sensor_type).accept(self, sensor, sim_clss, config)
 
     def visit(self, writer: StdoutStreamWriter, sensor, sim_clss, config: Dict, sensor_type: str):
+        delay = 0
+        if "temporal_second_delay" in config:
+            delay = config["temporal_second_delay"]
         self.__simulators.append(
                 SimulatorThread(
-                        temporal_second_delay = config["temporal_second_delay"],
                         sensor = sim_clss(
                             sensor_name = sensor,
                             gather_time = datetime,
@@ -54,7 +56,8 @@ class SimulatorControllerFactory():
                                 longitude=config["coordinates"]["values"][0],
                                 latitude=config["coordinates"]["values"][1]
                                 ),
-                            socrates = Random()
+                            socrates = Random(),
+                            temporal_second_delay = delay
                             ),
                         stream_writer = writer
                     )
@@ -63,9 +66,11 @@ class SimulatorControllerFactory():
     def visit(self, writer: KafkaStreamWriter, sensor, sim_clss, config: Dict, sensor_type: str):
         if sensor_type not in self.__writers_kafka_inventory:
             self.__writers_kafka_inventory[sensor_type] = writer
+        delay = 0
+        if "temporal_second_delay" in config:
+            delay = config["temporal_second_delay"]
         self.__simulators.append(
                 SimulatorThread(
-                        temporal_second_delay = config["temporal_second_delay"],
                         sensor = sim_clss(
                             sensor_name = sensor,
                             gather_time = datetime,
@@ -73,7 +78,8 @@ class SimulatorControllerFactory():
                                 longitude=config["coordinates"]["values"][0],
                                 latitude=config["coordinates"]["values"][1]
                                 ),
-                            socrates = Random()
+                            socrates = Random(),
+                            temporal_second_delay = delay
                             ),
                         stream_writer = self.__writers_kafka_inventory[sensor_type]
                     )

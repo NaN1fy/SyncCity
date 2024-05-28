@@ -25,37 +25,102 @@
   },
   {
     "type": "humidity",
-    "name": "Padova, Stazione Ferroviaria",
+    "name": "Padova, Piazza dei Signori",
     "temporal_second_delay": 1.5,
     "coordinates": {
       "type": "geolocalization",
       "values": [
         45.417322, 
-        11.880448
+        11.879008
       ]
     }
   },
   {
     "type": "humidity",
-    "name": "Padova, Orto Botanico",
+    "name": "Padova, Prato della Valle",
     "temporal_second_delay": 1.8,
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.399444, 
+        45.406434, 
         11.879803
       ]
     }
   },
   {
     "type": "parking",
-    "name": "Pollaio",
-    "temporal_second_delay": 10.0,
+    "name": "Interparking Italia Srl - stallo 1",
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.419938, 
-        11.890149
+        45.389366, 
+        11.789490
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Interparking Italia Srl - stallo 2",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.389365, 
+        11.789490
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Interparking Italia Srl - stallo 3",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.389364, 
+        11.789490
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Interparking Italia Srl - stallo 4",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.389363, 
+        11.789490
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Interparking Italia Srl - stallo 5",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.389362, 
+        11.789490
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Interparking Italia Srl - stallo 6",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.389361, 
+        11.789490
+      ]
+    }
+  },
+  {
+    "type": "payment_parking",
+    "name": "Interparking Italia Srl - stallo 6",
+     "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.389360, 
+        11.789490
       ]
     }
   }

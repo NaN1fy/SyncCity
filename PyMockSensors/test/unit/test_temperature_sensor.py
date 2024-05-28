@@ -18,7 +18,7 @@ def test_temperature_sensor():
                 with patch('datetime.datetime') as mocked_datetime:
                     mocked_datetime.now.return_value = simulated_datetime
                     mocked_id.return_value = simulated_id
-                    sensor_simulator = TemperatureSensor("Arcella", mocked_datetime, coordinates, random_obj)
+                    sensor_simulator = TemperatureSensor("Arcella", mocked_datetime, coordinates, random_obj, 1)
                     sensor_simulator._TemperatureSensor__sensor_id = simulated_id
                     json_data = sensor_simulator.simulate()
                     parsed_json = json.loads(json_data)
