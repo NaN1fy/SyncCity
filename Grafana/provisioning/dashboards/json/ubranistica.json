@@ -1,4 +1,520 @@
 {
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Informazioni generali sullo stato dei parcheggi",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sensor_name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "lg",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": [
+            "layoff"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "is_available",
+                "type": "Bool"
+              },
+              {
+                "custom": false,
+                "name": "plate",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              },
+              {
+                "custom": false,
+                "name": "layoff",
+                "type": "Int32"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "limit": 0,
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "parking"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "is_available",
+                  "type": "Bool"
+                },
+                {
+                  "custom": false,
+                  "name": "plate",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                },
+                {
+                  "custom": false,
+                  "name": "layoff",
+                  "type": "Int32"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "parking"
+            }
+          },
+          "pluginVersion": "4.0.7",
+          "queryType": "table",
+          "rawSql": "SELECT\n    sensor_name AS \"Parcheggio - Stallo\" , \n    CASE \n        WHEN is_available = TRUE THEN 'Non occupato'\n        WHEN is_available = FALSE THEN 'Occupato'\n    END AS \"DISPONIBILITÀ\",\n    CASE \n        WHEN plate = '' THEN 'Nessuna informazione sulla targa' \n        ELSE plate\n    END AS \"TARGA\",\n    gather_time AS \"LETTURA\", \n    CONCAT(ROUND(layoff / 60.0, 2), ' min') \n    AS \"PERMANENZA\"\nFROM \"sc_database\".\"parking\"\nWHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n)\nORDER BY sensor_name ASC\n\n\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Stato dei parcheggi",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Informazioni generali sui pagamenti",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "id": 3,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 78,
+        "minVizWidth": 8,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "limit": 3,
+          "values": true
+        },
+        "showUnfilled": false,
+        "sizing": "manual",
+        "text": {
+          "titleSize": 25
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "bill",
+                "type": "Float64"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "payment_parking"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "bill",
+                  "type": "Float64"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "payment_parking"
+            }
+          },
+          "pluginVersion": "4.0.7",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(bill) AS \"MEDIA PAGAMENTI\" FROM \"sc_database\".\"payment_parking\" GROUP BY sensor_name",
+          "refId": "A"
+        },
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "bill",
+                "type": "Float64"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "payment_parking_mv"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "bill",
+                  "type": "Float64"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "payment_parking_mv"
+            }
+          },
+          "pluginVersion": "4.0.7",
+          "queryType": "table",
+          "rawSql": "SELECT MAX(bill) AS \"PAGAMENTO PIÙ ALTO\" FROM \"sc_database\".\"payment_parking_mv\"",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.0.7",
+          "queryType": "table",
+          "rawSql": "SELECT MIN(bill) AS \"PAGAMENTO PIÙ BASSO\" FROM \"sc_database\".\"payment_parking_mv\"",
+          "refId": "C"
+        }
+      ],
+      "title": "Miscellaneous pagamenti",
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Lista dei pagamenti ricevuti dai parcheggi",
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 11
+      },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "bill",
+                "type": "Float64"
+              },
+              {
+                "custom": false,
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "limit": 0,
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "payment_parking"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "bill",
+                  "type": "Float64"
+                },
+                {
+                  "custom": false,
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "payment_parking"
+            }
+          },
+          "pluginVersion": "4.0.7",
+          "queryType": "table",
+          "rawSql": "SELECT sensor_name, gather_time, bill AS \"Importo pagamento (€)\" FROM \"sc_database\".\"payment_parking\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Pagamenti dei parcheggi ricevuti",
+      "transparent": true,
+      "type": "logs"
+    }
+  ],
+  "refresh": "auto",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",

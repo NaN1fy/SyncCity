@@ -115,7 +115,7 @@
   },
   {
     "type": "payment_parking",
-    "name": "Interparking Italia Srl - stallo 6",
+    "name": "Interparking Italia Srl",
      "coordinates": {
       "type": "geolocalization",
       "values": [
@@ -125,3 +125,4 @@
     }
   }
 ]
+
