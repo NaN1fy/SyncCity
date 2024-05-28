@@ -6,20 +6,20 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.406434,
-        11.879008
+        45.407823, 
+        11.873558
       ]
     }
   },
   {
     "type": "temperature",
     "name": "Padova, Prato della Valle",
-    "temporal_second_delay": 0.8,
+    "temporal_second_delay": 1,
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.406791,
-        11.876173
+        45.398986, 
+        11.876357
       ]
     }
   },
@@ -30,8 +30,8 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.417322, 
-        11.879008
+          45.407823, 
+          11.873558
       ]
     }
   },
@@ -42,8 +42,8 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.406434, 
-        11.879803
+        45.398986,
+        11.876357
       ]
     }
   },
