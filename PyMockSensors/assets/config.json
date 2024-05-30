@@ -53,8 +53,8 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.389366, 
-        11.789490
+        45.411738, 
+        11.883438
       ]
     }
   },
@@ -63,9 +63,9 @@
     "name": "Interparking Italia Srl - stallo 2",
     "coordinates": {
       "type": "geolocalization",
-      "values": [
-        45.389365, 
-        11.789490
+      "values": [ 
+        45.411737, 
+        11.883437
       ]
     }
   },
@@ -74,9 +74,9 @@
     "name": "Interparking Italia Srl - stallo 3",
     "coordinates": {
       "type": "geolocalization",
-      "values": [
-        45.389364, 
-        11.789490
+      "values": [ 
+        45.411739, 
+        11.883437
       ]
     }
   },
@@ -85,9 +85,9 @@
     "name": "Interparking Italia Srl - stallo 4",
     "coordinates": {
       "type": "geolocalization",
-      "values": [
-        45.389363, 
-        11.789490
+      "values": [ 
+        45.411737, 
+        11.883439
       ]
     }
   },
@@ -96,9 +96,9 @@
     "name": "Interparking Italia Srl - stallo 5",
     "coordinates": {
       "type": "geolocalization",
-      "values": [
-        45.389362, 
-        11.789490
+      "values": [ 
+        45.411738, 
+        11.883439
       ]
     }
   },
@@ -107,9 +107,9 @@
     "name": "Interparking Italia Srl - stallo 6",
     "coordinates": {
       "type": "geolocalization",
-      "values": [
-        45.389361, 
-        11.789490
+      "values": [ 
+        45.411738, 
+        11.883439
       ]
     }
   },
@@ -118,9 +118,53 @@
     "name": "Interparking Italia Srl",
      "coordinates": {
       "type": "geolocalization",
-      "values": [
-        45.389360, 
-        11.789490
+      "values": [ 
+        45.411739, 
+        11.883439
+      ]
+    }
+  },
+  {
+    "type": "payment_parking",
+    "name": "Garage Milano",
+     "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.409030, 
+        11.870550
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Garage Milano - stallo 1",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.409030,
+        11.870550
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Garage Milano - stallo 2",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.409030,
+        11.870551
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Garage Milano - stallo 3",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.409030,
+        11.870552
       ]
     }
   }
