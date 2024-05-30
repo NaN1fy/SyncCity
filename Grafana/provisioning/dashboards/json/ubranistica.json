@@ -311,7 +311,7 @@
           },
           "pluginVersion": "4.0.7",
           "queryType": "table",
-          "rawSql": "SELECT AVG(bill) AS \"MEDIA PAGAMENTI\" FROM \"sc_database\".\"payment_parking\" GROUP BY sensor_name",
+          "rawSql": "SELECT AVG(bill) AS \"MEDIA PAGAMENTI\" FROM \"sc_database\".\"payment_parking\"",
           "refId": "A"
         },
         {
