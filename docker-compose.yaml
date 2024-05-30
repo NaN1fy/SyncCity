@@ -55,7 +55,6 @@ services:
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
       - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
-      # Per il production: Rimuovere le righe precedenti
       # - GF_AUTH_ORG_ROLE=viewer
       # - GF_AUTH_ANONYMOUS_ENABLED=true
       # - GF_AUTH_DISABLE_LOGIN_FORM=true

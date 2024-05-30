@@ -16,8 +16,9 @@ La classe `SimulatorControllerFactory` (cfr. [**simualtor_controller_factory.py*
 
 Il controller è rappresentato dalla classe `SimulatorController` (cfr. [**simulator_controller.py**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/sim_toolkit/simulator_controller.py)). Quest'ultimo non utilizza direttamente i sensori ma una classe "wrapper" che eredita da `Thread` (cfr. [**riga 8**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/sim_toolkit/simulator_thread.py#L8) in **simulator_thread.py**) al fine di consentire un'esecuzione concorrente.
 
-La classe "wrapper" `SimulatorThread` esegue ciclicamente (a meno di eventi di stop) il metodo astratto `simulate()` (cfr. [**riga 27**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/sensor/sensor_interface.py#L27) in **sensor_interface.py**) del sensore, che restituisce la simulazione del dato in formato JSON.
-
+La classe "wrapper" `SimulatorThread` esegue il metodo astratto `simulate()` (cfr. [**riga
+27**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/sensor/sensor_interface.py#L27)
+in **sensor_interface.py**) del sensore, che restituisce la simulazione del dato in formato JSON. Il motivo per cui il metodo `simulate()` viene chiamato è definito dal metodo `_send_signal()` e può essere basato sugli eventi, come nel caso di `ParkingSensor`, oppure basato su uno snapshot, come nel caso di `TemperatureSensor`.
 ### Separazione tra Modello, Controllo e Vista
 
 Seguendo il pattern Model-View-Control, la rappresentazione del dato simulato è mantenuta separata dall'implementazione e dalla gestione. A tal fine è stata definita una classe `StreamWriterInterface` che si occupa della consegna dell'informazione (cfr. [**stdout_stream_writer.py**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/stream_writer/stdout_stream_writer.py) e [**kafka_stream_writer.py**](https://github.com/NaN1fy/SyncCity/blob/main/PyMockSensors/src/stream_writer/kafka_stream_writer.py)).

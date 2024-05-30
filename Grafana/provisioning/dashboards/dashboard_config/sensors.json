@@ -25,7 +25,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "Mappa che indica la posizione dei sensori",
+      "description": "\"Map indicating the location of the sensors\"",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -127,7 +127,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "Temperatura",
+            "name": "Temperature",
             "tooltip": true,
             "type": "markers"
           },
@@ -179,7 +179,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "Umidità",
+            "name": "Humidity",
             "tooltip": true,
             "type": "markers"
           },
@@ -231,7 +231,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "Parcheggio",
+            "name": "Parking",
             "tooltip": true,
             "type": "markers"
           },
@@ -283,7 +283,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "Pagamento [P]",
+            "name": "Payment [P]",
             "tooltip": true,
             "type": "markers"
           }
@@ -294,9 +294,9 @@
         "view": {
           "allLayers": true,
           "id": "coords",
-          "lat": 45.40268,
-          "lon": 11.875235,
-          "zoom": 12.86
+          "lat": 45.405218,
+          "lon": 11.881421,
+          "zoom": 13.6
         }
       },
       "pluginVersion": "11.0.0",
@@ -441,7 +441,7 @@
           "refId": "payment_parking"
         }
       ],
-      "title": "Mappa dei sensori",
+      "title": "Sensor map",
       "transparent": true,
       "type": "geomap"
     }
@@ -458,7 +458,7 @@
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
-  "title": "Sensori",
+  "title": "Sensors",
   "uid": "cdn2oqslg9a76d",
   "version": 1,
   "weekStart": ""
