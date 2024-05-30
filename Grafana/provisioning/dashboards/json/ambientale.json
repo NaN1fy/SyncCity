@@ -219,6 +219,232 @@
             "mode": "fixed"
           },
           "custom": {
+            "neutral": 0
+          },
+          "decimals": 2,
+          "mappings": [],
+          "max": 53,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ffff66",
+                "value": 27
+              },
+              {
+                "color": "#ffd700",
+                "value": 33
+              },
+              {
+                "color": "#ff8c00",
+                "value": 40
+              },
+              {
+                "color": "#ff0000",
+                "value": 52
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "heat_index"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Heat Index"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds",
+                  "seriesBy": "last"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "temp temp"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Temperature"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "readings",
+                "type": "Float64"
+              },
+              {
+                "hint": "time",
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "hint": "time",
+                "key": "",
+                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "type": "datetime"
+              }
+            ],
+            "groupBy": [],
+            "meta": {},
+            "mode": "aggregate",
+            "orderBy": [
+              {
+                "default": true,
+                "dir": "ASC",
+                "hint": "time",
+                "name": ""
+              }
+            ],
+            "queryType": "timeseries",
+            "table": "temperature"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "builder",
+          "format": 0,
+          "pluginVersion": "4.0.7",
+          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "refId": "temp"
+        },
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "readings",
+                "type": "Int32"
+              },
+              {
+                "hint": "time",
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "hint": "time",
+                "key": "",
+                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "type": "datetime"
+              }
+            ],
+            "groupBy": [],
+            "meta": {},
+            "mode": "aggregate",
+            "orderBy": [
+              {
+                "default": true,
+                "dir": "ASC",
+                "hint": "time",
+                "name": ""
+              }
+            ],
+            "queryType": "timeseries",
+            "table": "humidity"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "builder",
+          "format": 0,
+          "hide": true,
+          "pluginVersion": "4.0.7",
+          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "refId": "hum"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "(-8.78469475556)+((1.61139411)*${temp})+((2.338548839)*${hum})+((-0.146116050)*${temp}*${hum})+((-0.012308094)*(${temp}**2))+((-0.0164248277778)*(${hum}**2))+((0.002211732)*(${temp}**2)*${hum})+((0.00072546)*${temp}*(${hum}**2))+((-0.000003582)*(${temp}**2)*(${hum}**2))",
+          "hide": false,
+          "refId": "heat_index",
+          "type": "math"
+        }
+      ],
+      "title": "Temperature and Heat Index in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Display of actual temperature vs heat index (apparent temperature) located in Padua, Italy",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
@@ -366,14 +592,59 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Average"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 0
+        "x": 0,
+        "y": 8
       },
       "id": 2,
       "options": {
@@ -411,7 +682,6 @@
             "builderOptions": {
               "columns": [],
               "database": "",
-              "limit": 1000,
               "mode": "list",
               "queryType": "table",
               "table": ""
@@ -419,7 +689,7 @@
           },
           "pluginVersion": "4.0.7",
           "queryType": "table",
-          "rawSql": "SELECT h1.sensor_name as Sensor, AVG(h1.heat_index) as \"Average Heat Index\", MAX(h1.heat_index) as \"Max Heat Index\", MIN(h1.heat_index) as \"Min Heat Index\"\r\nFROM\r\n(SELECT t.sensor_name, t.readings as temp, h.readings as hum, t.gather_time as time,\r\n(-8.78469475556)+((1.61139411)*temp)+((2.338548839)*hum)+((-0.146116050)*temp*hum)+((-0.012308094)*(POWER(temp,2)))+((-0.0164248277778)*(POWER(hum,2)))+((0.002211732)*(POWER(temp,2))*hum)+((0.00072546)*temp*(POWER(hum,2)))+((-0.000003582)*(POWER(temp,2))*(POWER(hum,2))) as heat_index\r\nFROM sc_database.temperature t\r\nJOIN sc_database.humidity h\r\nON h.sensor_name = t.sensor_name AND h.gather_time = t.gather_time) h1\r\nGROUP by h1.sensor_name",
+          "rawSql": "SELECT h1.sensor_name as Sensor, AVG(h1.heat_index) as \"Average\", MAX(h1.heat_index) as \"Max\", MIN(h1.heat_index) as \"Min\"\r\nFROM\r\n(SELECT t.sensor_name, t.readings as temp, h.readings as hum, t.gather_time as time,\r\n(-8.78469475556)+((1.61139411)*temp)+((2.338548839)*hum)+((-0.146116050)*temp*hum)+((-0.012308094)*(POWER(temp,2)))+((-0.0164248277778)*(POWER(hum,2)))+((0.002211732)*(POWER(temp,2))*hum)+((0.00072546)*temp*(POWER(hum,2)))+((-0.000003582)*(POWER(temp,2))*(POWER(hum,2))) as heat_index\r\nFROM sc_database.temperature t\r\nJOIN sc_database.humidity h\r\nON h.sensor_name = t.sensor_name AND h.gather_time = t.gather_time) h1\r\nGROUP by h1.sensor_name",
           "refId": "temp"
         }
       ],
@@ -427,6 +697,7 @@
       "type": "barchart"
     }
   ],
+  "refresh": "",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -438,9 +709,9 @@
   },
   "timeRangeUpdatedDuringEditOrView": false,  
   "timepicker": {},
- "timezone": "browser",
+  "timezone": "browser",
   "title": "Ambientale",
   "uid": "cdn2oqslg9a80d",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
