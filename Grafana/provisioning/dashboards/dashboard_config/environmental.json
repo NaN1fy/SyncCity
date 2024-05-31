@@ -565,7 +565,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 6,
         "y": 9
       },
       "id": 6,
@@ -681,6 +681,19 @@
       "type": "timeseries"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 9,
+      "panels": [],
+      "title": "Means",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
@@ -695,6 +708,7 @@
           "decimals": 2,
           "mappings": [],
           "max": 53,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -727,8 +741,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 9
+        "x": 0,
+        "y": 18
       },
       "id": 3,
       "options": {
@@ -794,7 +808,7 @@
             "uid": "PDEE91DDB90597936"
           },
           "editorType": "sql",
-          "format": 0,
+          "format": 1,
           "meta": {
             "builderOptions": {
               "aggregates": [],
@@ -838,12 +852,217 @@
             }
           },
           "pluginVersion": "4.0.8",
-          "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, sensor_name, AVG(readings) as \" \" FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) group by sensor_name, gather_time ORDER BY time ASC",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nwhere gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
           "refId": "temp"
         }
       ],
       "title": "Average Temperature in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "max": 53,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#ffff66",
+                "value": 27
+              },
+              {
+                "color": "#ffd700",
+                "value": 33
+              },
+              {
+                "color": "#ff8c00",
+                "value": 40
+              },
+              {
+                "color": "#ff0000",
+                "value": 53
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 11,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": true,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 0,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nwhere gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
+          "refId": "temp"
+        },
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": true,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 0,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nwhere gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
+          "refId": "hum"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "(-8.78469475556)+((1.61139411)*${temp})+((2.338548839)*${hum})+((-0.146116050)*${temp}*${hum})+((-0.012308094)*(${temp}**2))+((-0.0164248277778)*(${hum}**2))+((0.002211732)*(${temp}**2)*${hum})+((0.00072546)*${temp}*(${hum}**2))+((-0.000003582)*(${temp}**2)*(${hum}**2))",
+          "hide": false,
+          "refId": "heat_index",
+          "type": "math"
+        }
+      ],
+      "title": "Average Heat Index in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 7,
+        "y": 26
+      },
+      "id": 10,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 0,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nwhere gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Humidity in Padua, Italy",
       "type": "gauge"
     },
     {
@@ -852,7 +1071,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 34
       },
       "id": 8,
       "panels": [],
@@ -1071,7 +1290,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 35
       },
       "id": 5,
       "options": {
@@ -1114,9 +1333,9 @@
               "table": ""
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT h1.sensor_name as Sensor, AVG(h1.heat_index) as \"Average\", MAX(h1.heat_index) as \"Max\", MIN(h1.heat_index) as \"Min\"\r\nFROM\r\n(SELECT t.sensor_name, t.readings as temp, h.readings as hum, t.gather_time as time,\r\n(-8.78469475556)+((1.61139411)*temp)+((2.338548839)*hum)+((-0.146116050)*temp*hum)+((-0.012308094)*(POWER(temp,2)))+((-0.0164248277778)*(POWER(hum,2)))+((0.002211732)*(POWER(temp,2))*hum)+((0.00072546)*temp*(POWER(hum,2)))+((-0.000003582)*(POWER(temp,2))*(POWER(hum,2))) as heat_index\r\nFROM sc_database.temperature t\r\nJOIN sc_database.humidity h\r\nON h.sensor_name = t.sensor_name AND h.gather_time = t.gather_time) h1\r\nGROUP by h1.sensor_name",
+          "rawSql": "SELECT h1.sensor_name as Sensor, AVG(h1.heat_index) as \"Average\", MAX(h1.heat_index) as \"Max\", MIN(h1.heat_index) as \"Min\"\r\nFROM\r\n(SELECT t.sensor_name, t.readings as temp, h.readings as hum, t.gather_time as time,\r\n(-8.78469475556)+((1.61139411)*temp)+((2.338548839)*hum)+((-0.146116050)*temp*hum)+((-0.012308094)*(POWER(temp,2)))+((-0.0164248277778)*(POWER(hum,2)))+((0.002211732)*(POWER(temp,2))*hum)+((0.00072546)*temp*(POWER(hum,2)))+((-0.000003582)*(POWER(temp,2))*(POWER(hum,2))) as heat_index\r\nFROM sc_database.temperature t\r\nJOIN sc_database.humidity h\r\nON h.sensor_name = t.sensor_name AND h.gather_time = t.gather_time) h1\r\nWHERE ( time >= $__fromTime AND time <= $__toTime )\r\nGROUP by h1.sensor_name",
           "refId": "temp"
         }
       ],
@@ -1132,7 +1351,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1228,6 +1447,21 @@
               {
                 "id": "color",
                 "value": {
+                  "fixedColor": "light-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Average"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
                   "fixedColor": "light-green",
                   "mode": "fixed"
                 }
@@ -1240,7 +1474,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 35
       },
       "id": 1,
       "options": {
@@ -1285,6 +1519,7 @@
           },
           "editorType": "sql",
           "format": 1,
+          "hide": false,
           "meta": {
             "builderOptions": {
               "aggregates": [],
@@ -1299,9 +1534,9 @@
               "table": "temperature"
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT t3.sensor_name as Sensor, t4.avg as Mean, t3.mode as Mode, t4.min as Min, t4.max as Max\r\nFROM\r\n(SELECT t1.sensor_name as sensor_name, t2.mode as mode\r\nFROM \r\n(SELECT sensor_name, max(count) as count\r\nFROM\r\n(SELECT sensor_name, readings as mode, COUNT(*) as count\r\nFROM  sc_database.temperature\r\nGROUP BY readings, sensor_name\r\nORDER BY count(*) desc)\r\nGROUP BY sensor_name) t1\r\nLEFT JOIN\r\n(\r\n  SELECT sensor_name, readings as mode, COUNT(*) as count\r\n  FROM  sc_database.temperature\r\n  GROUP BY readings, sensor_name\r\n  ORDER BY count(*) desc\r\n) t2\r\nON t2.count = t1.count) t3\r\nLEFT JOIN\r\n(SELECT sensor_name, AVG(readings) as avg, MIN(readings) as min, MAX(readings) as max\r\nfrom sc_database.temperature group by sensor_name) t4\r\nON t3.sensor_name = t4.sensor_name",
+          "rawSql": "SELECT t6.sensor_name as Sensor, a as Average, mean as Mean, m as \"Min\", mx as \"Max\"\r\nFROM\r\n(SELECT t4.sensor_name, AVG(t4.readings) as mean\r\nFROM \r\n(SELECT t2.sensor_name, t3.readings, t3.c\r\nFROM\r\n(SELECT t1.sensor_name, MAX(t1.c) as c from \r\n(SELECT t.sensor_name, t.readings, COUNT(t.sensor_name) as c from (select sensor_name, readings, gather_time as time from temperature WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time desc) t group by t.sensor_name, t.readings) t1\r\ngroup by sensor_name ) t2\r\nLEFT JOIN\r\n(SELECT t.sensor_name, t.readings, COUNT(t.sensor_name) as c from (select sensor_name, readings, gather_time as time from temperature WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time desc) t group by t.sensor_name, t.readings) t3\r\nON t2.sensor_name = t3.sensor_name AND t3.c = t2.c ) t4\r\ngroup by t4.sensor_name) t5\r\nLEFT JOIN\r\n(SELECT t.sensor_name, AVG(t.readings) as a, MIN(readings) as m, MAX(readings) as mx FROM (select sensor_name, readings, gather_time as time from temperature WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time desc) t group by t.sensor_name) t6\r\nON t5.sensor_name = t6.sensor_name\r\n\r\n",
           "refId": "A"
         }
       ],
