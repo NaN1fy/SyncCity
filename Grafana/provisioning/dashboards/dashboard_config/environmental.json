@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
   "links": [],
   "panels": [
     {
@@ -124,6 +123,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -221,7 +221,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Temperature, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "rawSql": "SELECT gather_time as time, readings as Temperature, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "temp"
         }
       ],
@@ -319,6 +319,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -416,7 +417,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "rawSql": "SELECT gather_time as time, readings, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "temp"
         },
         {
@@ -464,11 +465,54 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "editorType": "builder",
+          "editorType": "sql",
           "format": 0,
           "hide": true,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "readings",
+                  "type": "Int32"
+                },
+                {
+                  "hint": "time",
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                }
+              ],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "aggregate",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "ASC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "timeseries",
+              "table": "humidity"
+            }
+          },
           "pluginVersion": "4.0.8",
-          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "hum"
         },
         {
@@ -577,6 +621,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -673,7 +718,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Humidity, sensor_name FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "rawSql": "SELECT gather_time as time, readings as Humidity, sensor_name FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "A"
         }
       ],
@@ -760,7 +805,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "builderOptions": {
@@ -925,7 +970,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -1006,8 +1051,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1037,7 +1081,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -1117,8 +1161,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#ffff66",
@@ -1308,6 +1351,7 @@
         "showValue": "auto",
         "stacking": "none",
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         },
@@ -1381,8 +1425,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1492,6 +1535,7 @@
         "showValue": "always",
         "stacking": "none",
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         },
@@ -1544,21 +1588,50 @@
       "type": "barchart"
     }
   ],
-  "refresh": "",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Padova, Prato della Valle"
+          ],
+          "value": [
+            "Padova, Prato della Valle"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.temperature",
+        "description": "Select your preferred temperature sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Temperature sensor",
+        "multi": true,
+        "name": "temperature_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.temperature",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "now/fy",
-    "to": "now/fy"
+    "from": "2024-05-30T00:01:58.030Z",
+    "to": "2024-05-31T00:29:50.380Z"
   },
-  "timeRangeUpdatedDuringEditOrView": false,  
+  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
   "title": "Environmental",
   "uid": "cdn2oqslg9a80d",
-  "version": 6,
+  "version": 1,
   "weekStart": ""
 }
