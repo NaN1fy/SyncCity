@@ -21,6 +21,19 @@
   "links": [],
   "panels": [
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Parking monitoring",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
@@ -73,7 +86,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 1,
       "options": {
@@ -181,14 +194,13 @@
               "table": "parking"
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT\n    sensor_name AS \"Parking - Spot\" , \n    CASE \n        WHEN is_available = TRUE THEN 'Unoccupied'\n        WHEN is_available = FALSE THEN 'Occupied'\n    END AS \"AVAILABILITY\",\n    CASE \n        WHEN plate = '' THEN 'No information on the license plate' \n        ELSE plate\n    END AS \"PLATE\",\n    DATE_FORMAT(gather_time, '%d %b %Y, %H:%i:%s') AS \"READING\", \n    CONCAT(ROUND(layoff / 60.0, 2), ' min') \n    AS \"DURATION\"\nFROM \"sc_database\".\"parking\"\nWHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n)\nORDER BY sensor_name ASC\n\n\n",
+          "rawSql": "SELECT\n    sensor_name AS \"Parking - Spot\" , \n    CASE \n        WHEN is_available = TRUE THEN 'Unoccupied'\n        WHEN is_available = FALSE THEN 'Occupied'\n    END AS \"AVAILABILITY\",\n    CASE \n        WHEN plate = '' THEN 'No information on the license plate' \n        ELSE plate\n    END AS \"PLATE\",\n    DATE_FORMAT(gather_time, '%d %b %Y, %H:%i:%s') AS \"READING\", \n    CONCAT(ROUND(layoff / 60.0, 2), ' min') \n    AS \"DURATION\"\nFROM \"sc_database\".\"parking\"\nWHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n)\nAND (REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote}))\nORDER BY sensor_name ASC\n",
           "refId": "A"
         }
       ],
       "title": "State of the parking lots",
-      "transparent": true,
       "type": "table"
     },
     {
@@ -196,12 +208,13 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "General payment information",
+      "description": "General payment information  (1 HOUR INTERVAL)",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
+          "decimals": 2,
           "fieldMinMax": false,
           "mappings": [],
           "noValue": "0",
@@ -218,7 +231,7 @@
               }
             ]
           },
-          "unit": "currencyEUR"
+          "unit": "none"
         },
         "overrides": []
       },
@@ -226,13 +239,13 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 12
       },
       "id": 3,
       "options": {
-        "displayMode": "lcd",
-        "maxVizHeight": 300,
-        "minVizHeight": 78,
+        "displayMode": "gradient",
+        "maxVizHeight": 150,
+        "minVizHeight": 0,
         "minVizWidth": 8,
         "namePlacement": "top",
         "orientation": "horizontal",
@@ -308,9 +321,9 @@
               "table": "payment_parking"
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(bill) AS \"AVERAGE PAYMENT\" FROM \"sc_database\".\"payment_parking\"",
+          "rawSql": "SELECT AVG(bill) AS \"Average payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE gather_time >= NOW() - INTERVAL 1 HOUR",
           "refId": "A"
         },
         {
@@ -369,9 +382,9 @@
               "table": "payment_parking_mv"
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT MAX(bill) AS \"HIGHEST PAYMENT\" FROM \"sc_database\".\"payment_parking_mv\"",
+          "rawSql": "SELECT MAX(bill) AS \"Highest payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE gather_time >= NOW() - INTERVAL 1 HOUR",
           "refId": "B"
         },
         {
@@ -392,14 +405,13 @@
               "table": ""
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT MIN(bill) AS \"LOWEST PAYMENT\" FROM \"sc_database\".\"payment_parking_mv\"",
+          "rawSql": "SELECT MIN(bill) AS \"Lowest payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE gather_time >= NOW() - INTERVAL 1 HOUR",
           "refId": "C"
         }
       ],
-      "title": "Payment miscellaneous",
-      "transparent": true,
+      "title": "Payment miscellaneous (1 HR)",
       "type": "bargauge"
     },
     {
@@ -407,12 +419,12 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "List of payments received from car parks",
+      "description": "List of payments received from car parks (1 HOUR INTERVAL)",
       "gridPos": {
         "h": 8,
-        "w": 11,
-        "x": 13,
-        "y": 11
+        "w": 12,
+        "x": 12,
+        "y": 12
       },
       "id": 2,
       "options": {
@@ -493,14 +505,13 @@
               "table": "payment_parking"
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT sensor_name, gather_time, bill AS \"Payment amount (€)\" FROM \"sc_database\".\"payment_parking\"",
+          "rawSql": "SELECT sensor_name, gather_time, bill AS \"Importo pagamento (€)\" \nFROM \"sc_database\".\"payment_parking\"\nWHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote})\nAND gather_time >= NOW() - INTERVAL 1 HOUR;",
           "refId": "A"
         }
       ],
-      "title": "Parking payments received",
-      "transparent": true,
+      "title": "Parking payments received (1 HR)",
       "type": "logs"
     }
   ],
@@ -508,7 +519,37 @@
   "schemaVersion": 39,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Garage Milano"
+          ],
+          "value": [
+            "Garage Milano"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.\"parking\"",
+        "description": "Select your preferred parking sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Parking sensor",
+        "multi": true,
+        "name": "parking_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.\"parking\"",
+        "refresh": 1,
+        "regex": "/^(.*?)\\s*-\\s*/gm",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
