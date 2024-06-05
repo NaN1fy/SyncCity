@@ -28,6 +28,430 @@
         "x": 0,
         "y": 0
       },
+      "id": 6,
+      "panels": [],
+      "title": "Parking map",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Map showing the percentage of parking occupancy",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "false": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "No data available"
+                },
+                "true": {
+                  "index": 1,
+                  "text": "⠀"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 40
+              },
+              {
+                "color": "dark-orange",
+                "value": 60
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 5,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "field": "in_time_range",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.3,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "B icon_size",
+                  "fixed": 15,
+                  "max": 20,
+                  "min": 1
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/x-mark.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "text": {
+                  "field": "in_time_range",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetY": 25,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "B"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "no_data",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "occupancy_percentage",
+                  "fixed": "dark-red"
+                },
+                "opacity": 1,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 20,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "text": {
+                  "field": "parking_name",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 40,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Legend",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "opacity": 0,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 20,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "text": {
+                  "field": "occupancy_percentage",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "%",
+            "tooltip": false,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 45.402399,
+          "lon": 11.880741,
+          "zoom": 14
+        }
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "latitude",
+                "type": "Float64"
+              },
+              {
+                "custom": false,
+                "name": "longitude",
+                "type": "Float64"
+              },
+              {
+                "custom": false,
+                "name": "is_available",
+                "type": "UInt8"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "parking_mv"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "latitude",
+                  "type": "Float64"
+                },
+                {
+                  "custom": false,
+                  "name": "longitude",
+                  "type": "Float64"
+                },
+                {
+                  "custom": false,
+                  "name": "is_available",
+                  "type": "UInt8"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "parking_mv"
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "WITH distinct_sensors AS (\n  SELECT \n    sensor_name, \n    latitude, \n    longitude, \n    is_available,\n    gather_time\n  FROM \"sc_database\".\"parking_mv\"\n  WHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n  )\n  AND (gather_time >= $__fromTime AND gather_time <= $__toTime)\n),\nsensor_data AS (\n  SELECT \n    REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') AS parking_name,\n    latitude,\n    longitude,\n    is_available\n  FROM distinct_sensors\n  WHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote})\n),\nparking_counts AS (\n  SELECT \n    parking_name,\n    AVG(latitude) AS latitude, \n    AVG(longitude) AS longitude, \n    COUNT(*) AS total_sensors,\n    SUM(CASE WHEN is_available THEN 1 ELSE 0 END) AS available_sensors,\n    SUM(CASE WHEN NOT is_available THEN 1 ELSE 0 END) AS occupied_sensors\n  FROM sensor_data\n  GROUP BY parking_name\n)\nSELECT \n  parking_name,\n  latitude, \n  longitude,\n  (occupied_sensors::float / total_sensors::float) * 100 AS occupancy_percentage\nFROM parking_counts;\n",
+          "refId": "A"
+        },
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "latitude",
+                "type": "Float64"
+              },
+              {
+                "custom": false,
+                "name": "longitude",
+                "type": "Float64"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "limit": 0,
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "parking"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "latitude",
+                  "type": "Float64"
+                },
+                {
+                  "custom": false,
+                  "name": "longitude",
+                  "type": "Float64"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "parking"
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "WITH distinct_sensors AS (\n  SELECT \n    sensor_name, \n    latitude, \n    longitude,\n    gather_time\n  FROM \"sc_database\".\"parking_mv\"\n  WHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n  )\n),\nsensor_data AS (\n  SELECT \n    REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') AS parking_name,\n    latitude,\n    longitude,\n    CASE WHEN gather_time >= $__fromTime AND gather_time <= $__toTime THEN 1 ELSE 0 END AS in_time_range\n  FROM distinct_sensors\n  WHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote})\n),\nparking_counts AS (\n  SELECT \n    parking_name,\n    AVG(latitude) AS latitude, \n    AVG(longitude) AS longitude,\n    SUM(in_time_range) AS total_in_time_range\n  FROM sensor_data\n  GROUP BY parking_name\n)\n\nSELECT \n  latitude,\n  longitude,\n  CASE WHEN total_in_time_range > 0 THEN true ELSE false END AS in_time_range,\n  CASE WHEN total_in_time_range > 0 THEN 1 ELSE 15 END AS icon_size\nFROM parking_counts;\n",
+          "refId": "B"
+        }
+      ],
+      "title": "Parking occupancy",
+      "type": "geomap"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
       "id": 4,
       "panels": [],
       "title": "Parking monitoring",
@@ -42,6 +466,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "fixedColor": "dark-red",
             "mode": "thresholds"
           },
           "custom": {
@@ -53,6 +478,7 @@
           },
           "fieldMinMax": false,
           "mappings": [],
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -86,7 +512,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 16
       },
       "id": 1,
       "options": {
@@ -196,7 +622,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT\n    sensor_name AS \"Parking - Spot\" , \n    CASE \n        WHEN is_available = TRUE THEN 'Unoccupied'\n        WHEN is_available = FALSE THEN 'Occupied'\n    END AS \"AVAILABILITY\",\n    CASE \n        WHEN plate = '' THEN 'No information on the license plate' \n        ELSE plate\n    END AS \"PLATE\",\n    DATE_FORMAT(gather_time, '%d %b %Y, %H:%i:%s') AS \"READING\", \n    CONCAT(ROUND(layoff / 60.0, 2), ' min') \n    AS \"DURATION\"\nFROM \"sc_database\".\"parking\"\nWHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n)\nAND (REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote}))\nORDER BY sensor_name ASC\n",
+          "rawSql": "SELECT\n    sensor_name AS \"Parking - Spot\" , \n    CASE \n        WHEN is_available = TRUE THEN 'Unoccupied'\n        WHEN is_available = FALSE THEN 'Occupied'\n    END AS \"AVAILABILITY\",\n    CASE \n        WHEN plate = '' THEN 'No information on the license plate' \n        ELSE plate\n    END AS \"PLATE\",\n    DATE_FORMAT(gather_time, '%d %b %Y, %H:%i:%s') AS \"READING\", \n    CONCAT(ROUND(layoff / 60.0, 2), ' min') \n    AS \"DURATION\"\nFROM \"sc_database\".\"parking\"\nWHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n)\nAND (REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote}))\nAND (gather_time >= $__fromTime AND gather_time <= $__toTime)\nORDER BY sensor_name ASC\n",
           "refId": "A"
         }
       ],
@@ -208,7 +634,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "General payment information  (1 HOUR INTERVAL)",
+      "description": "General payment information, not affected by parking selection",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -216,7 +642,29 @@
           },
           "decimals": 2,
           "fieldMinMax": false,
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "No data in the specified interval"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "nan",
+                "result": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "No data in the specified interval"
+                }
+              },
+              "type": "special"
+            }
+          ],
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -239,7 +687,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 12
+        "y": 27
       },
       "id": 3,
       "options": {
@@ -323,7 +771,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(bill) AS \"Average payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE gather_time >= NOW() - INTERVAL 1 HOUR",
+          "rawSql": "SELECT AVG(bill) AS \"Average payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)",
           "refId": "A"
         },
         {
@@ -384,7 +832,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT MAX(bill) AS \"Highest payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE gather_time >= NOW() - INTERVAL 1 HOUR",
+          "rawSql": "SELECT MAX(bill) AS \"Highest payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)",
           "refId": "B"
         },
         {
@@ -407,11 +855,11 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT MIN(bill) AS \"Lowest payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE gather_time >= NOW() - INTERVAL 1 HOUR",
+          "rawSql": "SELECT MIN(bill) AS \"Lowest payment\" FROM \"sc_database\".\"payment_parking_mv\"\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)",
           "refId": "C"
         }
       ],
-      "title": "Payment miscellaneous (1 HR)",
+      "title": "Payment miscellaneous",
       "type": "bargauge"
     },
     {
@@ -419,12 +867,12 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "List of payments received from car parks (1 HOUR INTERVAL)",
+      "description": "List of payments received from car parks",
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 12
+        "y": 27
       },
       "id": 2,
       "options": {
@@ -507,15 +955,15 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT sensor_name, gather_time, bill AS \"Importo pagamento (€)\" \nFROM \"sc_database\".\"payment_parking\"\nWHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote})\nAND gather_time >= NOW() - INTERVAL 1 HOUR;",
+          "rawSql": "SELECT sensor_name, gather_time, bill AS \"Payment amount (€)\" \nFROM \"sc_database\".\"payment_parking\"\nWHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote})\nAND (gather_time >= $__fromTime AND gather_time <= $__toTime)",
           "refId": "A"
         }
       ],
-      "title": "Parking payments received (1 HR)",
+      "title": "Parking payments received",
       "type": "logs"
     }
   ],
-  "refresh": "auto",
+  "refresh": "5s",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -524,10 +972,14 @@
         "current": {
           "selected": true,
           "text": [
-            "Garage Milano"
+            "Garage Milano",
+            "Interparking Italia Srl",
+            "Parcheggio Ospedale Padova"
           ],
           "value": [
-            "Garage Milano"
+            "Garage Milano",
+            "Interparking Italia Srl",
+            "Parcheggio Ospedale Padova"
           ]
         },
         "datasource": {
@@ -552,7 +1004,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timeRangeUpdatedDuringEditOrView": false,

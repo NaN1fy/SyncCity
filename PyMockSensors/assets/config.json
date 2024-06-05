@@ -167,6 +167,96 @@
         11.870552
       ]
     }
+  },
+  {
+    "type": "payment_parking",
+    "name": "Parcheggio Ospedale Padova",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402029, 
+        11.890615
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Parcheggio Ospedale Padova - stallo 1",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402029, 
+        11.890615
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Parcheggio Ospedale Padova - stallo 2",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402030, 
+        11.890615
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Parcheggio Ospedale Padova - stallo 3",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402031, 
+        11.890615
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Parcheggio Ospedale Padova - stallo 4",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402030, 
+        11.890616
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Parcheggio Ospedale Padova - stallo 6",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402032, 
+        11.890615
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Parcheggio Ospedale Padova - stallo 7",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402032, 
+        11.890617
+      ]
+    }
+  },
+  {
+    "type": "parking",
+    "name": "Parcheggio Ospedale Padova - stallo 8",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [ 
+        45.402032, 
+        11.890614
+      ]
+    }
   }
 ]
+
+
 

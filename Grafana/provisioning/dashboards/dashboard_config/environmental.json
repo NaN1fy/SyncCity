@@ -79,6 +79,7 @@
           },
           "decimals": 2,
           "mappings": [],
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -275,6 +276,7 @@
           },
           "decimals": 2,
           "mappings": [],
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -573,6 +575,7 @@
             }
           },
           "mappings": [],
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -754,6 +757,7 @@
           "mappings": [],
           "max": 53,
           "min": 0,
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -898,7 +902,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nwhere gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
+          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name)) t1",
           "refId": "temp"
         }
       ],
@@ -919,6 +923,7 @@
           "mappings": [],
           "max": 53,
           "min": 0,
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -992,7 +997,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nwhere gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
+          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
           "refId": "temp"
         },
         {
@@ -1015,7 +1020,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nwhere gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
+          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
           "refId": "hum"
         },
         {
@@ -1047,6 +1052,7 @@
           "mappings": [],
           "max": 100,
           "min": 0,
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1102,7 +1108,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nwhere gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
+          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from humidity group by sensor_name)) h1",
           "refId": "A"
         }
       ],
@@ -1624,8 +1630,8 @@
     ]
   },
   "time": {
-    "from": "2024-05-30T00:01:58.030Z",
-    "to": "2024-05-31T00:29:50.380Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},

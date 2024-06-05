@@ -23,7 +23,7 @@ services:
       timeout: 1m
       retries: 10
     profiles: ["prod", "test"]
-  
+
   clickhouse:
     image: "clickhouse/clickhouse-server:latest"
     container_name: clickhouse
@@ -55,11 +55,11 @@ services:
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
       - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
-      # - GF_AUTH_ORG_ROLE=viewer
-      # - GF_AUTH_ANONYMOUS_ENABLED=true
-      # - GF_AUTH_DISABLE_LOGIN_FORM=true
-      # - GF_USERS_ALLOW_SIGN_IN=false
-      # - GF_AUTH_DISABLE_SIGNOUT_MENU=true
+      - GF_AUTH_ORG_ROLE=viewer
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_USERS_ALLOW_SIGN_IN=false
+      - GF_AUTH_DISABLE_SIGNOUT_MENU=true
     depends_on:
       clickhouse:
         condition: service_healthy
@@ -70,14 +70,14 @@ services:
       context: ./PyMockSensors
       target: prod
     container_name: pymocksensors
-    environment: 
+    environment:
       INDENT_JSON: True
       TZ: "Europe/Rome"
     depends_on:
       kafka:
         condition: service_healthy
     profiles: ["prod"]
-    
+
   pymocksensors-test:
     build:
       context: ./PyMockSensors

@@ -29,14 +29,14 @@ class ParkingSensor(SensorInterface):
     def _send_signal(self) -> None:
         now = self._gather_time.now()
         gambling = self._socrates.randint(0, 100)
-        cool_down = self._socrates.randint(5, 10)
+        cool_down = self._socrates.randint(5, 20)
         if not self.__is_available:
             if now > (self.__arrival + timedelta(seconds = self.__lay_off)):
                 with signal_lock[SensorType.PARKING]:
                     signal_list[SensorType.PARKING].append(self._sensor_id) 
         elif self.__is_available:
             sleep(cool_down)
-            if gambling > 40:
+            if gambling < 30:
                 with signal_lock[SensorType.PARKING]:
                     signal_list[SensorType.PARKING].append(self._sensor_id)
 

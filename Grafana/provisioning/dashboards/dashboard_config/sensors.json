@@ -21,11 +21,24 @@
   "links": [],
   "panels": [
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "panels": [],
+      "title": "List of sensors",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "\"Map indicating the location of the sensors\"",
+      "description": "Map indicating the location of the sensors",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -58,9 +71,9 @@
       },
       "gridPos": {
         "h": 21,
-        "w": 21,
+        "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 1,
       "options": {
@@ -68,7 +81,7 @@
           "config": {},
           "name": "Layer 0",
           "opacity": 0.9,
-          "type": "xyz"
+          "type": "default"
         },
         "controls": {
           "mouseWheelZoom": true,
@@ -296,7 +309,7 @@
           "id": "coords",
           "lat": 45.405218,
           "lon": 11.881421,
-          "zoom": 13.6
+          "zoom": 14
         }
       },
       "pluginVersion": "11.0.0",
