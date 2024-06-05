@@ -8,7 +8,7 @@ Proponente: [SyncLab](https://www.synclab.it/home)
 - [Docker](https://www.docker.com): come sistema di containerizzazione;
 - [pytest](https://docs.pytest.org/en/8.0.x/): framework di test Python per unit ed integration testing;
 - [Apache Kafka](https://kafka.apache.org): per gestire il gathering dei dati da più fonti;
-- [ClickHouse](https://clickhouse.com): come database noSql colonnare;
+- [ClickHouse](https://clickhouse.com): come database colonnare;
 - [Grafana](https://grafana.com): come piattaforma di data visualization delle informazioni. 
 
 ## Utilizzo
