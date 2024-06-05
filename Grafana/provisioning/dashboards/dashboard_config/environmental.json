@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
   "links": [],
   "panels": [
     {
@@ -80,6 +79,7 @@
           },
           "decimals": 2,
           "mappings": [],
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -124,6 +124,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -221,7 +222,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Temperature, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "rawSql": "SELECT gather_time as time, readings as Temperature, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "temp"
         }
       ],
@@ -275,6 +276,7 @@
           },
           "decimals": 2,
           "mappings": [],
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -319,6 +321,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -416,7 +419,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "rawSql": "SELECT gather_time as time, readings, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "temp"
         },
         {
@@ -464,11 +467,54 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "editorType": "builder",
+          "editorType": "sql",
           "format": 0,
           "hide": true,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "readings",
+                  "type": "Int32"
+                },
+                {
+                  "hint": "time",
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                }
+              ],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "aggregate",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "ASC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "timeseries",
+              "table": "humidity"
+            }
+          },
           "pluginVersion": "4.0.8",
-          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "hum"
         },
         {
@@ -529,6 +575,7 @@
             }
           },
           "mappings": [],
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -577,6 +624,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         }
@@ -673,7 +721,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Humidity, sensor_name FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+          "rawSql": "SELECT gather_time as time, readings as Humidity, sensor_name FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
           "refId": "A"
         }
       ],
@@ -709,6 +757,7 @@
           "mappings": [],
           "max": 53,
           "min": 0,
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -760,7 +809,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "builderOptions": {
@@ -853,7 +902,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nwhere gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
+          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name)) t1",
           "refId": "temp"
         }
       ],
@@ -874,6 +923,7 @@
           "mappings": [],
           "max": 53,
           "min": 0,
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -925,7 +975,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -947,7 +997,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nwhere gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
+          "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
           "refId": "temp"
         },
         {
@@ -970,7 +1020,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nwhere gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
+          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
           "refId": "hum"
         },
         {
@@ -1002,12 +1052,12 @@
           "mappings": [],
           "max": 100,
           "min": 0,
+          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1037,7 +1087,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "datasource": {
@@ -1058,7 +1108,7 @@
           },
           "pluginVersion": "4.0.8",
           "queryType": "table",
-          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nwhere gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
+          "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from humidity group by sensor_name)) h1",
           "refId": "A"
         }
       ],
@@ -1117,8 +1167,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#ffff66",
@@ -1308,6 +1357,7 @@
         "showValue": "auto",
         "stacking": "none",
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         },
@@ -1381,8 +1431,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1492,6 +1541,7 @@
         "showValue": "always",
         "stacking": "none",
         "tooltip": {
+          "maxHeight": 600,
           "mode": "single",
           "sort": "none"
         },
@@ -1544,21 +1594,50 @@
       "type": "barchart"
     }
   ],
-  "refresh": "",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Padova, Prato della Valle"
+          ],
+          "value": [
+            "Padova, Prato della Valle"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.temperature",
+        "description": "Select your preferred temperature sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Temperature sensor",
+        "multi": true,
+        "name": "temperature_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.temperature",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "now/fy",
-    "to": "now/fy"
+    "from": "now-5m",
+    "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,  
+  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
   "title": "Environmental",
   "uid": "cdn2oqslg9a80d",
-  "version": 6,
+  "version": 1,
   "weekStart": ""
 }
