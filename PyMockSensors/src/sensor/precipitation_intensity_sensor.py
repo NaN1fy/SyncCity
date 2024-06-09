@@ -14,6 +14,9 @@ from src.toolkit.jsonfy import jsonfy
 
 class PrecipitationIntensitySensor(SensorInterface):
     # __noise = None
+    __is_raining: bool = False
+    __rain = 0
+    __intensity = 0
 
     def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random, temporal_second_delay: int):
         super().__init__(sensor_name, gather_time, coordinates, socrates, temporal_second_delay)
@@ -23,33 +26,40 @@ class PrecipitationIntensitySensor(SensorInterface):
         return SensorType.PRECIPITATION_INTENSITY
 
     def _send_signal(self) -> None:
-        sleep(self._temporal_second_delay)
-        with signal_lock[SensorType.HUMIDITY]:
-            signal_list[SensorType.HUMIDITY].append(self._sensor_id)
+        if self.__is_raining:
+            sleep(self._temporal_second_delay)
+        else:
+            sleep(self._temporal_second_delay*10)
+        with signal_lock[SensorType.PRECIPITATION_INTENSITY]:
+            signal_list[SensorType.PRECIPITATION_INTENSITY].append(self._sensor_id)
 
     def simulate(self) -> str:
-        now = self._gather_time.now()
-        hour = int(now.strftime("%H"))
-        month = now.month
-        absolute_humidity, night_saturation, mid_saturation, noon_saturation = HUMID_RANGE[int(month)]
-        variance = self._socrates.random()
-        absolute_value = self._socrates.uniform(absolute_humidity - variance, absolute_humidity + variance)
-        if (hour >= 5 and hour < 11) or (hour >= 17 and hour < 23):
-            simulated_value = round((absolute_value / mid_saturation) * 100)
-        if hour >= 11 and hour < 17:
-            simulated_value = round((absolute_value / noon_saturation) * 100)
-        if hour >= 23 or hour < 5:
-            simulated_value = round((absolute_value / night_saturation) * 100)
-        if simulated_value > 100: 
-            simulated_value = 100
+        if self.__is_raining:
+            self.__intensity += self._socrates.uniform(-self.__intensity, 1 - self.__intensity) * 0.7
+            if self.__intensity < 0.25:
+                self.__rain -= self._socrates.uniform(0,2)
+            if self.__intensity > 0.25 and self.__intensity < 0.60:
+                self.__rain += self._socrates.uniform(0,1) - self._socrates.uniform(0,1)
+            if self.__intensity > 0.6 and self.__intensity < 0.85:
+                self.__rain += self._socrates.randint(0,2)
+            if self.__intensity > 0.85:
+                self.__rain += self._socrates.randint(5,10)
+            if self.__intensity > 0.95:
+                self.__rain += self._socrates.randint(10,15)
+        if not self.__is_raining and self._socrates.uniform(0,1) > 0.7:
+            self.__is_raining = True
+            self.__rain = self._socrates.uniform(0,2)
+        if self.__is_raining and self.__rain <= 0:
+            self.__rain = 0
+            self.__is_raining = False
         reading = {
-            "type": "%",
-            "value": simulated_value
+            "type": "mm/h",
+            "value": self.__rain
         }
         return jsonfy(
             sensor_name=self._sensor_name,
             sensor_id=self._sensor_id,
-            sensor_type=SensorType.HUMIDITY,
+            sensor_type=SensorType.PRECIPITATION_INTENSITY,
             gather_time=str(self._gather_time.now()),
             coordinates=self._coordinates,
             readings=[reading]
