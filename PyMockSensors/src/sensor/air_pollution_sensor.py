@@ -58,7 +58,7 @@ class AirPollutionSensor(SensorInterface):
             "PM2.5": round(self.__PM_25),
             "PM10": round(self.__PM_10),
             "O3": round(self.__O3),
-            "NO2": round(self.__NO2),
+            "NO2": round(self.__NO2)
             # "SO2": round(self.__SO2),
             # "CO": round(self.__CO)
         }
