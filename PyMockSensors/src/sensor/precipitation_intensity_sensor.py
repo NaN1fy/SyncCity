@@ -54,7 +54,7 @@ class PrecipitationIntensitySensor(SensorInterface):
             self.__is_raining = False
         reading = {
             "type": "mm/h",
-            "value": self.__rain
+            "value": round(self.__rain,1)
         }
         return jsonfy(
             sensor_name=self._sensor_name,
