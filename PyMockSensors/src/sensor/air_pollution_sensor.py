@@ -44,13 +44,13 @@ class AirPollutionSensor(SensorInterface):
             # self.__SO2 += self._socrates.uniform()
             # self.__CO += self._socrates.uniform()
         else:
-            self.__PM_25 += self._socrates.uniform(0,2) - self._socrates.uniform(0,2)
-            self.__PM_10 += self._socrates.uniform(0,2) - self._socrates.uniform(0,2)
-            self.__O3 += self._socrates.uniform(0,2) - self._socrates.uniform(0,2)
-            self.__NO2 += self._socrates.uniform(0,2) - self._socrates.uniform(0,2)
+            self.__PM_25 += self._socrates.uniform(-1,1)
+            self.__PM_10 += self._socrates.uniform(-1,1)
+            self.__O3 += self._socrates.uniform(-1,1)
+            self.__NO2 += self._socrates.uniform(-1,1)
             # self.__SO2 += self._socrates.uniform() - self._socrates.uniform()
             # self.__CO += self._socrates.uniform() - self._socrates.uniform()
-            if self._socrates.uniform(0,1) > 0.9:
+            if self._socrates.uniform(0,1) > 0.95:
                 self.__is_polluted = True
 
         reading = {
