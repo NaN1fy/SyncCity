@@ -12,7 +12,7 @@ def test_air_pollution_sensor():
     simulated_datetime = datetime(2024, 4, 26, 12, 10, 0, 123456)
     simulated_id = "mocked-id"
     with patch.object(Random, 'uniform', return_value = 0):
-        with patch.object(Random, 'random', return_value = 0):
+        with patch.object(Random, 'random', return_value = 1):
             with patch('uuid.uuid4') as mocked_id:
                 random_obj = Random()
                 with patch('datetime.datetime') as mocked_datetime:
@@ -28,7 +28,7 @@ def test_air_pollution_sensor():
                         "sensor_name": "Arcella",
                         "sensor_id": "mocked-id",
                         "gather_time": "2024-04-26 12:10:00.123456",
-                        "readings": [{"type": "\u03BCg/m^3", "PM2.5": 5, "PM10": 15, "O3": 60, "NO2": 10}],
+                        "readings": [{"type": "\u03BCg/m^3", "PM2.5": 5.0, "PM10": 15.0, "O3": 60.0, "NO2": 10.0}],
                         "coordinates": {"type": "point", "coordinates": [45.406434, 11.879008]}
                     }
                     assert parsed_json == expected_json

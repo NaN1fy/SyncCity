@@ -14,11 +14,10 @@ from src.toolkit.jsonfy import jsonfy
 
 class AirPollutionSensor(SensorInterface):
     # __noise = None
-    __is_polluted = False
-    __PM_25 = 5
-    __PM_10 = 15
-    __O3 = 60
-    __NO2 = 10
+    __PM_25 = 5.0
+    __PM_10 = 15.0
+    __O3 = 60.0
+    __NO2 = 10.0
     # __SO2 = 40
     # __CO = 4000
 
@@ -35,30 +34,23 @@ class AirPollutionSensor(SensorInterface):
             signal_list[SensorType.AIR_POLLUTION].append(self._sensor_id)
 
     def simulate(self) -> str:
-        if self.__is_polluted:
-            self.__is_polluted = False
-            self.__PM_25 += self._socrates.uniform(15,20)
-            self.__PM_10 += self._socrates.uniform(15,20)
-            self.__O3 += self._socrates.uniform(30,40)
-            self.__NO2 += self._socrates.uniform(15,20)
-            # self.__SO2 += self._socrates.uniform()
-            # self.__CO += self._socrates.uniform()
+        if self._socrates.random() < 0.05:
+            self.__PM_25 += self._socrates.uniform(4, 7)
+            self.__PM_10 += self._socrates.uniform(4, 7)
+            self.__O3 += self._socrates.uniform(4, 8)
+            self.__NO2 += self._socrates.uniform(4, 7)
         else:
-            self.__PM_25 += self._socrates.uniform(-1,1)
-            self.__PM_10 += self._socrates.uniform(-1,1)
-            self.__O3 += self._socrates.uniform(-1,1)
-            self.__NO2 += self._socrates.uniform(-1,1)
-            # self.__SO2 += self._socrates.uniform() - self._socrates.uniform()
-            # self.__CO += self._socrates.uniform() - self._socrates.uniform()
-            if self._socrates.uniform(0,1) > 0.95:
-                self.__is_polluted = True
-
+            self.__PM_25 = max(5.0, min(self.__PM_25 + self._socrates.uniform(-2,2), 20.0)) 
+            self.__PM_10 = max(15.0, min(self.__PM_10 + self._socrates.uniform(-2,2), 30.0)) 
+            self.__O3 = max(60.0, min(self.__O3 + self._socrates.uniform(-2,2), 75.0)) 
+            self.__NO2 = max(10.0, min(self.__NO2 + self._socrates.uniform(-2,2), 25.0)) 
+            
         reading = {
             "type": "\u03BCg/m^3",
-            "PM2.5": round(self.__PM_25),
-            "PM10": round(self.__PM_10),
-            "O3": round(self.__O3),
-            "NO2": round(self.__NO2)
+            "PM2.5": round(self.__PM_25, 1),
+            "PM10": round(self.__PM_10, 1),
+            "O3": round(self.__O3, 1),
+            "NO2": round(self.__NO2, 1)
             # "SO2": round(self.__SO2),
             # "CO": round(self.__CO)
         }
