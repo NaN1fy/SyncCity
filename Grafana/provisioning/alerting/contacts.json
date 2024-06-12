@@ -1,20 +1,49 @@
 {
-    "apiVersion": 1,
-    "contactPoints": [
+  "apiVersion": 1,
+  "contactPoints": [
       {
-        "orgId": 1,
-        "name": "grafana-nan1fy-email",
-        "receivers": [
-          {
-            "uid": "ddokhqru4p1j5d",
-            "type": "email",
-            "settings": {
-              "addresses": "nan1fyteam.unipd@gmail.com",
-              "singleEmail": false
-            },
-            "disableResolveMessage": false
-          }
-        ]
+          "orgId": 1,
+          "name": "email receiver",
+          "receivers": [
+              {
+                  "uid": "adokqrs1a3fnkd",
+                  "type": "email",
+                  "settings": {
+                      "addresses": "<example@email.com>"
+                  },
+                  "disableResolveMessage": false
+              }
+          ]
+      },
+      {
+          "orgId": 1,
+          "name": "grafana-nan1fy-discord",
+          "receivers": [
+              {
+                  "uid": "ddokqrs1a3fnld",
+                  "type": "discord",
+                  "settings": {
+                      "url": "https://discord.com/api/webhooks/1250494205743202444/Vh4eMk51n_WV6AxSKSGO1OF-PQN2O2GUSj0B97g_vYmtCb7Rr7XRIQX5ZiEC8bt3cckn",
+                      "use_discord_username": false
+                  },
+                  "disableResolveMessage": false
+              }
+          ]
+      },
+      {
+          "orgId": 1,
+          "name": "grafana-nan1fy-email",
+          "receivers": [
+              {
+                  "uid": "ddokhqru4p1j5d",
+                  "type": "email",
+                  "settings": {
+                      "addresses": "nan1fyteam.unipd@gmail.com",
+                      "singleEmail": false
+                  },
+                  "disableResolveMessage": false
+              }
+          ]
       }
-    ]
-  }
+  ]
+}

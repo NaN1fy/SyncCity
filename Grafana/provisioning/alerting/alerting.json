@@ -1,250 +1,358 @@
 {
-  "apiVersion": 1,
-  "groups": [
-      {
-          "orgId": 1,
-          "name": "Heat_Index",
-          "folder": "Environmental_Alert",
-          "interval": "5m",
-          "rules": [
-              {
-                  "uid": "bdokau0kqv0u8f",
-                  "title": "Heat Index Above 27°C",
-                  "condition": "heat_index_treshold",
-                  "data": [
-                      {
-                          "refId": "temp",
-                          "queryType": "timeseries",
-                          "relativeTimeRange": {
-                              "from": 600,
-                              "to": 0
-                          },
-                          "datasourceUid": "PDEE91DDB90597936",
-                          "model": {
-                              "builderOptions": {
-                                  "columns": [
-                                      {
-                                          "hint": "time",
-                                          "name": "gather_time",
-                                          "type": "DateTime64(3)"
-                                      }
-                                  ],
-                                  "database": "sc_database",
-                                  "filters": [
-                                      {
-                                          "condition": "AND",
-                                          "filterType": "custom",
-                                          "hint": "time",
-                                          "key": "",
-                                          "operator": "WITH IN DASHBOARD TIME RANGE",
-                                          "type": "datetime"
-                                      }
-                                  ],
-                                  "limit": 1000,
-                                  "meta": {},
-                                  "mode": "list",
-                                  "orderBy": [
-                                      {
-                                          "default": true,
-                                          "dir": "ASC",
-                                          "hint": "time",
-                                          "name": ""
-                                      }
-                                  ],
-                                  "queryType": "timeseries",
-                                  "table": "temperature"
-                              },
-                              "editorType": "sql",
-                              "format": 0,
-                              "intervalMs": 1000,
-                              "maxDataPoints": 43200,
-                              "meta": {
-                                  "builderOptions": {
-                                      "columns": [
-                                          {
-                                              "hint": "time",
-                                              "name": "gather_time",
-                                              "type": "DateTime64(3)"
-                                          }
-                                      ],
-                                      "database": "sc_database",
-                                      "filters": [
-                                          {
-                                              "condition": "AND",
-                                              "filterType": "custom",
-                                              "hint": "time",
-                                              "key": "",
-                                              "operator": "WITH IN DASHBOARD TIME RANGE",
-                                              "type": "datetime"
-                                          }
-                                      ],
-                                      "limit": 1000,
-                                      "meta": {},
-                                      "mode": "list",
-                                      "orderBy": [
-                                          {
-                                              "default": true,
-                                              "dir": "ASC",
-                                              "hint": "time",
-                                              "name": ""
-                                          }
-                                      ],
-                                      "queryType": "timeseries",
-                                      "table": "temperature"
-                                  }
-                              },
-                              "pluginVersion": "4.0.8",
-                              "queryType": "timeseries",
-                              "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
-                              "refId": "temp"
-                          }
-                      },
-                      {
-                          "refId": "hum",
-                          "queryType": "table",
-                          "relativeTimeRange": {
-                              "from": 600,
-                              "to": 0
-                          },
-                          "datasourceUid": "PDEE91DDB90597936",
-                          "model": {
-                              "datasource": {
-                                  "type": "grafana-clickhouse-datasource",
-                                  "uid": "PDEE91DDB90597936"
-                              },
-                              "editorType": "sql",
-                              "format": 1,
-                              "intervalMs": 1000,
-                              "maxDataPoints": 43200,
-                              "meta": {
-                                  "builderOptions": {
-                                      "columns": [],
-                                      "database": "",
-                                      "limit": 1000,
-                                      "mode": "list",
-                                      "queryType": "table",
-                                      "table": ""
-                                  }
-                              },
-                              "pluginVersion": "4.0.8",
-                              "queryType": "table",
-                              "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
-                              "refId": "hum"
-                          }
-                      },
-                      {
-                          "refId": "heat_index",
-                          "relativeTimeRange": {
-                              "from": 600,
-                              "to": 0
-                          },
-                          "datasourceUid": "__expr__",
-                          "model": {
-                              "conditions": [
-                                  {
-                                      "evaluator": {
-                                          "params": [
-                                              0,
-                                              0
-                                          ],
-                                          "type": "gt"
-                                      },
-                                      "operator": {
-                                          "type": "and"
-                                      },
-                                      "query": {
-                                          "params": []
-                                      },
-                                      "reducer": {
-                                          "params": [],
-                                          "type": "avg"
-                                      },
-                                      "type": "query"
-                                  }
-                              ],
-                              "datasource": {
-                                  "name": "Expression",
-                                  "type": "__expr__",
-                                  "uid": "__expr__"
-                              },
-                              "expression": "(-8.78469475556)+((1.61139411)*${temp})+((2.338548839)*${hum})+((-0.146116050)*${temp}*${hum})+((-0.012308094)*(${temp}**2))+((-0.0164248277778)*(${hum}**2))+((0.002211732)*(${temp}**2)*${hum})+((0.00072546)*${temp}*(${hum}**2))+((-0.000003582)*(${temp}**2)*(${hum}**2))",
-                              "intervalMs": 1000,
-                              "maxDataPoints": 43200,
-                              "refId": "heat_index",
-                              "type": "math"
-                          }
-                      },
-                      {
-                          "refId": "heat_index_treshold",
-                          "relativeTimeRange": {
-                              "from": 600,
-                              "to": 0
-                          },
-                          "datasourceUid": "__expr__",
-                          "model": {
-                              "conditions": [
-                                  {
-                                      "evaluator": {
-                                          "params": [
-                                              27,
-                                              0
-                                          ],
-                                          "type": "gt"
-                                      },
-                                      "operator": {
-                                          "type": "and"
-                                      },
-                                      "query": {
-                                          "params": []
-                                      },
-                                      "reducer": {
-                                          "params": [],
-                                          "type": "avg"
-                                      },
-                                      "type": "query",
-                                      "unloadEvaluator": {
-                                          "params": [
-                                              27,
-                                              0
-                                          ],
-                                          "type": "lt"
-                                      }
-                                  }
-                              ],
-                              "datasource": {
-                                  "name": "Expression",
-                                  "type": "__expr__",
-                                  "uid": "__expr__"
-                              },
-                              "expression": "heat_index",
-                              "intervalMs": 1000,
-                              "maxDataPoints": 43200,
-                              "refId": "heat_index_treshold",
-                              "type": "threshold"
-                          }
-                      }
-                  ],
-                  "dasboardUid": "cdn2oqslg9a80d",
-                  "panelId": 11,
-                  "noDataState": "NoData",
-                  "execErrState": "Error",
-                  "for": "5m",
-                  "annotations": {
-                      "__dashboardUid__": "cdn2oqslg9a80d",
-                      "__panelId__": "11",
-                      "description": "Heat Index is above 27°C, caution when going outside.",
-                      "runbook_url": "",
-                      "summary": "Warning: Heat Index is above 27°C"
-                  },
-                  "labels": {
-                      "": ""
-                  },
-                  "isPaused": false,
-                  "notification_settings": {
-                      "receiver": "grafana-nan1fy-email"
-                  }
-              }
-          ]
-      }
-  ]
+    "apiVersion": 1,
+    "groups": [
+        {
+            "orgId": 1,
+            "name": "Heat_Index",
+            "folder": "Environmental_Alert",
+            "interval": "5m",
+            "rules": [
+                {
+                    "uid": "bdokau0kqv0u8f",
+                    "title": "Heat Index Above 27°C",
+                    "condition": "heat_index_treshold",
+                    "data": [
+                        {
+                            "refId": "temp",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "columns": [
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "limit": 1000,
+                                    "meta": {},
+                                    "mode": "list",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "temperature"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "columns": [
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "limit": 1000,
+                                        "meta": {},
+                                        "mode": "list",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "temperature"
+                                    }
+                                },
+                                "pluginVersion": "4.0.8",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
+                                "refId": "temp"
+                            }
+                        },
+                        {
+                            "refId": "hum",
+                            "queryType": "table",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 1,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "columns": [],
+                                        "database": "",
+                                        "limit": 1000,
+                                        "mode": "list",
+                                        "queryType": "table",
+                                        "table": ""
+                                    }
+                                },
+                                "pluginVersion": "4.0.8",
+                                "queryType": "table",
+                                "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
+                                "refId": "hum"
+                            }
+                        },
+                        {
+                            "refId": "heat_index",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0,
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "(-8.78469475556)+((1.61139411)*${temp})+((2.338548839)*${hum})+((-0.146116050)*${temp}*${hum})+((-0.012308094)*(${temp}**2))+((-0.0164248277778)*(${hum}**2))+((0.002211732)*(${temp}**2)*${hum})+((0.00072546)*${temp}*(${hum}**2))+((-0.000003582)*(${temp}**2)*(${hum}**2))",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "heat_index",
+                                "type": "math"
+                            }
+                        },
+                        {
+                            "refId": "heat_index_treshold",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                27,
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query",
+                                        "unloadEvaluator": {
+                                            "params": [
+                                                27,
+                                                0
+                                            ],
+                                            "type": "lt"
+                                        }
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "heat_index",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "heat_index_treshold",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dasboardUid": "cdn2oqslg9a80d",
+                    "panelId": 11,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "5m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "11",
+                        "description": "Heat Index is above 27°C, caution when going outside.",
+                        "runbook_url": "",
+                        "summary": "Warning: Heat Index is above 27°C"
+                    },
+                    "labels": {
+                        "": ""
+                    },
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-email"
+                    }
+                }
+            ]
+        },
+        {
+            "orgId": 1,
+            "name": "Temp",
+            "folder": "Environmental_Alert",
+            "interval": "1m",
+            "rules": [
+                {
+                    "uid": "edokr9omqt1q8b",
+                    "title": "Temperature below 15°C",
+                    "condition": "temp_treshold",
+                    "data": [
+                        {
+                            "refId": "temp",
+                            "queryType": "table",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "editorType": "sql",
+                                "format": 1,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "columns": [],
+                                        "database": "",
+                                        "limit": 1000,
+                                        "mode": "list",
+                                        "queryType": "table",
+                                        "table": ""
+                                    }
+                                },
+                                "pluginVersion": "4.0.8",
+                                "queryType": "table",
+                                "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name)) t1",
+                                "refId": "temp"
+                            }
+                        },
+                        {
+                            "refId": "temp_treshold",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                15
+                                            ],
+                                            "type": "lt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query",
+                                        "unloadEvaluator": {
+                                            "params": [
+                                                15
+                                            ],
+                                            "type": "gt"
+                                        }
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "temp",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "temp_treshold",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dasboardUid": "cdn2oqslg9a80d",
+                    "panelId": 3,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "3",
+                        "description": "La temperatura è sotto i 15°C. Attenzione! Rischia di fare freddo!\nQuesta notifica è di test, rimuovere quando non più necessaria",
+                        "summary": "Test - Temperatura sotto i 15°C"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                }
+            ]
+        }
+    ]
 }
