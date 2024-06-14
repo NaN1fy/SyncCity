@@ -2,7 +2,7 @@ from src.sensor.temperature_sensor import TemperatureSensor
 from src.sensor.humidity_sensor import HumiditySensor
 from src.sensor.precipitation_intensity_sensor import PrecipitationIntensitySensor
 from src.sensor.air_pollution_sensor import AirPollutionSensor
-# from src.sensor.water_level_sensor import WaterLevelSensor
+from src.sensor.water_level_sensor import WaterLevelSensor
 from src.sensor.parking_sensor import ParkingSensor
 from src.sensor.payment_parking_sensor import PaymentParkingSensor
 from src.sensor.electrical_failure_sensor import ElectricalFailureSensor
@@ -18,7 +18,7 @@ sensor_codex = {
     SensorType.HUMIDITY.value : HumiditySensor,
     SensorType.PRECIPITATION_INTENSITY.value : PrecipitationIntensitySensor,
     SensorType.AIR_POLLUTION.value : AirPollutionSensor,
-    # SensorType.WATER_LEVEL.value : WaterLevelSensor,
+    SensorType.WATER_LEVEL.value : WaterLevelSensor,
     SensorType.PARKING.value : ParkingSensor,
     SensorType.PAYMENT_PARKING.value : PaymentParkingSensor,
     SensorType.ELECTRICAL_FAILURE.value : ElectricalFailureSensor,

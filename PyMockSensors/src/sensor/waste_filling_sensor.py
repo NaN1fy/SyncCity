@@ -2,6 +2,7 @@ from datetime import datetime
 from random import Random, uniform
 from time import sleep
 from typing import Type
+
 import math
 
 from src.sensor.sensor_interface import SensorInterface
@@ -40,10 +41,10 @@ class WasteFillingSensor(SensorInterface):
 
         fill_change_rate = 0.0
 
-        if 8 <= now.hour <= 22:
-            fill_change_rate += self._socrates.uniform(5, 10) * (1 - self.__current_fill / self.__max_capacity)
+        if (8 <= now.hour <= 14) or (18 <= now.hour <= 22) :
+            fill_change_rate += self._socrates.uniform(25, 75) * (1 - self.__current_fill / self.__max_capacity)
         else:
-            fill_change_rate -= self._socrates.uniform(2, 4.5)
+            fill_change_rate -= self._socrates.uniform(20, 50)
 
         fill_change = fill_change_rate * elapsed_hours
         self.__current_fill = max(0, min(self.__max_capacity, self.__current_fill + fill_change))

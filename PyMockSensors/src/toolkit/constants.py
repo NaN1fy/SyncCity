@@ -16,6 +16,7 @@ signal_lock = {sensor: threading.Lock() for sensor in SensorType}
 
 SEC_IN_HOUR = 3600
 SEC_IN_DAY = 86400
+
 TEMP_RANGE = {
     0: (5, 9),
     1: (4, 9),

@@ -1,6 +1,6 @@
 [
   {
-    "type": "waste_filling",
+    "type": "water_level",
     "name": "Veritas",
     "temporal_second_delay": 2,
     "coordinates": {
