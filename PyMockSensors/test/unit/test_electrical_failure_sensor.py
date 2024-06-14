@@ -22,7 +22,6 @@ def test_electrical_failure_sensor():
                     sensor_simulator._ElectricalFailureSensor__sensor_id = simulated_id
                     json_data = sensor_simulator.simulate()
                     parsed_json = json.loads(json_data)
-                    print(parsed_json)
                     expected_json = {
                         "sensor_type": "electrical_failure",
                         "sensor_name": "Arcella",
