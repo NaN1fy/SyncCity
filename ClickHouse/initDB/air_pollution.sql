@@ -10,7 +10,10 @@ CREATE TABLE sc_database.air_pollution
     gather_time DATETIME64,
     latitude Float64,
     longitude Float64,
-    -- readings Float64
+    PM2_5 Float64,
+    PM10 Float64,
+    O3 Float64,
+    NO2 Float64
 ) ENGINE = MergeTree()
     ORDER BY (sensor_id, gather_time);
 
@@ -23,6 +26,8 @@ SELECT
     toDateTime64(JSONExtractString(rawJSON, 'gather_time'), 0) AS gather_time,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 1) AS latitude,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 2) AS longitude,
-    -- JSONExtractFloat(rawJSON, 'readings', 1, 'value') AS readings
-    -- da fare extractarray siccome le letture sono molteplici campi
+    JSONExtractFloat(rawJSON, 'readings', 'PM2.5') AS PM2_5,
+    JSONExtractFloat(rawJSON, 'readings', 'PM10') AS PM10,
+    JSONExtractFloat(rawJSON, 'readings', 'O3') AS O3,
+    JSONExtractFloat(rawJSON, 'readings', 'NO2') AS NO
 FROM sc_database.topic_air_pollution;

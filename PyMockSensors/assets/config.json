@@ -303,6 +303,30 @@
         11.901663
       ]
     }
+  },
+  {
+    "type": "air_pollution",
+    "name": "Stazione pr.à Giramele",
+    "temporal_second_delay": 10,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          5.436075, 
+          11.789086
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. Stazione ferr. Padova",
+    "temporal_second_delay": 10,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.418300, 
+          11.878522
+      ]
+    }
   }
 ]
 

@@ -42,11 +42,11 @@ class ElectricalFailureSensor(SensorInterface):
             self.__repair_time = self._socrates.uniform(60,180)
         else:
             self.__is_ok = True
-            self.__occurrence = None
+            self.__occurrence = self._gather_time.now()
             self.__repair_time = 0
         reading = {
-            "is_working" : self.__is_ok,
-            "occurrence" : self.__occurrence,
+            "is_ok" : self.__is_ok,
+            "occurrence_fault" : str(self.__occurrence),
             "repair_time" : self.__repair_time
         }
 
@@ -56,5 +56,5 @@ class ElectricalFailureSensor(SensorInterface):
             sensor_type=SensorType.ELECTRICAL_FAILURE,
             gather_time=str(self._gather_time.now()),
             coordinates=self._coordinates,
-            readings= [reading]
+            readings=[reading]
         )

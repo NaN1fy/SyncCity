@@ -10,7 +10,9 @@ CREATE TABLE sc_database.electrical_failure
     gather_time DATETIME64,
     latitude Float64,
     longitude Float64,
-    -- readings Float64
+    is_ok Bool,
+    repair_time Float64,
+    occurrence_fault DATETIME64
 ) ENGINE = MergeTree()
     ORDER BY (sensor_id, gather_time);
 
@@ -23,6 +25,7 @@ SELECT
     toDateTime64(JSONExtractString(rawJSON, 'gather_time'), 0) AS gather_time,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 1) AS latitude,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 2) AS longitude,
-    -- JSONExtractFloat(rawJSON, 'readings', 1, 'value') AS readings
-    -- da fare extractarray siccome le letture sono molteplici campi
+    JSONExtractBool(rawJSON, 'readings', 'is_ok') AS is_ok,
+    JSONExtractFloat(rawJSON, 'readings', 'repair_time') AS repair_time,
+    toDateTime64(JSONExtractString(rawJSON, 'readings', 'occurrence_fault'), 0) AS occurrence_fault
 FROM sc_database.topic_electrical_failure;
