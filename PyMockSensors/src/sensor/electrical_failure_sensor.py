@@ -31,7 +31,7 @@ class ElectricalFailureSensor(SensorInterface):
             sleep(self._temporal_second_delay)
             with signal_lock[SensorType.ELECTRICAL_FAILURE]:
                 signal_list[SensorType.ELECTRICAL_FAILURE].append(self._sensor_id) 
-        elif not self.__is_ok and self.__occurrence > (self.__repair_time + timedelta(seconds = self.__repair_time)):
+        elif not self.__is_ok and self._gather_time.now() > (self.__occurrence + timedelta(seconds = self.__repair_time)):
             with signal_lock[SensorType.ELECTRICAL_FAILURE]:
                 signal_list[SensorType.ELECTRICAL_FAILURE].append(self._sensor_id)
 
@@ -47,7 +47,7 @@ class ElectricalFailureSensor(SensorInterface):
         reading = {
             "is_ok" : self.__is_ok,
             "occurrence_fault" : str(self.__occurrence),
-            "repair_time" : self.__repair_time
+            "repair_time" : round(self.__repair_time, 2)
         }
 
         return jsonfy(

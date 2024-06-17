@@ -8,7 +8,7 @@ def main():
     config_file = open("assets/config.json", 'r')
     config = config_file.read()
     config_file.close()
-    ''' 
+    #'''
     simulator_ctrl_factory = SimulatorControllerFactory(
         config_file = config,
         stream_writer = STDOUT
