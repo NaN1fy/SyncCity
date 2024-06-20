@@ -27,5 +27,5 @@ SELECT
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 2) AS longitude,
     JSONExtractBool(rawJSON, 'readings', 'is_ok') AS is_ok,
     JSONExtractFloat(rawJSON, 'readings', 'repair_time') AS repair_time,
-    toDateTime64(JSONExtractString(rawJSON, 'readings', 'occurrence_fault'), 0) AS occurrence_fault
+    toDateTime64(JSONExtractString(rawJSON, 'readings', 'occurrence'), 0) AS occurrence_fault
 FROM sc_database.topic_electrical_failure;

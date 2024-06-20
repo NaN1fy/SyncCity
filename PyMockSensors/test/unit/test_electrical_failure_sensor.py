@@ -20,6 +20,7 @@ def test_electrical_failure_sensor():
                     mocked_id.return_value = simulated_id
                     sensor_simulator = ElectricalFailureSensor("Arcella", mocked_datetime, coordinates, random_obj, 1)
                     sensor_simulator._ElectricalFailureSensor__sensor_id = simulated_id
+                    sensor_simulator._ElectricalFailureSensor__occurrence = mocked_datetime
                     json_data = sensor_simulator.simulate()
                     parsed_json = json.loads(json_data)
                     expected_json = {
@@ -27,7 +28,7 @@ def test_electrical_failure_sensor():
                         "sensor_name": "Arcella",
                         "sensor_id": "mocked-id",
                         "gather_time": "2024-04-26 12:10:00.123456",
-                        "readings": [{"is_working": True, "occurrence": None, "repair_time": 0}],
+                        "readings": [{"is_ok": False, "occurrence": "2024-04-26 12:10:00.123456", "repair_time": 0}],
                         "coordinates": {"type": "point", "coordinates": [45.406434, 11.879008]}
                     }
                     assert parsed_json == expected_json

@@ -46,7 +46,7 @@ class ElectricalFailureSensor(SensorInterface):
             self.__repair_time = 0
         reading = {
             "is_ok" : self.__is_ok,
-            "occurrence_fault" : str(self.__occurrence),
+            "occurrence" : str(self.__occurrence),
             "repair_time" : round(self.__repair_time, 2)
         }
 
