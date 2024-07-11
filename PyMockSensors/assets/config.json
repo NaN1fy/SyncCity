@@ -294,7 +294,7 @@
   },
   {
     "type": "waste_filling",
-    "name": "AcegasApsAmga - Centro Raccolta ",
+    "name": "AcegasApsAmga - Centro Raccolta Stanga",
     "temporal_second_delay": 5,
     "coordinates": {
       "type": "geolocalization",
@@ -305,14 +305,38 @@
     }
   },
   {
+    "type": "waste_filling",
+    "name": "AcegasApsAmga - Centro Raccolta ZIP",
+    "temporal_second_delay": 7,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.396455,
+        11.933783
+      ]
+    }
+  },
+  {
     "type": "air_pollution",
     "name": "Stazione pr.à Giramele",
     "temporal_second_delay": 10,
     "coordinates": {
       "type": "geolocalization",
       "values": [
-          5.436075, 
+          45.436075, 
           11.789086
+      ]
+    }
+  },
+  {
+    "type": "air_pollution",
+    "name": "Piazza delle Erbe Padova",
+    "temporal_second_delay": 8,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.406942, 
+          11.875042
       ]
     }
   },
@@ -325,6 +349,78 @@
       "values": [
           45.418300, 
           11.878522
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. Arcella Padova",
+    "temporal_second_delay": 9,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.420307, 
+          11.878688
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. San Giuseppe Padova",
+    "temporal_second_delay": 12,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.407767, 
+          11.858548
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. Sacra Famiglia Padova",
+    "temporal_second_delay": 6,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.397839, 
+          11.861124
+      ]
+    }
+  },
+  {
+    "type": "precipitation_intensity",
+    "name": "Laghetto di Bosco",
+    "temporal_second_delay": 2.5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.439991,
+        11.787399
+      ]
+    }
+  },
+  {
+    "type": "precipitation_intensity",
+    "name": "Spazio 21",
+    "temporal_second_delay": 5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.390927,
+        11.954685
+      ]
+    }
+  },
+  {
+    "type": "precipitation_intensity",
+    "name": "Lago di Padova",
+    "temporal_second_delay": 2,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.417607,
+        11.929177
       ]
     }
   }
