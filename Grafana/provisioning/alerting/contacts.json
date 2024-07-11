@@ -29,21 +29,6 @@
                   "disableResolveMessage": false
               }
           ]
-      },
-      {
-          "orgId": 1,
-          "name": "grafana-nan1fy-email",
-          "receivers": [
-              {
-                  "uid": "ddokhqru4p1j5d",
-                  "type": "email",
-                  "settings": {
-                      "addresses": "nan1fyteam.unipd@gmail.com",
-                      "singleEmail": false
-                  },
-                  "disableResolveMessage": false
-              }
-          ]
       }
   ]
 }
