@@ -850,6 +850,118 @@
       "description": "Display of precipitation intensity in Padua."
     },
     {
+      "type": "timeseries",
+      "title": "Water Level in Padua, Italy",
+      "gridPos": {
+        "x": 17,
+        "y": 12,
+        "w": 12,
+        "h": 17
+      },
+      "datasource": {
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
+      },
+      "id": 12,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "refId": "A",
+          "editorType": "sql",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, readings as Water, sensor_name FROM \"sc_database\".\"water_level\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "single",
+          "sort": "none",
+          "maxHeight": 600
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear",
+            "barAlignment": 0,
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "spanNulls": false,
+            "insertNulls": false,
+            "showPoints": "auto",
+            "pointSize": 5,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisPlacement": "auto",
+            "axisLabel": "",
+            "axisColorMode": "text",
+            "axisBorderShow": false,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "axisCenteredZero": false,
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            },
+            "thresholdsStyle": {
+              "mode": "on"
+            }
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "value": 75,
+                "color": "#ffd700"
+              },
+              {
+                "color": "#ff0000",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "description": "Display of water level in Padua."
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -1173,13 +1285,34 @@
           "decimals": 2,
           "mappings": [],
           "max": 100,
-          "min": 0,
+          "min": 30,
           "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "#007bff",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 50
+              },
+              {
+                "color": "#ffff66",
+                "value": 70
+              },
+              {
+                "color": "#ffd700",
+                "value": 80
+              },
+              {
+                "color": "#ff8c00",
+                "value": 90
+              },
+              {
+                "color": "#ff0000",
+                "value": 100
               }
             ]
           },
@@ -1190,7 +1323,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 7,
+        "x": 0,
         "y": 26
       },
       "id": 10,
@@ -1237,6 +1370,96 @@
       "title": "Average Humidity in Padua, Italy",
       "type": "gauge",
       "description": "Display of average humidity in Padua."
+    },
+    {
+      "type": "gauge",
+      "title": "Average Precipitation Intensity in Padua, Italy",
+      "gridPos": {
+        "x": 12,
+        "y": 26,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
+      },
+      "id": 13,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "refId": "A",
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(pi1.readings)\r\nFROM \r\n(SELECT readings from precipitation_intensity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from precipitation_intensity group by sensor_name)) pi1",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "minVizWidth": 75,
+        "minVizHeight": 75
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "value": 6,
+                "color": "#EAB839"
+              },
+              {
+                "color": "orange",
+                "value": 10
+              },
+              {
+                "color": "red",
+                "value": 20
+              }
+            ]
+          },
+          "fieldMinMax": false,
+          "max": 30,
+          "min": 0
+        },
+        "overrides": []
+      },
+      "pluginVersion": "11.0.1",
+      "description": "Displays of average precipitations on Padua."
     },
     {
       "collapsed": false,
@@ -1717,10 +1940,40 @@
       "type": "barchart"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Padova, Prato della Valle"
+          ],
+          "value": [
+            "Padova, Prato della Valle"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.temperature",
+        "description": "Select your preferred temperature sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Temperature sensor",
+        "multi": true,
+        "name": "temperature_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.temperature",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
       {
         "current": {
           "selected": true,
@@ -1754,25 +2007,25 @@
         "current": {
           "selected": true,
           "text": [
-            "Padova, Prato della Valle"
+            "Stazione pr.à Giramele"
           ],
           "value": [
-            "Padova, Prato della Valle"
+            "Stazione pr.à Giramele"
           ]
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
           "uid": "PDEE91DDB90597936"
         },
-        "definition": "SELECT sensor_name FROM sc_database.temperature",
-        "description": "Select your preferred temperature sensor",
+        "definition": "SELECT sensor_name FROM sc_database.air_pollution",
+        "description": "Select your preferred air pollution sensor",
         "hide": 0,
         "includeAll": false,
-        "label": "Temperature sensor",
+        "label": "Air Pollution sensor",
         "multi": true,
-        "name": "temperature_sensor",
+        "name": "air_pollution_sensor",
         "options": [],
-        "query": "SELECT sensor_name FROM sc_database.temperature",
+        "query": "SELECT sensor_name FROM sc_database.air_pollution",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
