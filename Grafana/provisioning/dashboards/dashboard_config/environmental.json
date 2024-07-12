@@ -38,12 +38,12 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "Display of actual temperature vs heat index (apparent temperature).",
+      "description": "Display of actual temperature in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "transparent",
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
             "axisBorderShow": false,
@@ -74,7 +74,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "on"
             }
           },
           "decimals": 2,
@@ -612,7 +612,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 6,
+        "x": 0,
         "y": 9
       },
       "id": 6,
@@ -726,7 +726,128 @@
         }
       ],
       "title": "Humidity in Padua, Italy",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Display of humidity in Padua."
+    },
+    {
+      "type": "timeseries",
+      "title": "Precipitation Intensity in Padua, Italy",
+      "gridPos": {
+        "x": 12,
+        "y": 9,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
+      },
+      "id": 12,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "refId": "A",
+          "editorType": "sql",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, readings as Precipitation, sensor_name FROM \"sc_database\".\"precipitation_intensity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "single",
+          "sort": "none",
+          "maxHeight": 600
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear",
+            "barAlignment": 0,
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "spanNulls": false,
+            "insertNulls": false,
+            "showPoints": "auto",
+            "pointSize": 5,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisPlacement": "auto",
+            "axisLabel": "",
+            "axisColorMode": "text",
+            "axisBorderShow": false,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "axisCenteredZero": false,
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "value": 4,
+                "color": "#ffff66"
+              },
+              {
+                "value": 6,
+                "color": "#ffd700"
+              },
+              {
+                "value": 10,
+                "color": "#ff8c00"
+              },
+              {
+                "color": "#ff0000",
+                "value": 20
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "description": "Display of precipitation intensity in Padua."
     },
     {
       "collapsed": false,
@@ -746,12 +867,12 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "Display of actual temperature vs heat index (apparent temperature).",
+      "description": "Display of average temperature in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "transparent",
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "decimals": 2,
           "mappings": [],
@@ -1036,7 +1157,8 @@
         }
       ],
       "title": "Average Heat Index in Padua, Italy",
-      "type": "gauge"
+      "type": "gauge",
+      "description": "Display of average apparent temperature in Padua."
     },
     {
       "datasource": {
@@ -1046,7 +1168,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "decimals": 2,
           "mappings": [],
@@ -1113,7 +1235,8 @@
         }
       ],
       "title": "Average Humidity in Padua, Italy",
-      "type": "gauge"
+      "type": "gauge",
+      "description": "Display of average humidity in Padua."
     },
     {
       "collapsed": false,
@@ -1133,7 +1256,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "Display of actual temperature vs heat index (apparent temperature) located in Padua, Italy",
+      "description": "Display of statistics about apparent temperature in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1397,7 +1520,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "Temperature Statistics divided by location.",
+      "description": "Display of statistics about actual temperature in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1592,402 +1715,41 @@
       ],
       "title": "Temperature Statistics in Padua, Italy",
       "type": "barchart"
-    },
-    {
-      "datasource": {
-        "type": "grafana-clickhouse-datasource",
-        "uid": "PDEE91DDB90597936"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "transparent",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "noValue": "No data in the specified interval",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#ffff66",
-                "value": 4
-              },
-              {
-                "color": "#ffd700",
-                "value": 6
-              },
-              {
-                "color": "#ff8c00",
-                "value": 10
-              },
-              {
-                "color": "#ff0000",
-                "value": 20
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 1
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "builderOptions": {
-            "aggregates": [],
-            "columns": [
-              {
-                "custom": false,
-                "name": "readings",
-                "type": "Float64"
-              },
-              {
-                "hint": "time",
-                "name": "gather_time",
-                "type": "DateTime64(3)"
-              }
-            ],
-            "database": "sc_database",
-            "filters": [
-              {
-                "condition": "AND",
-                "filterType": "custom",
-                "hint": "time",
-                "key": "",
-                "operator": "WITH IN DASHBOARD TIME RANGE",
-                "type": "datetime"
-              }
-            ],
-            "groupBy": [],
-            "limit": 0,
-            "meta": {},
-            "mode": "aggregate",
-            "orderBy": [
-              {
-                "default": true,
-                "dir": "ASC",
-                "hint": "time",
-                "name": ""
-              }
-            ],
-            "queryType": "timeseries",
-            "table": "precipitation_intensity"
-          },
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
-          },
-          "editorType": "sql",
-          "format": 0,
-          "hide": false,
-          "meta": {
-            "builderOptions": {
-              "aggregates": [],
-              "columns": [
-                {
-                  "custom": false,
-                  "name": "readings",
-                  "type": "Float64"
-                },
-                {
-                  "hint": "time",
-                  "name": "gather_time",
-                  "type": "DateTime64(3)"
-                }
-              ],
-              "database": "sc_database",
-              "filters": [
-                {
-                  "condition": "AND",
-                  "filterType": "custom",
-                  "hint": "time",
-                  "key": "",
-                  "operator": "WITH IN DASHBOARD TIME RANGE",
-                  "type": "datetime"
-                }
-              ],
-              "groupBy": [],
-              "limit": 0,
-              "meta": {},
-              "mode": "aggregate",
-              "orderBy": [
-                {
-                  "default": true,
-                  "dir": "ASC",
-                  "hint": "time",
-                  "name": ""
-                }
-              ],
-              "queryType": "timeseries",
-              "table": "precipitation_intensity"
-            }
-          },
-          "pluginVersion": "4.0.8",
-          "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Precipitation, sensor_name FROM \"sc_database\".\"precipitation_intensity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
-          "refId": "prec"
-        }
-      ],
-      "title": "Precipitation Intensity in Padua, Italy",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "grafana-clickhouse-datasource",
-        "uid": "PDEE91DDB90597936"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "transparent",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 2,
-          "mappings": [],
-          "noValue": "No data in the specified interval",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#ff0000",
-                "value": null
-              },
-              {
-                "color": "#ffd700",
-                "value": 35
-              },
-              {
-                "color": "green",
-                "value": 50
-              },
-              {
-                "color": "#ffd700",
-                "value": 65
-              },
-              {
-                "color": "#ff0000",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 1
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "builderOptions": {
-            "aggregates": [],
-            "columns": [
-              {
-                "custom": false,
-                "name": "readings",
-                "type": "Float64"
-              },
-              {
-                "hint": "time",
-                "name": "gather_time",
-                "type": "DateTime64(3)"
-              }
-            ],
-            "database": "sc_database",
-            "filters": [
-              {
-                "condition": "AND",
-                "filterType": "custom",
-                "hint": "time",
-                "key": "",
-                "operator": "WITH IN DASHBOARD TIME RANGE",
-                "type": "datetime"
-              }
-            ],
-            "groupBy": [],
-            "limit": 0,
-            "meta": {},
-            "mode": "aggregate",
-            "orderBy": [
-              {
-                "default": true,
-                "dir": "ASC",
-                "hint": "time",
-                "name": ""
-              }
-            ],
-            "queryType": "timeseries",
-            "table": "water_level"
-          },
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
-          },
-          "editorType": "sql",
-          "format": 0,
-          "hide": false,
-          "meta": {
-            "builderOptions": {
-              "aggregates": [],
-              "columns": [
-                {
-                  "custom": false,
-                  "name": "readings",
-                  "type": "Float64"
-                },
-                {
-                  "hint": "time",
-                  "name": "gather_time",
-                  "type": "DateTime64(3)"
-                }
-              ],
-              "database": "sc_database",
-              "filters": [
-                {
-                  "condition": "AND",
-                  "filterType": "custom",
-                  "hint": "time",
-                  "key": "",
-                  "operator": "WITH IN DASHBOARD TIME RANGE",
-                  "type": "datetime"
-                }
-              ],
-              "groupBy": [],
-              "limit": 0,
-              "meta": {},
-              "mode": "aggregate",
-              "orderBy": [
-                {
-                  "default": true,
-                  "dir": "ASC",
-                  "hint": "time",
-                  "name": ""
-                }
-              ],
-              "queryType": "timeseries",
-              "table": "water_level"
-            }
-          },
-          "pluginVersion": "4.0.8",
-          "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Water, sensor_name FROM \"sc_database\".\"water_level\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${water_level_sensor:singlequote})) ORDER BY time ASC",
-          "refId": "water"
-        }
-      ],
-      "title": "Water Level in Padua, Italy",
-      "type": "timeseries"
     }
   ],
   "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Laghetto di Bosco"
+          ],
+          "value": [
+            "Laghetto di Bosco"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.precipitation_intensity",
+        "description": "Select your preferred precipitation sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Precipitation Intensity sensor",
+        "multi": true,
+        "name": "precipitation_intensity_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.precipitation_intensity",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
       {
         "current": {
           "selected": true,
