@@ -961,6 +961,19 @@
       ],
       "title": "Parking payments received",
       "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Electrical situation",
+      "type": "row"
     }
   ],
   "refresh": "5s",
@@ -997,6 +1010,70 @@
         "query": "SELECT sensor_name FROM sc_database.\"parking\"",
         "refresh": 1,
         "regex": "/^(.*?)\\s*-\\s*/gm",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "AcegasApsAmga - Centro Raccolta Stanga"
+          ],
+          "value": [
+            "AcegasApsAmga - Centro Raccolta Stanga"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.\"waste_filling\"",
+        "description": "Select your preferred waste filling sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Waste Filling sensor",
+        "multi": true,
+        "name": "waste_filling_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.\"waste_filling\"",
+        "refresh": 1,
+        "regex": "/^(.*?)\\s*-\\s*/gm",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "Centralina elettr. Stazione ferr. Padova",
+            "Centralina elettr. Arcella Padova",
+            "Centralina elettr. San Giuseppe Padova",
+            "Centralina elettr. Sacra Famiglia Padova"
+          ],
+          "value": [
+            "Centralina elettr. Stazione ferr. Padova",
+            "Centralina elettr. Arcella Padova",
+            "Centralina elettr. San Giuseppe Padova",
+            "Centralina elettr. Sacra Famiglia Padova"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.\"electrical_failure\"",
+        "description": "Select your electrical failure sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Electrical Failure sensor",
+        "multi": true,
+        "name": "electrical_failure_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.\"electrical_failure\"",
+        "refresh": 1,
+        "regex": "",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"

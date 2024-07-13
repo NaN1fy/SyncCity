@@ -850,56 +850,11 @@
       "description": "Display of precipitation intensity in Padua."
     },
     {
-      "type": "timeseries",
-      "title": "Water Level in Padua, Italy",
-      "gridPos": {
-        "x": 17,
-        "y": 12,
-        "w": 12,
-        "h": 17
-      },
       "datasource": {
-        "uid": "PDEE91DDB90597936",
-        "type": "grafana-clickhouse-datasource"
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
       },
-      "id": 12,
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
-          },
-          "refId": "A",
-          "editorType": "sql",
-          "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Water, sensor_name FROM \"sc_database\".\"water_level\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
-          "format": 0,
-          "meta": {
-            "builderOptions": {
-              "database": "",
-              "table": "",
-              "queryType": "table",
-              "columns": [],
-              "mode": "list",
-              "limit": 0
-            }
-          },
-          "pluginVersion": "4.3.0"
-        }
-      ],
-      "options": {
-        "tooltip": {
-          "mode": "single",
-          "sort": "none",
-          "maxHeight": 600
-        },
-        "legend": {
-          "showLegend": true,
-          "displayMode": "list",
-          "placement": "bottom",
-          "calcs": []
-        }
-      },
+      "description": "Display of water level in Padua.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -938,7 +893,6 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -947,19 +901,65 @@
                 "value": null
               },
               {
-                "value": 75,
-                "color": "#ffd700"
+                "color": "#ffd700",
+                "value": 75
               },
               {
                 "color": "#ff0000",
                 "value": 90
               }
             ]
-          }
+          },
+          "noValue": "No data in the specified interval"
         },
         "overrides": []
       },
-      "description": "Display of water level in Padua."
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 14,
+      "options": {
+        "tooltip": {
+          "mode": "single",
+          "sort": "none",
+          "maxHeight": 600
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 0,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, readings as Water, sensor_name FROM \"sc_database\".\"water_level\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
+          "refId": "A"
+        }
+      ],
+      "title": "Water Level in Padua, Italy",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -1460,6 +1460,97 @@
       },
       "pluginVersion": "11.0.1",
       "description": "Displays of average precipitations on Padua."
+    },
+    {
+      "type": "gauge",
+      "title": "Average Water Level in Padua, Italy",
+      "gridPos": {
+        "x": 8,
+        "y": 12,
+        "w": 12,
+        "h": 51
+      },
+      "datasource": {
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
+      },
+      "id": 13,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "refId": "A",
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(wl1.readings)\r\nFROM \r\n(SELECT readings from water_level\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from water_level group by sensor_name)) wl1",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "minVizWidth": 75,
+        "minVizHeight": 75
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No data in the specified interval",
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "value": 70,
+                "color": "#EAB839"
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "fieldMinMax": false,
+          "max": 0,
+          "min": 100
+        },
+        "overrides": []
+      },
+      "pluginVersion": "11.0.1",
+      "description": "Displays of average water level on Padua."
     },
     {
       "collapsed": false,
