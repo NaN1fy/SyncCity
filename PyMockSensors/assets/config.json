@@ -6,7 +6,7 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.407823, 
+        45.407823,
         11.873558
       ]
     }
@@ -18,7 +18,7 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.398986, 
+        45.398986,
         11.876357
       ]
     }
@@ -30,8 +30,8 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-          45.407823, 
-          11.873558
+        45.407823,
+        11.873558
       ]
     }
   },
@@ -53,7 +53,7 @@
     "coordinates": {
       "type": "geolocalization",
       "values": [
-        45.411738, 
+        45.411738,
         11.883438
       ]
     }
@@ -63,8 +63,8 @@
     "name": "Interparking Italia Srl - stallo 2",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.411737, 
+      "values": [
+        45.411737,
         11.883437
       ]
     }
@@ -74,8 +74,8 @@
     "name": "Interparking Italia Srl - stallo 3",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.411739, 
+      "values": [
+        45.411739,
         11.883437
       ]
     }
@@ -85,8 +85,8 @@
     "name": "Interparking Italia Srl - stallo 4",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.411737, 
+      "values": [
+        45.411737,
         11.883439
       ]
     }
@@ -96,8 +96,8 @@
     "name": "Interparking Italia Srl - stallo 5",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.411738, 
+      "values": [
+        45.411738,
         11.883439
       ]
     }
@@ -107,8 +107,8 @@
     "name": "Interparking Italia Srl - stallo 6",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.411738, 
+      "values": [
+        45.411738,
         11.883439
       ]
     }
@@ -116,10 +116,10 @@
   {
     "type": "payment_parking",
     "name": "Interparking Italia Srl",
-     "coordinates": {
+    "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.411739, 
+      "values": [
+        45.411739,
         11.883439
       ]
     }
@@ -127,10 +127,10 @@
   {
     "type": "payment_parking",
     "name": "Garage Milano",
-     "coordinates": {
+    "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.409030, 
+      "values": [
+        45.409030,
         11.870550
       ]
     }
@@ -140,7 +140,7 @@
     "name": "Garage Milano - stallo 1",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
+      "values": [
         45.409030,
         11.870550
       ]
@@ -151,7 +151,7 @@
     "name": "Garage Milano - stallo 2",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
+      "values": [
         45.409030,
         11.870551
       ]
@@ -162,7 +162,7 @@
     "name": "Garage Milano - stallo 3",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
+      "values": [
         45.409030,
         11.870552
       ]
@@ -173,8 +173,8 @@
     "name": "Parcheggio Ospedale Padova",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402029, 
+      "values": [
+        45.402029,
         11.890615
       ]
     }
@@ -184,8 +184,8 @@
     "name": "Parcheggio Ospedale Padova - stallo 1",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402029, 
+      "values": [
+        45.402029,
         11.890615
       ]
     }
@@ -195,8 +195,8 @@
     "name": "Parcheggio Ospedale Padova - stallo 2",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402030, 
+      "values": [
+        45.402030,
         11.890615
       ]
     }
@@ -206,8 +206,8 @@
     "name": "Parcheggio Ospedale Padova - stallo 3",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402031, 
+      "values": [
+        45.402031,
         11.890615
       ]
     }
@@ -217,8 +217,8 @@
     "name": "Parcheggio Ospedale Padova - stallo 4",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402030, 
+      "values": [
+        45.402030,
         11.890616
       ]
     }
@@ -228,8 +228,8 @@
     "name": "Parcheggio Ospedale Padova - stallo 6",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402032, 
+      "values": [
+        45.402032,
         11.890615
       ]
     }
@@ -239,8 +239,8 @@
     "name": "Parcheggio Ospedale Padova - stallo 7",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402032, 
+      "values": [
+        45.402032,
         11.890617
       ]
     }
@@ -250,13 +250,179 @@
     "name": "Parcheggio Ospedale Padova - stallo 8",
     "coordinates": {
       "type": "geolocalization",
-      "values": [ 
-        45.402032, 
+      "values": [
+        45.402032,
         11.890614
+      ]
+    }
+  },
+  {
+    "type": "water_level",
+    "name": "Laghetto di Bosco",
+    "temporal_second_delay": 2.5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.439991,
+        11.787399
+      ]
+    }
+  },
+  {
+    "type": "water_level",
+    "name": "Spazio 21",
+    "temporal_second_delay": 5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.390927,
+        11.954685
+      ]
+    }
+  },
+  {
+    "type": "water_level",
+    "name": "Lago di Padova",
+    "temporal_second_delay": 2,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.417607,
+        11.929177
+      ]
+    }
+  },
+  {
+    "type": "waste_filling",
+    "name": "AcegasApsAmga - Centro Raccolta Stanga",
+    "temporal_second_delay": 5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.403794, 
+        11.901663
+      ]
+    }
+  },
+  {
+    "type": "waste_filling",
+    "name": "AcegasApsAmga - Centro Raccolta ZIP",
+    "temporal_second_delay": 7,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.396455,
+        11.933783
+      ]
+    }
+  },
+  {
+    "type": "air_pollution",
+    "name": "Stazione pr.à Giramele",
+    "temporal_second_delay": 10,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.436075, 
+          11.789086
+      ]
+    }
+  },
+  {
+    "type": "air_pollution",
+    "name": "Piazza delle Erbe Padova",
+    "temporal_second_delay": 8,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.406942, 
+          11.875042
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. Stazione ferr. Padova",
+    "temporal_second_delay": 10,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.418300, 
+          11.878522
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. Arcella Padova",
+    "temporal_second_delay": 9,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.420307, 
+          11.878688
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. San Giuseppe Padova",
+    "temporal_second_delay": 12,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.407767, 
+          11.858548
+      ]
+    }
+  },
+  {
+    "type": "electrical_failure",
+    "name": "Centralina elettr. Sacra Famiglia Padova",
+    "temporal_second_delay": 6,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+          45.397839, 
+          11.861124
+      ]
+    }
+  },
+  {
+    "type": "precipitation_intensity",
+    "name": "Laghetto di Bosco",
+    "temporal_second_delay": 2.5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.439991,
+        11.787399
+      ]
+    }
+  },
+  {
+    "type": "precipitation_intensity",
+    "name": "Spazio 21",
+    "temporal_second_delay": 5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.390927,
+        11.954685
+      ]
+    }
+  },
+  {
+    "type": "precipitation_intensity",
+    "name": "Lago di Padova",
+    "temporal_second_delay": 2,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.417607,
+        11.929177
       ]
     }
   }
 ]
-
-
 
