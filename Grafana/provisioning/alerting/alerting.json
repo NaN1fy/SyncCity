@@ -3,13 +3,501 @@
     "groups": [
         {
             "orgId": 1,
-            "name": "heat_index_above_40",
-            "folder": "heat_index_alert_folder",
+            "name": "precipitation_intensity_thresholds",
+            "folder": "precipitation_intensity_alerts_folder",
             "interval": "1m",
             "rules": [
                 {
+                    "uid": "ddrm6it3zt2bkd",
+                    "title": "Precipitation Intensity above 30mm/h",
+                    "condition": "threshold",
+                    "data": [
+                        {
+                            "refId": "precipitation",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "columns": [],
+                                        "database": "",
+                                        "limit": 0,
+                                        "mode": "list",
+                                        "queryType": "table",
+                                        "table": ""
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, readings as Precipitation, sensor_name FROM \"sc_database\".\"precipitation_intensity\" WHERE ( time >= $__fromTime AND time <= $__toTime) ORDER BY time ASC",
+                                "refId": "precipitation"
+                            }
+                        },
+                        {
+                            "refId": "avg",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "precipitation",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "avg",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "threshold",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                30
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "avg",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "threshold",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn2oqslg9a80d",
+                    "panelId": 12,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "12"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                }
+            ]
+        },
+        {
+            "orgId": 1,
+            "name": "heat_index_thresholds",
+            "folder": "heat_index_alerts_folder",
+            "interval": "1m",
+            "rules": [
+                {
+                    "uid": "fdrm4gfwr6fpcb",
+                    "title": "Heat Index below 0°C",
+                    "condition": "threshold",
+                    "data": [
+                        {
+                            "refId": "temp",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "aggregates": [],
+                                    "columns": [
+                                        {
+                                            "custom": false,
+                                            "name": "readings",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "groupBy": [],
+                                    "limit": 0,
+                                    "meta": {},
+                                    "mode": "aggregate",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "temperature"
+                                },
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "aggregates": [],
+                                        "columns": [
+                                            {
+                                                "custom": false,
+                                                "name": "readings",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "groupBy": [],
+                                        "limit": 0,
+                                        "meta": {},
+                                        "mode": "aggregate",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "temperature"
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, readings, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime) ORDER BY time ASC",
+                                "refId": "temp"
+                            }
+                        },
+                        {
+                            "refId": "hum",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "aggregates": [],
+                                    "columns": [
+                                        {
+                                            "custom": false,
+                                            "name": "readings",
+                                            "type": "Int32"
+                                        },
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "groupBy": [],
+                                    "limit": 0,
+                                    "meta": {},
+                                    "mode": "aggregate",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "humidity"
+                                },
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "aggregates": [],
+                                        "columns": [
+                                            {
+                                                "custom": false,
+                                                "name": "readings",
+                                                "type": "Int32"
+                                            },
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "groupBy": [],
+                                        "limit": 0,
+                                        "meta": {},
+                                        "mode": "aggregate",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "humidity"
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime) ORDER BY time ASC",
+                                "refId": "hum"
+                            }
+                        },
+                        {
+                            "refId": "Heat Index",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "(-8.78469475556)+((1.61139411)*${temp})+((2.338548839)*${hum})+((-0.146116050)*${temp}*${hum})+((-0.012308094)*(${temp}**2))+((-0.0164248277778)*(${hum}**2))+((0.002211732)*(${temp}**2)*${hum})+((0.00072546)*${temp}*(${hum}**2))+((-0.000003582)*(${temp}**2)*(${hum}**2))",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "Heat Index",
+                                "type": "math",
+                                "window": ""
+                            }
+                        },
+                        {
+                            "refId": "avg",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0,
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "Heat Index",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "avg",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "threshold",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0,
+                                                0
+                                            ],
+                                            "type": "lt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "avg",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "threshold",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn2oqslg9a80d",
+                    "panelId": 4,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "4"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                },
+                {
                     "uid": "adrfx6fmrmjnkf",
-                    "title": "Heat Index in Padua, Italy",
+                    "title": "Heat Index above 40°C",
                     "condition": "treshold",
                     "data": [
                         {
@@ -332,7 +820,7 @@
                             }
                         }
                     ],
-                    "dasboardUid": "cdn2oqslg9a80d",
+                    "dashboardUid": "cdn2oqslg9a80d",
                     "panelId": 4,
                     "noDataState": "NoData",
                     "execErrState": "Error",
@@ -341,6 +829,158 @@
                         "__dashboardUid__": "cdn2oqslg9a80d",
                         "__panelId__": "4"
                     },
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                }
+            ]
+        },
+        {
+            "orgId": 1,
+            "name": "water_level_thresholds",
+            "folder": "water_level_alert_folder",
+            "interval": "1m",
+            "rules": [
+                {
+                    "uid": "ddrm8htccnq4gb",
+                    "title": "Water Level above 80%",
+                    "condition": "A",
+                    "data": [
+                        {
+                            "refId": "level",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "columns": [],
+                                        "database": "",
+                                        "limit": 0,
+                                        "mode": "list",
+                                        "queryType": "table",
+                                        "table": ""
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, readings as Water, sensor_name FROM \"sc_database\".\"water_level\" WHERE ( time >= $__fromTime AND time <= $__toTime) ORDER BY time ASC",
+                                "refId": "level"
+                            }
+                        },
+                        {
+                            "refId": "avg",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0,
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "level",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "avg",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "A",
+                            "relativeTimeRange": {
+                                "from": 0,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                80,
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "avg",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "A",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn2oqslg9a80d",
+                    "panelId": 14,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "14"
+                    },
+                    "labels": {},
                     "isPaused": false,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
