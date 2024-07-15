@@ -23,10 +23,10 @@
     {
       "collapsed": false,
       "gridPos": {
-        "h": 1,
+        "h": 16,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 2,
       "panels": [],
@@ -35,23 +35,19 @@
     },
     {
       "datasource": {
-        "type": "grafana-clickhouse-datasource",
-        "uid": "PDEE91DDB90597936"
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
       },
       "description": "Map indicating the location of the sensors",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "custom": {
             "hideFrom": {
-              "legend": false,
               "tooltip": false,
-              "viz": false
+              "viz": false,
+              "legend": false
             }
           },
-          "decimals": 0,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -65,31 +61,45 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 21,
+        "h": 19,
         "w": 24,
         "x": 0,
         "y": 1
       },
       "id": 1,
       "options": {
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 45.405218,
+          "lon": 11.881421,
+          "zoom": 14
+        },
+        "controls": {
+          "showZoom": true,
+          "mouseWheelZoom": true,
+          "showAttribution": false,
+          "showScale": false,
+          "showMeasure": false,
+          "showDebug": false
+        },
+        "tooltip": {
+          "mode": "details"
+        },
         "basemap": {
           "config": {},
           "name": "Layer 0",
           "opacity": 0.9,
           "type": "default"
-        },
-        "controls": {
-          "mouseWheelZoom": true,
-          "showAttribution": false,
-          "showDebug": false,
-          "showMeasure": false,
-          "showScale": false,
-          "showZoom": true
         },
         "layers": [
           {
@@ -107,7 +117,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 60,
+                  "fixed": 30,
                   "max": 15,
                   "min": 2
                 },
@@ -159,7 +169,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 60,
+                  "fixed": 30,
                   "max": 15,
                   "min": 2
                 },
@@ -211,7 +221,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 60,
+                  "fixed": 32,
                   "max": 15,
                   "min": 2
                 },
@@ -263,7 +273,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 60,
+                  "fixed": 30,
                   "max": 15,
                   "min": 2
                 },
@@ -299,22 +309,251 @@
             "name": "Payment [P]",
             "tooltip": true,
             "type": "markers"
+          },
+          {
+            "type": "markers",
+            "name": "Electrical Failure",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 32,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "dark-yellow"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/unicons/bolt.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 0
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "electrical_failure"
+            }
+          },
+          {
+            "type": "markers",
+            "name": "Waste Filling",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 30,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/unicons/trash-alt.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 0
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "waste filling"
+            }
+          },
+          {
+            "type": "markers",
+            "name": "Air Pollution",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 30,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "light-yellow"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/unicons/exclamation-triangle.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 0
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "air pollution"
+            }
+          },
+          {
+            "type": "markers",
+            "name": "Precipitation Intensity",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 30,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "light-blue"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/unicons/cloud-rain.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 0
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "precipitation intensity"
+            }
+          },
+          {
+            "type": "markers",
+            "name": "Water Level",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 30,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "#1424b9"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/unicons/water.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 0
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "water level"
+            }
           }
-        ],
-        "tooltip": {
-          "mode": "details"
-        },
-        "view": {
-          "allLayers": true,
-          "id": "coords",
-          "lat": 45.405218,
-          "lon": 11.881421,
-          "zoom": 14
-        }
+        ]
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.0.1",
       "targets": [
         {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
           "builderOptions": {
             "aggregates": [],
             "columns": [
@@ -342,10 +581,6 @@
             "orderBy": [],
             "queryType": "table",
             "table": "temperature"
-          },
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
           },
           "editorType": "sql",
           "format": 1,
@@ -396,7 +631,7 @@
             "builderOptions": {
               "columns": [],
               "database": "",
-              "limit": 1000,
+              "limit": 0,
               "mode": "list",
               "queryType": "table",
               "table": ""
@@ -419,7 +654,7 @@
             "builderOptions": {
               "columns": [],
               "database": "",
-              "limit": 1000,
+              "limit": 0,
               "mode": "list",
               "queryType": "table",
               "table": ""
@@ -442,16 +677,131 @@
             "builderOptions": {
               "columns": [],
               "database": "",
-              "limit": 1000,
+              "limit": 0,
               "mode": "list",
               "queryType": "table",
               "table": ""
             }
           },
-          "pluginVersion": "4.0.7",
+          "pluginVersion": "4.3.0",
           "queryType": "table",
           "rawSql": "SELECT DISTINCT sensor_name as Nome, latitude, longitude FROM \"sc_database\".\"payment_parking\"",
           "refId": "payment_parking"
+        },
+        {
+          "datasource": {
+            "uid": "PDEE91DDB90597936",
+            "type": "grafana-clickhouse-datasource"
+          },
+          "refId": "electrical_failure",
+          "hide": false,
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT DISTINCT sensor_name as Nome, latitude, longitude FROM \"sc_database\".\"electrical_failure\"",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        },
+        {
+          "datasource": {
+            "uid": "PDEE91DDB90597936",
+            "type": "grafana-clickhouse-datasource"
+          },
+          "refId": "waste filling",
+          "hide": false,
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT DISTINCT sensor_name as Nome, latitude, longitude FROM \"sc_database\".\"waste_filling\"",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        },
+        {
+          "datasource": {
+            "uid": "PDEE91DDB90597936",
+            "type": "grafana-clickhouse-datasource"
+          },
+          "refId": "air pollution",
+          "hide": false,
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT DISTINCT sensor_name as Nome, latitude, longitude FROM \"sc_database\".\"air_pollution\"",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        },
+        {
+          "datasource": {
+            "uid": "PDEE91DDB90597936",
+            "type": "grafana-clickhouse-datasource"
+          },
+          "refId": "precipitation intensity",
+          "hide": false,
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT DISTINCT sensor_name as Nome, latitude, longitude FROM \"sc_database\".\"precipitation_intensity\"",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
+        },
+        {
+          "datasource": {
+            "uid": "PDEE91DDB90597936",
+            "type": "grafana-clickhouse-datasource"
+          },
+          "refId": "water level",
+          "hide": false,
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT DISTINCT sensor_name as Nome, latitude, longitude FROM \"sc_database\".\"water_level\"",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 0
+            }
+          },
+          "pluginVersion": "4.3.0"
         }
       ],
       "title": "Sensor map",

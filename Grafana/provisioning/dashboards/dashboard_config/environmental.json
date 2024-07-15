@@ -537,6 +537,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of humidity in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -726,96 +727,50 @@
         }
       ],
       "title": "Humidity in Padua, Italy",
-      "type": "timeseries",
-      "description": "Display of humidity in Padua."
+      "type": "timeseries"
     },
     {
-      "type": "timeseries",
-      "title": "Precipitation Intensity in Padua, Italy",
-      "gridPos": {
-        "x": 12,
-        "y": 9,
-        "w": 12,
-        "h": 8
-      },
       "datasource": {
-        "uid": "PDEE91DDB90597936",
-        "type": "grafana-clickhouse-datasource"
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
       },
-      "id": 12,
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
-          },
-          "refId": "A",
-          "editorType": "sql",
-          "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Precipitation, sensor_name FROM \"sc_database\".\"precipitation_intensity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
-          "format": 0,
-          "meta": {
-            "builderOptions": {
-              "database": "",
-              "table": "",
-              "queryType": "table",
-              "columns": [],
-              "mode": "list",
-              "limit": 0
-            }
-          },
-          "pluginVersion": "4.3.0"
-        }
-      ],
-      "options": {
-        "tooltip": {
-          "mode": "single",
-          "sort": "none",
-          "maxHeight": 600
-        },
-        "legend": {
-          "showLegend": true,
-          "displayMode": "list",
-          "placement": "bottom",
-          "calcs": []
-        }
-      },
+      "description": "Display of precipitation intensity in Padua.",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "linear",
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
             "barAlignment": 0,
-            "lineWidth": 1,
+            "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
-            "spanNulls": false,
-            "insertNulls": false,
-            "showPoints": "auto",
-            "pointSize": 5,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "axisPlacement": "auto",
-            "axisLabel": "",
-            "axisColorMode": "text",
-            "axisBorderShow": false,
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "axisCenteredZero": false,
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
-          },
-          "color": {
-            "mode": "palette-classic"
           },
           "mappings": [],
           "noValue": "No data in the specified interval",
@@ -827,16 +782,16 @@
                 "value": null
               },
               {
-                "value": 4,
-                "color": "#ffff66"
+                "color": "#ffff66",
+                "value": 4
               },
               {
-                "value": 6,
-                "color": "#ffd700"
+                "color": "#ffd700",
+                "value": 6
               },
               {
-                "value": 10,
-                "color": "#ff8c00"
+                "color": "#ff8c00",
+                "value": 10
               },
               {
                 "color": "#ff0000",
@@ -847,95 +802,323 @@
         },
         "overrides": []
       },
-      "description": "Display of precipitation intensity in Padua."
-    },
-    {
-      "type": "timeseries",
-      "title": "Water Level in Padua, Italy",
       "gridPos": {
-        "x": 17,
-        "y": 12,
+        "h": 8,
         "w": 12,
-        "h": 17
-      },
-      "datasource": {
-        "uid": "PDEE91DDB90597936",
-        "type": "grafana-clickhouse-datasource"
+        "x": 12,
+        "y": 9
       },
       "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
       "targets": [
         {
           "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "refId": "A",
           "editorType": "sql",
-          "queryType": "timeseries",
-          "rawSql": "SELECT gather_time as time, readings as Water, sensor_name FROM \"sc_database\".\"water_level\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
           "format": 0,
           "meta": {
             "builderOptions": {
-              "database": "",
-              "table": "",
-              "queryType": "table",
               "columns": [],
+              "database": "",
+              "limit": 0,
               "mode": "list",
-              "limit": 0
+              "queryType": "table",
+              "table": ""
             }
           },
-          "pluginVersion": "4.3.0"
+          "pluginVersion": "4.3.0",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, readings as Precipitation, sensor_name FROM \"sc_database\".\"precipitation_intensity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
+          "refId": "A"
         }
       ],
-      "options": {
-        "tooltip": {
-          "mode": "single",
-          "sort": "none",
-          "maxHeight": 600
-        },
-        "legend": {
-          "showLegend": true,
-          "displayMode": "list",
-          "placement": "bottom",
-          "calcs": []
-        }
+      "title": "Precipitation Intensity in Padua, Italy",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "linear",
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
             "barAlignment": 0,
-            "lineWidth": 1,
+            "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
-            "spanNulls": false,
-            "insertNulls": false,
-            "showPoints": "auto",
-            "pointSize": 5,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "axisPlacement": "auto",
-            "axisLabel": "",
-            "axisColorMode": "text",
-            "axisBorderShow": false,
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "alias": "sensor_name",
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "alias": "PM2_5",
+                "custom": false,
+                "name": "PM2_5",
+                "type": "Float64"
+              },
+              {
+                "alias": "PM10",
+                "custom": false,
+                "name": "PM10",
+                "type": "Float64"
+              },
+              {
+                "alias": "O3",
+                "custom": false,
+                "name": "O3",
+                "type": "Float64"
+              },
+              {
+                "alias": "NO2",
+                "custom": false,
+                "name": "NO2",
+                "type": "Float64"
+              },
+              {
+                "hint": "time",
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "hint": "time",
+                "key": "",
+                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "type": "datetime"
+              }
+            ],
+            "groupBy": [],
+            "limit": 1000,
+            "meta": {},
+            "mode": "aggregate",
+            "orderBy": [
+              {
+                "default": true,
+                "dir": "ASC",
+                "hint": "time",
+                "name": ""
+              }
+            ],
+            "queryType": "timeseries",
+            "table": "air_pollution"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "alias": "sensor_name",
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "alias": "PM2_5",
+                  "custom": false,
+                  "name": "PM2_5",
+                  "type": "Float64"
+                },
+                {
+                  "alias": "PM10",
+                  "custom": false,
+                  "name": "PM10",
+                  "type": "Float64"
+                },
+                {
+                  "alias": "O3",
+                  "custom": false,
+                  "name": "O3",
+                  "type": "Float64"
+                },
+                {
+                  "alias": "NO2",
+                  "custom": false,
+                  "name": "NO2",
+                  "type": "Float64"
+                },
+                {
+                  "hint": "time",
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                }
+              ],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "aggregate",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "ASC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "timeseries",
+              "table": "air_pollution"
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, sensor_name, PM2_5, PM10, O3, NO2 FROM \"sc_database\".\"air_pollution\" WHERE ( time >= $__fromTime AND time <= $__toTime ) AND sensor_name IN (${air_pollution_sensor:singlequote}) ORDER BY time ASC",
+          "refId": "A"
+        }
+      ],
+      "title": "Air Pollution in Padua, Italy",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Display of water level in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
             "hideFrom": {
+              "legend": false,
               "tooltip": false,
-              "viz": false,
-              "legend": false
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "on"
             }
-          },
-          "color": {
-            "mode": "thresholds"
           },
           "mappings": [],
           "noValue": "No data in the specified interval",
@@ -947,8 +1130,8 @@
                 "value": null
               },
               {
-                "value": 75,
-                "color": "#ffd700"
+                "color": "#ffd700",
+                "value": 75
               },
               {
                 "color": "#ff0000",
@@ -959,7 +1142,52 @@
         },
         "overrides": []
       },
-      "description": "Display of water level in Padua."
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 0,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as time, readings as Water, sensor_name FROM \"sc_database\".\"water_level\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${precipitation_intensity_sensor:singlequote})) ORDER BY time ASC",
+          "refId": "A"
+        }
+      ],
+      "title": "Water Level in Padua, Italy",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -967,7 +1195,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 25
       },
       "id": 9,
       "panels": [],
@@ -1024,7 +1252,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 26
       },
       "id": 3,
       "options": {
@@ -1042,7 +1270,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.0.1",
       "targets": [
         {
           "builderOptions": {
@@ -1147,6 +1375,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of average apparent temperature in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1190,7 +1419,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 26
       },
       "id": 11,
       "options": {
@@ -1208,7 +1437,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.0.1",
       "targets": [
         {
           "datasource": {
@@ -1269,14 +1498,14 @@
         }
       ],
       "title": "Average Heat Index in Padua, Italy",
-      "type": "gauge",
-      "description": "Display of average apparent temperature in Padua."
+      "type": "gauge"
     },
     {
       "datasource": {
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of average humidity in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1291,12 +1520,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#007bff",
-                "value": null
-              },
-              {
                 "color": "green",
-                "value": 50
+                "value": null
               },
               {
                 "color": "#ffff66",
@@ -1322,9 +1547,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 8,
         "x": 0,
-        "y": 26
+        "y": 34
       },
       "id": 10,
       "options": {
@@ -1342,7 +1567,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.0.1",
       "targets": [
         {
           "datasource": {
@@ -1368,68 +1593,23 @@
         }
       ],
       "title": "Average Humidity in Padua, Italy",
-      "type": "gauge",
-      "description": "Display of average humidity in Padua."
+      "type": "gauge"
     },
     {
-      "type": "gauge",
-      "title": "Average Precipitation Intensity in Padua, Italy",
-      "gridPos": {
-        "x": 12,
-        "y": 26,
-        "w": 12,
-        "h": 8
-      },
       "datasource": {
-        "uid": "PDEE91DDB90597936",
-        "type": "grafana-clickhouse-datasource"
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
       },
-      "id": 13,
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
-          },
-          "refId": "A",
-          "editorType": "sql",
-          "queryType": "table",
-          "rawSql": "SELECT AVG(pi1.readings)\r\nFROM \r\n(SELECT readings from precipitation_intensity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from precipitation_intensity group by sensor_name)) pi1",
-          "format": 1,
-          "meta": {
-            "builderOptions": {
-              "database": "",
-              "table": "",
-              "queryType": "table",
-              "columns": [],
-              "mode": "list",
-              "limit": 0
-            }
-          },
-          "pluginVersion": "4.3.0"
-        }
-      ],
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": ""
-        },
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "minVizWidth": 75,
-        "minVizHeight": 75
-      },
+      "description": "Displays of average precipitations on Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "fieldMinMax": false,
           "mappings": [],
+          "max": 30,
+          "min": 0,
           "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
@@ -1439,8 +1619,8 @@
                 "value": null
               },
               {
-                "value": 6,
-                "color": "#EAB839"
+                "color": "#EAB839",
+                "value": 6
               },
               {
                 "color": "orange",
@@ -1451,15 +1631,474 @@
                 "value": 20
               }
             ]
-          },
-          "fieldMinMax": false,
-          "max": 30,
-          "min": 0
+          }
         },
         "overrides": []
       },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 34
+      },
+      "id": 13,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
       "pluginVersion": "11.0.1",
-      "description": "Displays of average precipitations on Padua."
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 0,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(pi1.readings)\r\nFROM \r\n(SELECT readings from precipitation_intensity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from precipitation_intensity group by sensor_name)) pi1",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Precipitation Intensity in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Displays of average water level on Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 0,
+          "min": 100,
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 34
+      },
+      "id": 18,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 0,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(wl1.readings)\r\nFROM \r\n(SELECT readings from water_level\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from water_level group by sensor_name)) wl1",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Water Level in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Displays the average concentration of pm 2,5 particles suspended in air in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 33,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 20
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 42
+      },
+      "id": 19,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(ap1.PM2_5) FROM (SELECT PM2_5 FROM air_pollution WHERE (gather_time >=$__fromTime AND gather_time <= $__toTime) AND gather_time IN (SELECT max(gather_time) FROM air_pollution group by sensor_name)) ap1",
+          "refId": "A"
+        }
+      ],
+      "title": "Average PM 2,5 Concentration in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Displays the average concentration of pm 10 particles suspended in air in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 40,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 20
+              },
+              {
+                "color": "red",
+                "value": 30
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 6,
+        "y": 42
+      },
+      "id": 15,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(ap1.PM10) FROM (SELECT PM10 FROM air_pollution WHERE (gather_time >=$__fromTime AND gather_time <= $__toTime) AND gather_time IN (SELECT max(gather_time) FROM air_pollution group by sensor_name)) ap1",
+          "refId": "A"
+        }
+      ],
+      "title": "Average PM 10 Concentration in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Displays the average concentration of O3 in the air in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 150,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 75
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 12,
+        "y": 42
+      },
+      "id": 20,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(ap1.O3) FROM (SELECT O3 FROM air_pollution WHERE (gather_time >=$__fromTime AND gather_time <= $__toTime) AND gather_time IN (SELECT max(gather_time) FROM air_pollution group by sensor_name)) ap1",
+          "refId": "A"
+        }
+      ],
+      "title": "Average 03 Concentration in Padua, Italy",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Displays the average concentration of pm NO2 suspended in air in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 40,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 10
+              },
+              {
+                "color": "red",
+                "value": 25
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 18,
+        "y": 42
+      },
+      "id": 17,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(ap1.NO2) FROM \r\n(SELECT NO2 FROM air_pollution WHERE \r\n(gather_time >=$__fromTime AND gather_time <= $__toTime) AND gather_time IN (SELECT max(gather_time) FROM air_pollution group by sensor_name)) ap1",
+          "refId": "A"
+        }
+      ],
+      "title": "Displays the average concentration of NO2 particles suspended in air in Padua.",
+      "type": "gauge"
     },
     {
       "collapsed": false,
@@ -1467,7 +2106,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 49
       },
       "id": 8,
       "panels": [],
@@ -1513,7 +2152,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "#ffff66",
@@ -1685,7 +2325,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 50
       },
       "id": 5,
       "options": {
@@ -1777,7 +2417,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1869,7 +2510,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 50
       },
       "id": 1,
       "options": {
@@ -2041,7 +2682,7 @@
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
-  "title": "Environmental",
+  "title": "Environmental Planning",
   "uid": "cdn2oqslg9a80d",
   "version": 1,
   "weekStart": ""
