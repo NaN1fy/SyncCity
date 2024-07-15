@@ -29,5 +29,5 @@ SELECT
     JSONExtractFloat(rawJSON, 'readings', 'PM2.5') AS PM2_5,
     JSONExtractFloat(rawJSON, 'readings', 'PM10') AS PM10,
     JSONExtractFloat(rawJSON, 'readings', 'O3') AS O3,
-    JSONExtractFloat(rawJSON, 'readings', 'NO2') AS NO
+    JSONExtractFloat(rawJSON, 'readings', 'NO2') AS NO2
 FROM sc_database.topic_air_pollution;

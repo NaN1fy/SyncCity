@@ -257,6 +257,83 @@
     }
   },
   {
+    "type": "charging_station",
+    "name": "Parcheggio Colonnine - colonnina 1",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.413404, 
+        11.887265
+      ]
+    }
+  },
+  {
+    "type": "charging_station",
+    "name": "Parcheggio Colonnine - colonnina 2",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.413403, 
+        11.887264
+      ]
+    }
+  },
+  {
+    "type": "payment_station",
+    "name": "Parcheggio Colonnine",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.413403, 
+        11.887265
+      ]
+    }
+  },
+  {
+    "type": "charging_station",
+    "name": "Parcheggio Tesla - colonnina 1",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.410097, 
+        11.880943
+      ]
+    }
+  },
+  {
+    "type": "charging_station",
+    "name": "Parcheggio Tesla - colonnina 2",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.410098, 
+        11.880942
+      ]
+    }
+  },
+  {
+    "type": "charging_station",
+    "name": "Parcheggio Tesla - colonnina 3",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.410099, 
+        11.880942
+      ]
+    }
+  },
+  {
+    "type": "payment_station",
+    "name": "Parcheggio Tesla",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.410098, 
+        11.880943
+      ]
+    }
+  },
+  {
     "type": "water_level",
     "name": "Laghetto di Bosco",
     "temporal_second_delay": 2.5,
@@ -349,18 +426,6 @@
       "values": [
           45.418300, 
           11.878522
-      ]
-    }
-  },
-  {
-    "type": "electrical_failure",
-    "name": "Centralina elettr. Arcella Padova",
-    "temporal_second_delay": 9,
-    "coordinates": {
-      "type": "geolocalization",
-      "values": [
-          45.420307, 
-          11.878688
       ]
     }
   },

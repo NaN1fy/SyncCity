@@ -35,20 +35,17 @@
     },
     {
       "datasource": {
-        "type": "grafana-clickhouse-datasource",
-        "uid": "PDEE91DDB90597936"
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
       },
-      "description": "Map showing the percentage of parking occupancy",
+      "description": "Map showing the percentage of parking occupancy in Padua.",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "custom": {
             "hideFrom": {
-              "legend": false,
               "tooltip": false,
-              "viz": false
+              "viz": false,
+              "legend": false
             }
           },
           "mappings": [
@@ -67,7 +64,6 @@
               "type": "value"
             }
           ],
-          "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -89,6 +85,10 @@
               }
             ]
           },
+          "color": {
+            "mode": "thresholds"
+          },
+          "noValue": "No data in the specified interval",
           "unit": "percent"
         },
         "overrides": []
@@ -101,18 +101,28 @@
       },
       "id": 5,
       "options": {
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 45.402399,
+          "lon": 11.880741,
+          "zoom": 14
+        },
+        "controls": {
+          "showZoom": true,
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showScale": false,
+          "showMeasure": false,
+          "showDebug": false
+        },
+        "tooltip": {
+          "mode": "details"
+        },
         "basemap": {
           "config": {},
           "name": "Layer 0",
           "type": "default"
-        },
-        "controls": {
-          "mouseWheelZoom": false,
-          "showAttribution": false,
-          "showDebug": false,
-          "showMeasure": false,
-          "showScale": false,
-          "showZoom": true
         },
         "layers": [
           {
@@ -269,25 +279,124 @@
             "location": {
               "mode": "auto"
             },
-            "name": "%",
+            "name": "% (P)",
             "tooltip": false,
             "type": "markers"
+          },
+          {
+            "type": "markers",
+            "name": "Legend (C)",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 20,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "dark-green",
+                  "field": "occupancy_percentage"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 40
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                },
+                "text": {
+                  "fixed": "",
+                  "mode": "field",
+                  "field": "parking_name"
+                }
+              },
+              "showLegend": false
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": false,
+            "filterData": {
+              "id": "byRefId",
+              "options": "C"
+            }
+          },
+          {
+            "type": "markers",
+            "name": "% (C)",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 20,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "opacity": 0,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 0
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                },
+                "text": {
+                  "fixed": "",
+                  "mode": "field",
+                  "field": "occupancy_percentage"
+                }
+              },
+              "showLegend": false
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": false,
+            "filterData": {
+              "id": "byRefId",
+              "options": "C"
+            }
           }
-        ],
-        "tooltip": {
-          "mode": "details"
-        },
-        "view": {
-          "allLayers": true,
-          "id": "coords",
-          "lat": 45.402399,
-          "lon": 11.880741,
-          "zoom": 14
-        }
+        ]
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.0.1",
       "targets": [
         {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
           "builderOptions": {
             "aggregates": [],
             "columns": [
@@ -320,10 +429,6 @@
             "orderBy": [],
             "queryType": "table",
             "table": "parking_mv"
-          },
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
           },
           "editorType": "sql",
           "format": 1,
@@ -362,12 +467,16 @@
               "table": "parking_mv"
             }
           },
-          "pluginVersion": "4.0.8",
+          "pluginVersion": "4.3.0",
           "queryType": "table",
           "rawSql": "WITH distinct_sensors AS (\n  SELECT \n    sensor_name, \n    latitude, \n    longitude, \n    is_available,\n    gather_time\n  FROM \"sc_database\".\"parking_mv\"\n  WHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n  )\n  AND (gather_time >= $__fromTime AND gather_time <= $__toTime)\n),\nsensor_data AS (\n  SELECT \n    REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') AS parking_name,\n    latitude,\n    longitude,\n    is_available\n  FROM distinct_sensors\n  WHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote})\n),\nparking_counts AS (\n  SELECT \n    parking_name,\n    AVG(latitude) AS latitude, \n    AVG(longitude) AS longitude, \n    COUNT(*) AS total_sensors,\n    SUM(CASE WHEN is_available THEN 1 ELSE 0 END) AS available_sensors,\n    SUM(CASE WHEN NOT is_available THEN 1 ELSE 0 END) AS occupied_sensors\n  FROM sensor_data\n  GROUP BY parking_name\n)\nSELECT \n  parking_name,\n  latitude, \n  longitude,\n  (occupied_sensors::float / total_sensors::float) * 100 AS occupancy_percentage\nFROM parking_counts;\n",
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
           "builderOptions": {
             "aggregates": [],
             "columns": [
@@ -396,10 +505,6 @@
             "orderBy": [],
             "queryType": "table",
             "table": "parking"
-          },
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
           },
           "editorType": "sql",
           "format": 1,
@@ -439,6 +544,29 @@
           "queryType": "table",
           "rawSql": "WITH distinct_sensors AS (\n  SELECT \n    sensor_name, \n    latitude, \n    longitude,\n    gather_time\n  FROM \"sc_database\".\"parking_mv\"\n  WHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"parking\"\n    GROUP BY sensor_name\n  )\n),\nsensor_data AS (\n  SELECT \n    REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') AS parking_name,\n    latitude,\n    longitude,\n    CASE WHEN gather_time >= $__fromTime AND gather_time <= $__toTime THEN 1 ELSE 0 END AS in_time_range\n  FROM distinct_sensors\n  WHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${parking_sensor:singlequote})\n),\nparking_counts AS (\n  SELECT \n    parking_name,\n    AVG(latitude) AS latitude, \n    AVG(longitude) AS longitude,\n    SUM(in_time_range) AS total_in_time_range\n  FROM sensor_data\n  GROUP BY parking_name\n)\n\nSELECT \n  latitude,\n  longitude,\n  CASE WHEN total_in_time_range > 0 THEN true ELSE false END AS in_time_range,\n  CASE WHEN total_in_time_range > 0 THEN 1 ELSE 15 END AS icon_size\nFROM parking_counts;\n",
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "PDEE91DDB90597936",
+            "type": "grafana-clickhouse-datasource"
+          },
+          "refId": "C",
+          "hide": false,
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "WITH distinct_sensors AS (\r\n  SELECT \r\n    sensor_name, \r\n    latitude, \r\n    longitude, \r\n    is_available,\r\n    gather_time\r\n  FROM \"sc_database\".\"charging_station_mv\"\r\n  WHERE (sensor_name, gather_time) IN (\r\n    SELECT sensor_name, MAX(gather_time)\r\n    FROM \"sc_database\".\"charging_station\"\r\n    GROUP BY sensor_name\r\n  )\r\n  AND (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\n),\r\nsensor_data AS (\r\n  SELECT \r\n    REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') AS parking_name,\r\n    latitude,\r\n    longitude,\r\n    is_available\r\n  FROM distinct_sensors\r\n  WHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${charging_station_sensor:singlequote})\r\n),\r\nparking_counts AS (\r\n  SELECT \r\n    parking_name,\r\n    AVG(latitude) AS latitude, \r\n    AVG(longitude) AS longitude, \r\n    COUNT(*) AS total_sensors,\r\n    SUM(CASE WHEN is_available THEN 1 ELSE 0 END) AS available_sensors,\r\n    SUM(CASE WHEN NOT is_available THEN 1 ELSE 0 END) AS occupied_sensors\r\n  FROM sensor_data\r\n  GROUP BY parking_name\r\n)\r\nSELECT \r\n  parking_name,\r\n  latitude, \r\n  longitude,\r\n  (occupied_sensors::float / total_sensors::float) * 100 AS occupancy_percentage\r\nFROM parking_counts;",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 1000
+            }
+          },
+          "pluginVersion": "4.3.0"
         }
       ],
       "title": "Parking occupancy",
@@ -462,7 +590,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "General information on the status of car parks",
+      "description": "General information on the status of car parks in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -634,7 +762,179 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "General payment information, not affected by parking selection",
+      "description": "General information on the status of charching stations in car parks in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "sensor_name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "lg",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": [
+            "layoff"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "is_available",
+                "type": "Bool"
+              },
+              {
+                "custom": false,
+                "name": "plate",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              },
+              {
+                "custom": false,
+                "name": "layoff",
+                "type": "Int32"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "limit": 0,
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "charging_station"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "is_available",
+                  "type": "Bool"
+                },
+                {
+                  "custom": false,
+                  "name": "plate",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                },
+                {
+                  "custom": false,
+                  "name": "layoff",
+                  "type": "Int32"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "charging_station"
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT\n    sensor_name AS \"Charging Station\" , \n    CASE \n        WHEN is_available = TRUE THEN 'Unoccupied'\n        WHEN is_available = FALSE THEN 'Occupied'\n    END AS \"AVAILABILITY\",\n    CASE \n        WHEN plate = '' THEN 'No information on the license plate' \n        ELSE plate\n    END AS \"PLATE\",\n    DATE_FORMAT(gather_time, '%d %b %Y, %H:%i:%s') AS \"READING\", \n    CONCAT(ROUND(layoff / 60.0, 2), ' min') \n    AS \"DURATION\"\nFROM \"sc_database\".\"charging_station\"\nWHERE (sensor_name, gather_time) IN (\n    SELECT sensor_name, MAX(gather_time)\n    FROM \"sc_database\".\"charging_station\"\n    GROUP BY sensor_name\n)\nAND (REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${charging_station_sensor:singlequote}))\nAND (gather_time >= $__fromTime AND gather_time <= $__toTime)\nORDER BY sensor_name ASC\n",
+          "refId": "A"
+        }
+      ],
+      "title": "State of the charging stations",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "General payment information about parking lots, not affected by parking selection.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -859,7 +1159,7 @@
           "refId": "C"
         }
       ],
-      "title": "Payment miscellaneous",
+      "title": "Payment miscellaneous (parking lots)",
       "type": "bargauge"
     },
     {
@@ -867,7 +1167,240 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
-      "description": "List of payments received from car parks",
+      "description": "General payment information about charging stations, not affected by parking selection.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "No data in the specified interval"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "nan",
+                "result": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "No data in the specified interval"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      "id": 3,
+      "options": {
+        "displayMode": "gradient",
+        "maxVizHeight": 150,
+        "minVizHeight": 0,
+        "minVizWidth": 8,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "limit": 3,
+          "values": true
+        },
+        "showUnfilled": false,
+        "sizing": "manual",
+        "text": {
+          "titleSize": 25
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "bill",
+                "type": "Float64"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "payment_station"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "bill",
+                  "type": "Float64"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "payment_station"
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(bill) AS \"Average payment\" FROM \"sc_database\".\"payment_station_mv\"\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)",
+          "refId": "A"
+        },
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "bill",
+                "type": "Float64"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "payment_station_mv"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "bill",
+                  "type": "Float64"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "payment_station_mv"
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT MAX(bill) AS \"Highest payment\" FROM \"sc_database\".\"payment_station_mv\"\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT MIN(bill) AS \"Lowest payment\" FROM \"sc_database\".\"payment_station_mv\"\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)",
+          "refId": "C"
+        }
+      ],
+      "title": "Payment miscellaneous (charging stations)",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "List of payments received from car parks in Padua.",
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -963,17 +1496,450 @@
       "type": "logs"
     },
     {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "List of payments received from charging stations in Padua.",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "custom": false,
+                "name": "bill",
+                "type": "Float64"
+              },
+              {
+                "custom": false,
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [],
+            "groupBy": [],
+            "limit": 0,
+            "meta": {},
+            "mode": "list",
+            "orderBy": [],
+            "queryType": "table",
+            "table": "payment_station"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "custom": false,
+                  "name": "bill",
+                  "type": "Float64"
+                },
+                {
+                  "custom": false,
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [],
+              "groupBy": [],
+              "limit": 0,
+              "meta": {},
+              "mode": "list",
+              "orderBy": [],
+              "queryType": "table",
+              "table": "payment_station"
+            }
+          },
+          "pluginVersion": "4.0.8",
+          "queryType": "table",
+          "rawSql": "SELECT sensor_name, gather_time, bill AS \"Payment amount (€)\" \nFROM \"sc_database\".\"payment_station\"\nWHERE REGEXP_REPLACE(sensor_name, '^(.*?)\\\\s*-\\\\s*.*', '\\\\1') IN (${charging_station_sensor:singlequote})\nAND (gather_time >= $__fromTime AND gather_time <= $__toTime)",
+          "refId": "A"
+        }
+      ],
+      "title": "Charging stations payments received",
+      "type": "logs"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 37
       },
       "id": 4,
       "panels": [],
-      "title": "Electrical situation",
+      "title": "City services",
       "type": "row"
+    },
+    {
+      "type": "geomap",
+      "title": "Electrical Failures in Padua, Italy",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
+      },
+      "id": 13,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "refId": "A",
+          "pluginVersion": "4.3.0",
+          "editorType": "sql",
+          "rawSql": "SELECT sensor_name, latitude, longitude, CASE WHEN is_ok = true THEN 1 ELSE 0 END AS is_ok FROM \"sc_database\".\"electrical_failure\" LIMIT 1000",
+          "builderOptions": {
+            "database": "sc_database",
+            "table": "electrical_failure",
+            "queryType": "table",
+            "mode": "list",
+            "columns": [
+              {
+                "name": "sensor_name",
+                "type": "String",
+                "custom": false,
+                "alias": "sensor_name"
+              },
+              {
+                "name": "latitude",
+                "type": "Float64",
+                "custom": false,
+                "alias": "latitude"
+              },
+              {
+                "name": "longitude",
+                "type": "Float64",
+                "custom": false,
+                "alias": "longitude"
+              },
+              {
+                "name": "is_ok",
+                "type": "Bool",
+                "custom": false,
+                "alias": "is_ok"
+              }
+            ],
+            "meta": {},
+            "limit": 1000,
+            "aggregates": [],
+            "groupBy": [],
+            "filters": [],
+            "orderBy": []
+          },
+          "format": 1,
+          "queryType": "table",
+          "meta": {}
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 1
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 45.41534,
+          "lon": 11.882396,
+          "zoom": 12.82
+        },
+        "controls": {
+          "showZoom": true,
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showScale": false,
+          "showMeasure": false,
+          "showDebug": false
+        },
+        "tooltip": {
+          "mode": "details"
+        },
+        "layers": [
+          {
+            "type": "markers",
+            "name": "State",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 5,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "dark-green",
+                  "field": "is_ok"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 20
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                },
+                "text": {
+                  "fixed": "",
+                  "mode": "field",
+                  "field": "sensor_name"
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            }
+          }
+        ],
+        "basemap": {
+          "type": "default",
+          "name": "Layer 0",
+          "config": {}
+        }
+      },
+      "pluginVersion": "11.0.1",
+      "description": "Display of the electrical state of the power line in Padua."
+    },
+    {
+      "type": "timeseries",
+      "title": "Waste Fill in Padua, Italy",
+      "gridPos": {
+        "x": 0,
+        "y": 38,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
+      },
+      "id": 8,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "refId": "A",
+          "editorType": "builder",
+          "queryType": "table",
+          "rawSql": "SELECT gather_time as \"time\", readings FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC LIMIT 1000",
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 1000
+            }
+          },
+          "pluginVersion": "4.3.0",
+          "builderOptions": {
+            "database": "sc_database",
+            "table": "waste_filling",
+            "queryType": "timeseries",
+            "mode": "aggregate",
+            "columns": [
+              {
+                "name": "readings",
+                "type": "Float64",
+                "custom": false,
+                "alias": "readings"
+              },
+              {
+                "name": "gather_time",
+                "type": "DateTime64(3)",
+                "hint": "time"
+              }
+            ],
+            "meta": {},
+            "limit": 1000,
+            "filters": [
+              {
+                "type": "datetime",
+                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "filterType": "custom",
+                "key": "",
+                "hint": "time",
+                "condition": "AND"
+              }
+            ],
+            "orderBy": [
+              {
+                "name": "",
+                "hint": "time",
+                "dir": "ASC",
+                "default": true
+              }
+            ],
+            "aggregates": [],
+            "groupBy": []
+          }
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "single",
+          "sort": "none",
+          "maxHeight": 600
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear",
+            "barAlignment": 0,
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "spanNulls": false,
+            "insertNulls": false,
+            "showPoints": "auto",
+            "pointSize": 5,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisPlacement": "auto",
+            "axisLabel": "",
+            "axisColorMode": "text",
+            "axisBorderShow": false,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "axisCenteredZero": false,
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "value": 50,
+                "color": "#EAB839"
+              },
+              {
+                "color": "red",
+                "value": 75
+              }
+            ]
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "description": "Displays the quantity of waste accumulated in the recicling depot in Padua."
     }
   ],
   "refresh": "5s",
@@ -1018,6 +1984,37 @@
         "current": {
           "selected": true,
           "text": [
+            "Parcheggio Coolonnine",
+            "Parcheggio Tesla"
+          ],
+          "value": [
+            "Parcheggio Coolonnine",
+            "Parcheggio Tesla"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT sensor_name FROM sc_database.\"charging_station\"",
+        "description": "Select your preferred charging station sensor",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Charging station sensor",
+        "multi": true,
+        "name": "charging_station_sensor",
+        "options": [],
+        "query": "SELECT sensor_name FROM sc_database.\"charging_station\"",
+        "refresh": 1,
+        "regex": "/^(.*?)\\s*-\\s*/gm",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
             "AcegasApsAmga - Centro Raccolta Stanga"
           ],
           "value": [
@@ -1038,7 +2035,7 @@
         "options": [],
         "query": "SELECT sensor_name FROM sc_database.\"waste_filling\"",
         "refresh": 1,
-        "regex": "/^(.*?)\\s*-\\s*/gm",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
@@ -1087,7 +2084,7 @@
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
-  "title": "Urban planning",
+  "title": "Urban Planning",
   "uid": "cdn1fqslg9a80d",
   "version": 1,
   "weekStart": ""
