@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 7,
   "links": [],
   "panels": [
     {
@@ -54,16 +54,16 @@
         "datasource": "-- Grafana --",
         "folder": {
           "title": "heat_index_alerts_folder",
-          "uid": "cdrm7rsdw0buoa"
+          "uid": "adruzwx0flou8b"
         },
         "groupBy": [],
         "groupMode": "default",
-        "maxItems": 10,
+        "maxItems": 19,
         "sortOrder": 4,
         "stateFilter": {
           "error": true,
           "firing": true,
-          "noData": true,
+          "noData": false,
           "normal": true,
           "pending": true
         },
@@ -142,6 +142,91 @@
         "viewMode": "list"
       },
       "title": "Water Level Thresholds",
+      "type": "alertlist"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 8,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "folder": {
+          "title": "air_pollution_alerts_folder",
+          "uid": "ddruyjg5n9c00c"
+        },
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 4,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "noData": false,
+          "normal": true,
+          "pending": true
+        },
+        "viewMode": "list"
+      },
+      "title": "Air Pollution Thresholds",
+      "type": "alertlist"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Urban Planning",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 6,
+        "y": 18
+      },
+      "id": 7,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "folder": {
+          "title": "waste_fill_alerts_folder",
+          "uid": "cdruy89qj5gxsd"
+        },
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 4,
+        "stateFilter": {
+          "error": false,
+          "firing": true,
+          "noData": false,
+          "normal": true,
+          "pending": true
+        },
+        "viewMode": "list"
+      },
+      "title": "Waste Fill Thresholds",
       "type": "alertlist"
     }
   ],

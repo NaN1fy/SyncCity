@@ -838,6 +838,242 @@
         },
         {
             "orgId": 1,
+            "name": "waste_fill_alerts_threshold",
+            "folder": "waste_fill_alerts_folder",
+            "interval": "1m",
+            "rules": [
+                {
+                    "uid": "cdruy9ej5gbnkd",
+                    "title": "Waste Fill above 80%",
+                    "condition": "threshold",
+                    "data": [
+                        {
+                            "refId": "Waste Fill",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "aggregates": [],
+                                    "columns": [
+                                        {
+                                            "alias": "readings",
+                                            "custom": false,
+                                            "name": "readings",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "sensor_name",
+                                            "custom": false,
+                                            "name": "sensor_name",
+                                            "type": "String"
+                                        },
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "groupBy": [],
+                                    "limit": 1000,
+                                    "meta": {},
+                                    "mode": "aggregate",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "waste_filling"
+                                },
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "aggregates": [],
+                                        "columns": [
+                                            {
+                                                "alias": "readings",
+                                                "custom": false,
+                                                "name": "readings",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "sensor_name",
+                                                "custom": false,
+                                                "name": "sensor_name",
+                                                "type": "String"
+                                            },
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "groupBy": [],
+                                        "limit": 1000,
+                                        "meta": {},
+                                        "mode": "aggregate",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "waste_filling"
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as \"time\", readings as \"Waste Fill\", sensor_name FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+                                "refId": "Waste Fill"
+                            }
+                        },
+                        {
+                            "refId": "avg",
+                            "relativeTimeRange": {
+                                "from": 0,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0,
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "Waste Fill",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "avg",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "threshold",
+                            "relativeTimeRange": {
+                                "from": 0,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                80,
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": []
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "avg"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "name": "Expression",
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "avg",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "threshold",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn1fqslg9a80d",
+                    "panelId": 8,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn1fqslg9a80d",
+                        "__panelId__": "8"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                }
+            ]
+        },
+        {
+            "orgId": 1,
             "name": "water_level_thresholds",
             "folder": "water_level_alert_folder",
             "interval": "1m",
@@ -979,6 +1215,1062 @@
                     "annotations": {
                         "__dashboardUid__": "cdn2oqslg9a80d",
                         "__panelId__": "14"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                }
+            ]
+        },
+        {
+            "orgId": 1,
+            "name": "air_pollution_alerts_threshold",
+            "folder": "air_pollution_alerts_folder",
+            "interval": "1m",
+            "rules": [
+                {
+                    "uid": "fdruyk724w2dce",
+                    "title": "Air Pollution (PM2,5) above 80μg/m^3",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "aggregates": [],
+                                    "columns": [
+                                        {
+                                            "alias": "sensor_name",
+                                            "custom": false,
+                                            "name": "sensor_name",
+                                            "type": "String"
+                                        },
+                                        {
+                                            "alias": "PM2_5",
+                                            "custom": false,
+                                            "name": "PM2_5",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "PM10",
+                                            "custom": false,
+                                            "name": "PM10",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "O3",
+                                            "custom": false,
+                                            "name": "O3",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "NO2",
+                                            "custom": false,
+                                            "name": "NO2",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "groupBy": [],
+                                    "limit": 1000,
+                                    "meta": {},
+                                    "mode": "aggregate",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "air_pollution"
+                                },
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "aggregates": [],
+                                        "columns": [
+                                            {
+                                                "alias": "sensor_name",
+                                                "custom": false,
+                                                "name": "sensor_name",
+                                                "type": "String"
+                                            },
+                                            {
+                                                "alias": "PM2_5",
+                                                "custom": false,
+                                                "name": "PM2_5",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "PM10",
+                                                "custom": false,
+                                                "name": "PM10",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "O3",
+                                                "custom": false,
+                                                "name": "O3",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "NO2",
+                                                "custom": false,
+                                                "name": "NO2",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "groupBy": [],
+                                        "limit": 0,
+                                        "meta": {},
+                                        "mode": "aggregate",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "air_pollution"
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, sensor_name, PM2_5 FROM \"sc_database\".\"air_pollution\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "B",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                80
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn2oqslg9a80d",
+                    "panelId": 16,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "16"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                },
+                {
+                    "uid": "edruzcctvcz5sb",
+                    "title": "Air Pollution (PM10) above 80μg/m^3",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "aggregates": [],
+                                    "columns": [
+                                        {
+                                            "alias": "sensor_name",
+                                            "custom": false,
+                                            "name": "sensor_name",
+                                            "type": "String"
+                                        },
+                                        {
+                                            "alias": "PM2_5",
+                                            "custom": false,
+                                            "name": "PM2_5",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "PM10",
+                                            "custom": false,
+                                            "name": "PM10",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "O3",
+                                            "custom": false,
+                                            "name": "O3",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "NO2",
+                                            "custom": false,
+                                            "name": "NO2",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "groupBy": [],
+                                    "limit": 1000,
+                                    "meta": {},
+                                    "mode": "aggregate",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "air_pollution"
+                                },
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "aggregates": [],
+                                        "columns": [
+                                            {
+                                                "alias": "sensor_name",
+                                                "custom": false,
+                                                "name": "sensor_name",
+                                                "type": "String"
+                                            },
+                                            {
+                                                "alias": "PM2_5",
+                                                "custom": false,
+                                                "name": "PM2_5",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "PM10",
+                                                "custom": false,
+                                                "name": "PM10",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "O3",
+                                                "custom": false,
+                                                "name": "O3",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "NO2",
+                                                "custom": false,
+                                                "name": "NO2",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "groupBy": [],
+                                        "limit": 0,
+                                        "meta": {},
+                                        "mode": "aggregate",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "air_pollution"
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, sensor_name, PM10, FROM \"sc_database\".\"air_pollution\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "B",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                80
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn2oqslg9a80d",
+                    "panelId": 16,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "16"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                },
+                {
+                    "uid": "adruzfn3u9ybke",
+                    "title": "Air Pollution (O3) above 80μg/m^3",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "aggregates": [],
+                                    "columns": [
+                                        {
+                                            "alias": "sensor_name",
+                                            "custom": false,
+                                            "name": "sensor_name",
+                                            "type": "String"
+                                        },
+                                        {
+                                            "alias": "PM2_5",
+                                            "custom": false,
+                                            "name": "PM2_5",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "PM10",
+                                            "custom": false,
+                                            "name": "PM10",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "O3",
+                                            "custom": false,
+                                            "name": "O3",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "NO2",
+                                            "custom": false,
+                                            "name": "NO2",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "groupBy": [],
+                                    "limit": 1000,
+                                    "meta": {},
+                                    "mode": "aggregate",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "air_pollution"
+                                },
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "aggregates": [],
+                                        "columns": [
+                                            {
+                                                "alias": "sensor_name",
+                                                "custom": false,
+                                                "name": "sensor_name",
+                                                "type": "String"
+                                            },
+                                            {
+                                                "alias": "PM2_5",
+                                                "custom": false,
+                                                "name": "PM2_5",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "PM10",
+                                                "custom": false,
+                                                "name": "PM10",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "O3",
+                                                "custom": false,
+                                                "name": "O3",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "NO2",
+                                                "custom": false,
+                                                "name": "NO2",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "groupBy": [],
+                                        "limit": 0,
+                                        "meta": {},
+                                        "mode": "aggregate",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "air_pollution"
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, sensor_name, O3 FROM \"sc_database\".\"air_pollution\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "B",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                80
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn2oqslg9a80d",
+                    "panelId": 16,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "16"
+                    },
+                    "labels": {},
+                    "isPaused": false,
+                    "notification_settings": {
+                        "receiver": "grafana-nan1fy-discord"
+                    }
+                },
+                {
+                    "uid": "ddruzi5gckav4e",
+                    "title": "Air Pollution (NO2) above 80μg/m^3",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "timeseries",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "PDEE91DDB90597936",
+                            "model": {
+                                "builderOptions": {
+                                    "aggregates": [],
+                                    "columns": [
+                                        {
+                                            "alias": "sensor_name",
+                                            "custom": false,
+                                            "name": "sensor_name",
+                                            "type": "String"
+                                        },
+                                        {
+                                            "alias": "PM2_5",
+                                            "custom": false,
+                                            "name": "PM2_5",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "PM10",
+                                            "custom": false,
+                                            "name": "PM10",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "O3",
+                                            "custom": false,
+                                            "name": "O3",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "alias": "NO2",
+                                            "custom": false,
+                                            "name": "NO2",
+                                            "type": "Float64"
+                                        },
+                                        {
+                                            "hint": "time",
+                                            "name": "gather_time",
+                                            "type": "DateTime64(3)"
+                                        }
+                                    ],
+                                    "database": "sc_database",
+                                    "filters": [
+                                        {
+                                            "condition": "AND",
+                                            "filterType": "custom",
+                                            "hint": "time",
+                                            "key": "",
+                                            "operator": "WITH IN DASHBOARD TIME RANGE",
+                                            "type": "datetime"
+                                        }
+                                    ],
+                                    "groupBy": [],
+                                    "limit": 1000,
+                                    "meta": {},
+                                    "mode": "aggregate",
+                                    "orderBy": [
+                                        {
+                                            "default": true,
+                                            "dir": "ASC",
+                                            "hint": "time",
+                                            "name": ""
+                                        }
+                                    ],
+                                    "queryType": "timeseries",
+                                    "table": "air_pollution"
+                                },
+                                "datasource": {
+                                    "type": "grafana-clickhouse-datasource",
+                                    "uid": "PDEE91DDB90597936"
+                                },
+                                "editorType": "sql",
+                                "format": 0,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "meta": {
+                                    "builderOptions": {
+                                        "aggregates": [],
+                                        "columns": [
+                                            {
+                                                "alias": "sensor_name",
+                                                "custom": false,
+                                                "name": "sensor_name",
+                                                "type": "String"
+                                            },
+                                            {
+                                                "alias": "PM2_5",
+                                                "custom": false,
+                                                "name": "PM2_5",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "PM10",
+                                                "custom": false,
+                                                "name": "PM10",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "O3",
+                                                "custom": false,
+                                                "name": "O3",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "alias": "NO2",
+                                                "custom": false,
+                                                "name": "NO2",
+                                                "type": "Float64"
+                                            },
+                                            {
+                                                "hint": "time",
+                                                "name": "gather_time",
+                                                "type": "DateTime64(3)"
+                                            }
+                                        ],
+                                        "database": "sc_database",
+                                        "filters": [
+                                            {
+                                                "condition": "AND",
+                                                "filterType": "custom",
+                                                "hint": "time",
+                                                "key": "",
+                                                "operator": "WITH IN DASHBOARD TIME RANGE",
+                                                "type": "datetime"
+                                            }
+                                        ],
+                                        "groupBy": [],
+                                        "limit": 0,
+                                        "meta": {},
+                                        "mode": "aggregate",
+                                        "orderBy": [
+                                            {
+                                                "default": true,
+                                                "dir": "ASC",
+                                                "hint": "time",
+                                                "name": ""
+                                            }
+                                        ],
+                                        "queryType": "timeseries",
+                                        "table": "air_pollution"
+                                    }
+                                },
+                                "pluginVersion": "4.3.0",
+                                "queryType": "timeseries",
+                                "rawSql": "SELECT gather_time as time, sensor_name, NO2 FROM \"sc_database\".\"air_pollution\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC",
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "mean",
+                                "refId": "B",
+                                "settings": {
+                                    "mode": "dropNN"
+                                },
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "relativeTimeRange": {
+                                "from": 300,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                80
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "dashboardUid": "cdn2oqslg9a80d",
+                    "panelId": 16,
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "1m",
+                    "annotations": {
+                        "__dashboardUid__": "cdn2oqslg9a80d",
+                        "__panelId__": "16"
                     },
                     "labels": {},
                     "isPaused": false,
