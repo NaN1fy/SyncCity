@@ -268,8 +268,32 @@
     }
   },
   {
+    "type": "charge_consumption",
+    "name": "Parcheggio Colonnine - colonnina 1",
+    "temporal_second_delay": 5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.413404, 
+        11.887265
+      ]
+    }
+  },
+  {
     "type": "charging_station",
     "name": "Parcheggio Colonnine - colonnina 2",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.413403, 
+        11.887264
+      ]
+    }
+  },
+  {
+    "type": "charge_consumption",
+    "name": "Parcheggio Colonnine - colonnina 2",
+    "temporal_second_delay": 5,
     "coordinates": {
       "type": "geolocalization",
       "values": [
@@ -314,6 +338,42 @@
   {
     "type": "charging_station",
     "name": "Parcheggio Tesla - colonnina 3",
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.410099, 
+        11.880942
+      ]
+    }
+  },
+  {
+    "type": "charge_consumption",
+    "name": "Parcheggio Tesla - colonnina 1",
+    "temporal_second_delay": 5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.410097, 
+        11.880943
+      ]
+    }
+  },
+  {
+    "type": "charge_consumption",
+    "name": "Parcheggio Tesla - colonnina 2",
+    "temporal_second_delay": 5,
+    "coordinates": {
+      "type": "geolocalization",
+      "values": [
+        45.410098, 
+        11.880942
+      ]
+    }
+  },
+  {
+    "type": "charge_consumption",
+    "name": "Parcheggio Tesla - colonnina 3",
+    "temporal_second_delay": 5,
     "coordinates": {
       "type": "geolocalization",
       "values": [

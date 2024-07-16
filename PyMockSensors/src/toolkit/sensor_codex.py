@@ -8,7 +8,7 @@ from src.sensor.payment_parking_sensor import PaymentParkingSensor
 from src.sensor.electrical_failure_sensor import ElectricalFailureSensor
 from src.sensor.waste_filling_sensor import WasteFillingSensor
 from src.sensor.charging_station_sensor import ChargingStationSensor
-# from src.sensor.charge_consumption_sensor import ChargeConsumptionSensor
+from src.sensor.charge_consumption_sensor import ChargeConsumptionSensor
 from src.sensor.payment_station_sensor import PaymentStationSensor
 
 from src.toolkit.sensor_type import SensorType
@@ -24,6 +24,6 @@ sensor_codex = {
     SensorType.ELECTRICAL_FAILURE.value : ElectricalFailureSensor,
     SensorType.WASTE_FILLING.value : WasteFillingSensor,
     SensorType.CHARGING_STATION.value : ChargingStationSensor,
-    # SensorType.CHARGE_CONSUMPTION.value : ChargeConsumptionSensor,
+    SensorType.CHARGE_CONSUMPTION.value : ChargeConsumptionSensor,
     SensorType.PAYMENT_STATION.value : PaymentStationSensor
 }
