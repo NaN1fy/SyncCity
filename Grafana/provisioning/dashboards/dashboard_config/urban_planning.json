@@ -1609,185 +1609,6 @@
       "type": "row"
     },
     {
-      "type": "geomap",
-      "title": "Electrical Failures in Padua, Italy",
-      "gridPos": {
-        "x": 0,
-        "y": 0,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "uid": "PDEE91DDB90597936",
-        "type": "grafana-clickhouse-datasource"
-      },
-      "id": 13,
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
-          },
-          "refId": "A",
-          "pluginVersion": "4.3.0",
-          "editorType": "sql",
-          "rawSql": "SELECT sensor_name, latitude, longitude, CASE WHEN is_ok = true THEN 1 ELSE 0 END AS is_ok FROM \"sc_database\".\"electrical_failure\" LIMIT 1000",
-          "builderOptions": {
-            "database": "sc_database",
-            "table": "electrical_failure",
-            "queryType": "table",
-            "mode": "list",
-            "columns": [
-              {
-                "name": "sensor_name",
-                "type": "String",
-                "custom": false,
-                "alias": "sensor_name"
-              },
-              {
-                "name": "latitude",
-                "type": "Float64",
-                "custom": false,
-                "alias": "latitude"
-              },
-              {
-                "name": "longitude",
-                "type": "Float64",
-                "custom": false,
-                "alias": "longitude"
-              },
-              {
-                "name": "is_ok",
-                "type": "Bool",
-                "custom": false,
-                "alias": "is_ok"
-              }
-            ],
-            "meta": {},
-            "limit": 1000,
-            "aggregates": [],
-            "groupBy": [],
-            "filters": [],
-            "orderBy": []
-          },
-          "format": 1,
-          "queryType": "table",
-          "meta": {}
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-red",
-                "value": null
-              },
-              {
-                "color": "dark-green",
-                "value": 1
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "view": {
-          "allLayers": true,
-          "id": "coords",
-          "lat": 45.41534,
-          "lon": 11.882396,
-          "zoom": 12.82
-        },
-        "controls": {
-          "showZoom": true,
-          "mouseWheelZoom": false,
-          "showAttribution": false,
-          "showScale": false,
-          "showMeasure": false,
-          "showDebug": false
-        },
-        "tooltip": {
-          "mode": "details"
-        },
-        "layers": [
-          {
-            "type": "markers",
-            "name": "State",
-            "config": {
-              "style": {
-                "size": {
-                  "fixed": 5,
-                  "min": 2,
-                  "max": 15
-                },
-                "color": {
-                  "fixed": "dark-green",
-                  "field": "is_ok"
-                },
-                "opacity": 1,
-                "symbol": {
-                  "mode": "fixed",
-                  "fixed": "img/icons/marker/circle.svg"
-                },
-                "symbolAlign": {
-                  "horizontal": "center",
-                  "vertical": "center"
-                },
-                "textConfig": {
-                  "fontSize": 12,
-                  "textAlign": "center",
-                  "textBaseline": "middle",
-                  "offsetX": 0,
-                  "offsetY": 20
-                },
-                "rotation": {
-                  "fixed": 0,
-                  "mode": "mod",
-                  "min": -360,
-                  "max": 360
-                },
-                "text": {
-                  "fixed": "",
-                  "mode": "field",
-                  "field": "sensor_name"
-                }
-              },
-              "showLegend": true
-            },
-            "location": {
-              "mode": "auto"
-            },
-            "tooltip": true,
-            "filterData": {
-              "id": "byRefId",
-              "options": "A"
-            }
-          }
-        ],
-        "basemap": {
-          "type": "default",
-          "name": "Layer 0",
-          "config": {}
-        }
-      },
-      "pluginVersion": "11.0.1",
-      "description": "Display of the electrical state of the power line in Padua."
-    },
-    {
       "type": "timeseries",
       "title": "Waste Fill in Padua, Italy",
       "gridPos": {
@@ -1940,6 +1761,230 @@
         "overrides": []
       },
       "description": "Displays the quantity of waste accumulated in the recicling depot in Padua."
+    },
+    {
+      "type": "geomap",
+      "title": "Electrical Failures in Padua, Italy",
+      "gridPos": {
+        "x": 12,
+        "y": 53,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "uid": "PDEE91DDB90597936",
+        "type": "grafana-clickhouse-datasource"
+      },
+      "id": 18,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "refId": "A",
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT sensor_name, latitude, longitude\r\nFROM sc_database.electrical_failure\r\nWHERE is_ok = false;\r\n",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 1000
+            }
+          },
+          "pluginVersion": "4.3.0"
+        },
+        {
+          "datasource": {
+            "uid": "PDEE91DDB90597936",
+            "type": "grafana-clickhouse-datasource"
+          },
+          "refId": "B",
+          "hide": false,
+          "editorType": "sql",
+          "queryType": "table",
+          "rawSql": "SELECT sensor_name, latitude, longitude\r\nFROM sc_database.electrical_failure\r\nWHERE is_ok = true;",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "table": "",
+              "queryType": "table",
+              "columns": [],
+              "mode": "list",
+              "limit": 1000
+            }
+          },
+          "pluginVersion": "4.3.0"
+        }
+      ],
+      "options": {
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 45.406673,
+          "lon": 11.868989,
+          "zoom": 12.25
+        },
+        "controls": {
+          "showZoom": true,
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showScale": false,
+          "showMeasure": false,
+          "showDebug": false
+        },
+        "tooltip": {
+          "mode": "details"
+        },
+        "layers": [
+          {
+            "type": "markers",
+            "name": "Failure",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 5,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "dark-red"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 20
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                },
+                "text": {
+                  "fixed": "",
+                  "mode": "field",
+                  "field": "sensor_name"
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            }
+          },
+          {
+            "type": "markers",
+            "name": "Ok",
+            "config": {
+              "style": {
+                "size": {
+                  "fixed": 5,
+                  "min": 2,
+                  "max": 15
+                },
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 1,
+                "symbol": {
+                  "mode": "fixed",
+                  "fixed": "img/icons/marker/circle.svg"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "textAlign": "center",
+                  "textBaseline": "middle",
+                  "offsetX": 0,
+                  "offsetY": 20
+                },
+                "rotation": {
+                  "fixed": 0,
+                  "mode": "mod",
+                  "min": -360,
+                  "max": 360
+                },
+                "text": {
+                  "fixed": "",
+                  "mode": "field",
+                  "field": "sensor_name"
+                }
+              },
+              "showLegend": true
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "tooltip": true,
+            "filterData": {
+              "id": "byRefId",
+              "options": "B"
+            }
+          }
+        ],
+        "basemap": {
+          "type": "default",
+          "name": "Layer 0",
+          "config": {}
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "green"
+              },
+              {
+                "value": 80,
+                "color": "red"
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          }
+        },
+        "overrides": []
+      },
+      "pluginVersion": "11.0.1",
+      "description": "Display of the electrical state of the power line in Padua."
     }
   ],
   "refresh": "5s",
@@ -1984,11 +2029,11 @@
         "current": {
           "selected": true,
           "text": [
-            "Parcheggio Coolonnine",
+            "Parcheggio Colonnine",
             "Parcheggio Tesla"
           ],
           "value": [
-            "Parcheggio Coolonnine",
+            "Parcheggio Colonnine",
             "Parcheggio Tesla"
           ]
         },
