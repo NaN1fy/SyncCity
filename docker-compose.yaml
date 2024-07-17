@@ -52,6 +52,11 @@ services:
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./Grafana/public/img/grafana_icon.svg:/usr/share/grafana/public/img/grafana_icon.svg
+      - ./Grafana/public/img/fav32.png:/usr/share/grafana/public/img/fav32.png
+      - ./Grafana/public/img/fav16.png:/usr/share/grafana/public/img/fav16.png
+      - ./Grafana/public/img/apple-touch-icon.png:/usr/share/grafana/public/img/apple-touch-icon.png
+      - ./Grafana/public/img/grafana_mask_icon.svg:/usr/share/grafana/public/img/grafana_mask_icon.svg
+      - ./Grafana/public/img/grafana_mask_icon_white.svg:/usr/share/grafana/public/img/grafana_mask_icon_white.svg
       - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./Grafana/provisioning/alerting:/etc/grafana/provisioning/alerting
