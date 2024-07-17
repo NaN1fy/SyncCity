@@ -51,23 +51,24 @@ services:
       - "3000:3000"
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./Grafana/public/img/grafana_icon.svg:/usr/share/grafana/public/img/grafana_icon.svg
       - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./Grafana/provisioning/alerting:/etc/grafana/provisioning/alerting
     environment:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
-      GF_SMTP_ENABLED: true
-      GF_SMTP_SKIP_VERIFY: true
-      GF_SMTP_HOST: smtp.gmail.com:465
-      GF_SMTP_USER: ${GF_SMTP_USER}
-      GF_SMTP_PASSWORD: ${GF_SMTP_PASSWORD}
-      GF_SMTP_FROM_ADDRESS: ${GF_SMTP_USER}
-      GF_SMTP_FRON_NAME: ${GF_SMTP_FROM_NAME}
-      GF_AUTH_ORG_ROLE: ${GF_AUTH_ORG_ROLE}
-      GF_AUTH_ANONYMOUS_ENABLED: ${GF_AUTH_ANONYMOUS_ENABLED}
-      GF_AUTH_DISABLE_LOGIN_FORM: ${GF_AUTH_DISABLE_LOGIN_FORM}
-      GF_USERS_ALLOW_SIGN_IN: ${GF_USERS_ALLOW_SIGN_IN}
-      GF_AUTH_DISABLE_SIGNOUT_MENU: ${GF_AUTH_DISABLE_SIGNOUT_MENU}
+      #GF_SMTP_ENABLED: true
+      #GF_SMTP_SKIP_VERIFY: true
+      #GF_SMTP_HOST: smtp.gmail.com:465
+      #GF_SMTP_USER: ${GF_SMTP_USER}
+      #GF_SMTP_PASSWORD: ${GF_SMTP_PASSWORD}
+      #GF_SMTP_FROM_ADDRESS: ${GF_SMTP_USER}
+      #GF_SMTP_FROM_NAME: ${GF_SMTP_FROM_NAME}
+      #GF_AUTH_ORG_ROLE: ${GF_AUTH_ORG_ROLE}
+      #GF_AUTH_ANONYMOUS_ENABLED: ${GF_AUTH_ANONYMOUS_ENABLED}
+      #GF_AUTH_DISABLE_LOGIN_FORM: ${GF_AUTH_DISABLE_LOGIN_FORM}
+      #GF_USERS_ALLOW_SIGN_IN: ${GF_USERS_ALLOW_SIGN_IN}
+      #GF_AUTH_DISABLE_SIGNOUT_MENU: ${GF_AUTH_DISABLE_SIGNOUT_MENU}
     depends_on:
       clickhouse:
         condition: service_healthy
