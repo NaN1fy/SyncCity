@@ -52,8 +52,13 @@ services:
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./Grafana/public/img/grafana_icon.svg:/usr/share/grafana/public/img/grafana_icon.svg
+      - ./Grafana/public/img/grafana_com_auth_icon.svg:/usr/share/grafana/public/img/grafana_com_auth_icon.svg
       - ./Grafana/public/img/fav32.png:/usr/share/grafana/public/img/fav32.png
       - ./Grafana/public/img/fav16.png:/usr/share/grafana/public/img/fav16.png
+      - ./Grafana/public/build/4570.662412df437585556b08.js:/usr/share/grafana/public/build/4570.662412df437585556b08.js
+      - ./Grafana/public/build/4570.662412df437585556b08.js.map:/usr/share/grafana/public/build/4570.662412df437585556b08.js.map
+      - ./Grafana/public/build/5356.bc8698e4ad688ff5968b.js:/usr/share/grafana/public/build/5356.bc8698e4ad688ff5968b.js
+      - ./Grafana/public/build/AlertRuleListIndex.2d3076ef0cb914cf17b0.js:/usr/share/grafana/public/build/AlertRuleListIndex.2d3076ef0cb914cf17b0.js
       - ./Grafana/public/img/apple-touch-icon.png:/usr/share/grafana/public/img/apple-touch-icon.png
       - ./Grafana/public/img/grafana_mask_icon.svg:/usr/share/grafana/public/img/grafana_mask_icon.svg
       - ./Grafana/public/img/grafana_mask_icon_white.svg:/usr/share/grafana/public/img/grafana_mask_icon_white.svg
