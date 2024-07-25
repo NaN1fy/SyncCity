@@ -22,7 +22,7 @@ services:
       interval: 5s
       timeout: 1m
       retries: 10
-    profiles: ["prod", "test"]
+    profiles: ["prod", "test", "flink"]
 
   clickhouse:
     image: "clickhouse/clickhouse-server:latest"
@@ -73,10 +73,62 @@ services:
     environment:
       INDENT_JSON: True
       TZ: "Europe/Rome"
+      KAFKA_HOST: "kafka"
+      KAFKA_PORT: "9092"
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["prod"]
+    profiles: ["prod", "flink"]
+
+  jobmanager:
+    image: flink:1.18.1-java17
+    container_name: jobmanager
+    command: jobmanager
+    ports:
+      - "9001:8081"
+      - "6123:6123"
+    environment:
+      FLINK_CONF_DIR: /opt/flink/conf
+      JOB_MANAGER_RPC_ADDRESS: jobmanager
+      BOOTSTRAP_SERVERS: kafka:9092
+      SCHEMA_REGISTRY_URL: http://kafka:8081  
+    volumes:
+      - type: bind
+        source: ./Flink/target/flink-jobs-1.0-jar-with-dependencies.jar
+        target: /opt/flink/flink-job.jar 
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/" ]
+      interval: 5s
+      retries: 10
+    profiles: ["dev", "prod", "flink"]
+
+  taskmanager:
+    image: flink:1.18.1-java17
+    container_name: taskmanager
+    command: taskmanager
+    ports:
+      - "6121:6121"
+    depends_on:
+      jobmanager:
+        condition: service_healthy
+    environment:
+      FLINK_CONF_DIR: /opt/flink/conf
+      JOB_MANAGER_RPC_ADDRESS: jobmanager
+      TASK_MANAGER_NUMBER_OF_TASK_SLOTS: 2
+    profiles: ["dev", "prod", "flink"]
+
+  flink-deployer:
+    build:
+      context: ./Flink/deployer
+    container_name: flink-deployer
+    depends_on:
+      jobmanager:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: ./Flink/target/flink-jobs-1.0-jar-with-dependencies.jar
+        target: /flink-job.jar
+    profiles: ["dev", "prod", "flink"]
 
   pymocksensors-test:
     build:
@@ -85,6 +137,8 @@ services:
     container_name: pymocksensors-tests
     environment:
       TZ: "Europe/Rome"
+      KAFKA_HOST: "kafka"
+      KAFKA_PORT: "9092"
     depends_on:
       kafka:
         condition: service_healthy
