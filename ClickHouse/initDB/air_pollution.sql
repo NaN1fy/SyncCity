@@ -26,8 +26,8 @@ SELECT
     toDateTime64(JSONExtractString(rawJSON, 'gather_time'), 0) AS gather_time,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 1) AS latitude,
     JSONExtractFloat(rawJSON, 'coordinates', 'coordinates', 2) AS longitude,
-    JSONExtractFloat(rawJSON, 'readings', 'PM2.5') AS PM2_5,
-    JSONExtractFloat(rawJSON, 'readings', 'PM10') AS PM10,
-    JSONExtractFloat(rawJSON, 'readings', 'O3') AS O3,
-    JSONExtractFloat(rawJSON, 'readings', 'NO2') AS NO2
+    JSONExtractFloat(rawJSON, 'readings', 1, 'PM2_5') AS PM2_5,
+    JSONExtractFloat(rawJSON, 'readings', 1, 'PM10') AS PM10,
+    JSONExtractFloat(rawJSON, 'readings', 1, 'O3') AS O3,
+    JSONExtractFloat(rawJSON, 'readings', 1, 'NO2') AS NO2
 FROM sc_database.topic_air_pollution;

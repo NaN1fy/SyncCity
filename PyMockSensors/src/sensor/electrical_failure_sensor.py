@@ -26,9 +26,8 @@ class ElectricalFailureSensor(SensorInterface):
         return SensorType.ELECTRICAL_FAILURE
 
     def _send_signal(self) -> None:
-        random_value = self._socrates.uniform(0, 1)
         sleep(self._temporal_second_delay)
-        if self.__is_ok and random_value > 0.98:
+        if self.__is_ok:
             with signal_lock[SensorType.ELECTRICAL_FAILURE]:
                 signal_list[SensorType.ELECTRICAL_FAILURE].append(self._sensor_id) 
         elif not self.__is_ok and self._gather_time.now() > (self.__occurrence + timedelta(seconds = self.__repair_time)):
@@ -36,7 +35,8 @@ class ElectricalFailureSensor(SensorInterface):
                 signal_list[SensorType.ELECTRICAL_FAILURE].append(self._sensor_id)
 
     def simulate(self) -> str:
-        if self.__is_ok:
+        random_value = self._socrates.uniform(0, 1)
+        if self.__is_ok and random_value > 0.98:
             self.__is_ok = False
             self.__occurrence = self._gather_time.now()
             self.__repair_time = self._socrates.uniform(60, 180)
