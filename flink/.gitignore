@@ -1,4 +1,7 @@
 target/
+!target/
+!target/flink-jobs-1.0-jar-with-dependencies.jar
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

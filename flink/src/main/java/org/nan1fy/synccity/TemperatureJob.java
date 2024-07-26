@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class TemperatureJob {
     private static final String TEMPERATURE_TOPIC = "temperature";
+    private static final String TEMPERATURE_GROUP = "temperature_group";
 
     public static void main(String[] args) throws Exception {
         var bootstrapServers = System.getenv("BOOTSTRAP_SERVERS");
@@ -34,6 +35,7 @@ public class TemperatureJob {
                 .setStartingOffsets(OffsetsInitializer.latest())
                 .setBootstrapServers(bootstrapServers)
                 .setTopics(TEMPERATURE_TOPIC)
+                .setGroupId(TEMPERATURE_GROUP)
                 .setValueOnlyDeserializer(new KafkaTemperatureSchema())
                 .build();
 

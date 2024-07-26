@@ -1,0 +1,5 @@
+org/nan1fy/synccity/TemperatureJob.class
+org/nan1fy/synccity/TemperatureReading$Reading.class
+org/nan1fy/synccity/KafkaTemperatureSchema.class
+org/nan1fy/synccity/TemperatureReading$Coordinates.class
+org/nan1fy/synccity/TemperatureReading.class
