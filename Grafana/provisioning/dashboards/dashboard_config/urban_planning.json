@@ -1600,6 +1600,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Displays the consumption of charging stations in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1876,14 +1877,11 @@
       "description": "Display of the electrical state of the power line in Padua.",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "custom": {
             "hideFrom": {
-              "legend": false,
               "tooltip": false,
-              "viz": false
+              "viz": false,
+              "legend": false
             }
           },
           "mappings": [],
@@ -1899,6 +1897,9 @@
                 "value": 80
               }
             ]
+          },
+          "color": {
+            "mode": "thresholds"
           }
         },
         "overrides": []
@@ -1911,18 +1912,28 @@
       },
       "id": 18,
       "options": {
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 45.406673,
+          "lon": 11.868989,
+          "zoom": 12.25
+        },
+        "controls": {
+          "showZoom": true,
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showScale": false,
+          "showMeasure": false,
+          "showDebug": false
+        },
+        "tooltip": {
+          "mode": "details"
+        },
         "basemap": {
           "config": {},
           "name": "Layer 0",
           "type": "default"
-        },
-        "controls": {
-          "mouseWheelZoom": false,
-          "showAttribution": false,
-          "showDebug": false,
-          "showMeasure": false,
-          "showScale": false,
-          "showZoom": true
         },
         "layers": [
           {
@@ -1945,7 +1956,7 @@
                   "min": 2
                 },
                 "symbol": {
-                  "fixed": "img/icons/marker/circle.svg",
+                  "fixed": "img/icons/unicons/bolt-slash.svg",
                   "mode": "fixed"
                 },
                 "symbolAlign": {
@@ -1997,7 +2008,7 @@
                   "min": 2
                 },
                 "symbol": {
-                  "fixed": "img/icons/marker/circle.svg",
+                  "fixed": "img/icons/unicons/bolt.svg",
                   "mode": "fixed"
                 },
                 "symbolAlign": {
@@ -2029,17 +2040,7 @@
             "tooltip": true,
             "type": "markers"
           }
-        ],
-        "tooltip": {
-          "mode": "details"
-        },
-        "view": {
-          "allLayers": true,
-          "id": "coords",
-          "lat": 45.406673,
-          "lon": 11.868989,
-          "zoom": 12.25
-        }
+        ]
       },
       "pluginVersion": "11.0.1",
       "targets": [
