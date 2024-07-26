@@ -1,4 +1,4 @@
-jobmanager.rpc.address: localhost
+jobmanager.rpc.address: jobmanager
 jobmanager.rpc.port: 6123
 jobmanager.heap.size: 1024m
 taskmanager.heap.size: 1024m
