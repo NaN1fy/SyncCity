@@ -74,10 +74,11 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "on"
+              "mode": "dashed"
             }
           },
-          "decimals": 2,
+          "decimals": 1,
+          "fieldMinMax": false,
           "mappings": [],
           "noValue": "No data in the specified interval",
           "thresholds": {
@@ -271,10 +272,10 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
-          "decimals": 2,
+          "decimals": 1,
           "mappings": [],
           "noValue": "No data in the specified interval",
           "thresholds": {
@@ -572,10 +573,12 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "mappings": [],
+          "max": 100,
+          "min": 0,
           "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
@@ -769,7 +772,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "mappings": [],
@@ -798,7 +801,8 @@
                 "value": 20
               }
             ]
-          }
+          },
+          "unit": "mm/h"
         },
         "overrides": []
       },
@@ -888,7 +892,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "mappings": [],
@@ -904,7 +908,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "conμgm3"
         },
         "overrides": []
       },
@@ -1117,10 +1122,12 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "on"
+              "mode": "dashed"
             }
           },
           "mappings": [],
+          "max": 100,
+          "min": 0,
           "noValue": "No data in the specified interval",
           "thresholds": {
             "mode": "absolute",
@@ -1138,7 +1145,8 @@
                 "value": 90
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1631,7 +1639,8 @@
                 "value": 20
               }
             ]
-          }
+          },
+          "unit": "mm/h"
         },
         "overrides": []
       },
@@ -1803,7 +1812,8 @@
                 "value": 20
               }
             ]
-          }
+          },
+          "unit": "conμgm3"
         },
         "overrides": []
       },
@@ -1884,7 +1894,8 @@
                 "value": 30
               }
             ]
-          }
+          },
+          "unit": "conμgm3"
         },
         "overrides": []
       },
@@ -1965,7 +1976,8 @@
                 "value": 100
               }
             ]
-          }
+          },
+          "unit": "conμgm3"
         },
         "overrides": []
       },
@@ -2046,7 +2058,8 @@
                 "value": 25
               }
             ]
-          }
+          },
+          "unit": "conμgm3"
         },
         "overrides": []
       },
@@ -2143,7 +2156,7 @@
               "type": "linear"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "decimals": 2,
@@ -2407,7 +2420,7 @@
               "type": "linear"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "decimals": 2,
