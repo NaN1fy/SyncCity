@@ -858,6 +858,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of air pollution in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1087,6 +1088,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of PM 2.5 level in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1186,7 +1188,7 @@
           "refId": "A"
         }
       ],
-      "title": "PM2_5 Level",
+      "title": "PM 2.5 Level",
       "type": "timeseries"
     },
     {
@@ -1194,6 +1196,8 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of PM 20 level in Padua.",
+
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1293,7 +1297,7 @@
           "refId": "A"
         }
       ],
-      "title": "PM10 Levels in Padua",
+      "title": "PM 10 Levels in Padua",
       "type": "timeseries"
     },
     {
@@ -1301,6 +1305,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of O3 level in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1408,6 +1413,7 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Display of NO2 level in Padua.",
       "fieldConfig": {
         "defaults": {
           "color": {
