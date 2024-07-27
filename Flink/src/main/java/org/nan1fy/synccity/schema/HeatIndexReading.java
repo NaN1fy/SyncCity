@@ -1,8 +1,8 @@
-package org.nan1fy.synccity;
+package org.nan1fy.synccity.schema;
 
 import java.util.List;
 
-public class TemperatureReading {
+public class HeatIndexReading {
 
     public String sensor_type;
     public String sensor_name;
@@ -13,7 +13,7 @@ public class TemperatureReading {
 
     @Override
     public String toString() {
-        return "TemperatureReading{" +
+        return "HeatIndexReading{" +
                 "sensor_type='" + sensor_type + '\'' +
                 ", sensor_name='" + sensor_name + '\'' +
                 ", sensor_id='" + sensor_id + '\'' +

@@ -1,10 +1,10 @@
-package org.nan1fy.synccity;
+package org.nan1fy.synccity.schema;
 
 import org.apache.flink.api.common.serialization.AbstractDeserializationSchema;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
-public class KafkaTemperatureSchema extends AbstractDeserializationSchema<TemperatureReading>{
+public class KafkaHeatIndexSchema extends AbstractDeserializationSchema<HeatIndexReading>{
     private static final long serialVersionUID = 1L;
 
     private transient ObjectMapper objectMapper;
@@ -24,7 +24,9 @@ public class KafkaTemperatureSchema extends AbstractDeserializationSchema<Temper
      * extending AbstractDeserializationSchema.
      */
     @Override
-    public TemperatureReading deserialize(byte[] message) throws IOException {
-        return objectMapper.readValue(message, TemperatureReading.class);
+    public HeatIndexReading deserialize(byte[] message) throws IOException {
+        return objectMapper.readValue(message, HeatIndexReading.class);
     }
+    
+
 }
