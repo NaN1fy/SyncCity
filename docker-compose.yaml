@@ -92,7 +92,7 @@ services:
       BOOTSTRAP_SERVERS: kafka:9092
       SCHEMA_REGISTRY_URL: http://kafka:8081  
     volumes:
-      - ./Flink/conf:/opt/flink/conf
+      - ./Flink/conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
       - ./Flink/target/flink-jobs-1.0-jar-with-dependencies.jar:/opt/flink/flink-job.jar 
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8081/" ]
@@ -106,11 +106,12 @@ services:
     command: taskmanager
     ports:
       - "6121:6121"
+    volumes:
+      - ./Flink/conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
     depends_on:
       jobmanager:
         condition: service_healthy
     environment:
-      FLINK_CONF_DIR: /opt/flink/conf
       JOB_MANAGER_RPC_ADDRESS: jobmanager
       TASK_MANAGER_NUMBER_OF_TASK_SLOTS: 2
     profiles: ["dev", "prod", "flink"]
