@@ -1,12 +1,12 @@
 package org.nan1fy.synccity.schema;
 
-public class HeatIndexReading  implements ReadingFieldInterface {
+public class HumidityReading  implements ReadingFieldInterface {
     public String type;
     public Double value;
 
     @Override
     public String toString() {
-        return "HeatIndexReading{" +
+        return "HumidityReading{" +
                 "type='" + type + '\'' +
                 ", value=" + value +
                 '}';
