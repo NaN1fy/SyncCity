@@ -1629,7 +1629,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1651,7 +1651,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "kwatth"
         },
         "overrides": []
       },
@@ -1749,7 +1750,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1777,7 +1778,8 @@
                 "value": 75
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1848,21 +1850,54 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "editorType": "builder",
+          "editorType": "sql",
           "format": 0,
           "meta": {
             "builderOptions": {
-              "columns": [],
-              "database": "",
+              "aggregates": [],
+              "columns": [
+                {
+                  "alias": "readings",
+                  "custom": false,
+                  "name": "readings",
+                  "type": "Float64"
+                },
+                {
+                  "hint": "time",
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                }
+              ],
+              "groupBy": [],
               "limit": 1000,
-              "mode": "list",
-              "queryType": "table",
-              "table": ""
+              "meta": {},
+              "mode": "aggregate",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "ASC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "timeseries",
+              "table": "waste_filling"
             }
           },
-          "pluginVersion": "4.3.0",
-          "queryType": "table",
-          "rawSql": "SELECT gather_time as \"time\", readings FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC LIMIT 1000",
+          "pluginVersion": "4.3.1",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as \"time\", readings as \" \", sensor_name FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC LIMIT 1000",
           "refId": "A"
         }
       ],
@@ -1877,11 +1912,14 @@
       "description": "Display of the electrical state of the power line in Padua.",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "custom": {
             "hideFrom": {
+              "legend": false,
               "tooltip": false,
-              "viz": false,
-              "legend": false
+              "viz": false
             }
           },
           "mappings": [],
@@ -1897,9 +1935,6 @@
                 "value": 80
               }
             ]
-          },
-          "color": {
-            "mode": "thresholds"
           }
         },
         "overrides": []
@@ -1912,28 +1947,18 @@
       },
       "id": 18,
       "options": {
-        "view": {
-          "allLayers": true,
-          "id": "coords",
-          "lat": 45.406673,
-          "lon": 11.868989,
-          "zoom": 12.25
-        },
-        "controls": {
-          "showZoom": true,
-          "mouseWheelZoom": false,
-          "showAttribution": false,
-          "showScale": false,
-          "showMeasure": false,
-          "showDebug": false
-        },
-        "tooltip": {
-          "mode": "details"
-        },
         "basemap": {
           "config": {},
           "name": "Layer 0",
           "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
         },
         "layers": [
           {
@@ -2040,7 +2065,17 @@
             "tooltip": true,
             "type": "markers"
           }
-        ]
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 45.406673,
+          "lon": 11.868989,
+          "zoom": 12.25
+        }
       },
       "pluginVersion": "11.0.1",
       "targets": [
@@ -2167,10 +2202,12 @@
         "current": {
           "selected": true,
           "text": [
-            "AcegasApsAmga - Centro Raccolta Stanga"
+            "AcegasApsAmga - Centro Raccolta Stanga",
+            "AcegasApsAmga - Centro Raccolta ZIP"
           ],
           "value": [
-            "AcegasApsAmga - Centro Raccolta Stanga"
+            "AcegasApsAmga - Centro Raccolta Stanga",
+            "AcegasApsAmga - Centro Raccolta ZIP"
           ]
         },
         "datasource": {
@@ -2229,18 +2266,18 @@
         "current": {
           "selected": true,
           "text": [
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Colonnine - colonnina 2",
-            "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Colonnine - colonnina 1"
+            "Parcheggio Colonnine - colonnina 1",
+            "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Tesla - colonnina 3",
+            "Parcheggio Tesla - colonnina 2"
           ],
           "value": [
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Colonnine - colonnina 2",
-            "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Colonnine - colonnina 1"
+            "Parcheggio Colonnine - colonnina 1",
+            "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Tesla - colonnina 3",
+            "Parcheggio Tesla - colonnina 2"
           ]
         },
         "datasource": {
@@ -2271,6 +2308,6 @@
   "timezone": "browser",
   "title": "Urban Planning",
   "uid": "cdn1fqslg9a80d",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

@@ -68,7 +68,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -266,7 +266,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -567,7 +567,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -766,7 +766,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -887,7 +887,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1117,7 +1117,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1197,7 +1197,6 @@
         "uid": "PDEE91DDB90597936"
       },
       "description": "Display of PM 20 level in Padua.",
-
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1226,7 +1225,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1334,7 +1333,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1442,7 +1441,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1550,7 +1549,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -2234,7 +2233,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "orange",
@@ -2315,7 +2315,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "orange",
@@ -2396,7 +2397,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "orange",
@@ -2477,7 +2479,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "orange",
@@ -2595,7 +2598,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "#ffff66",
@@ -2859,7 +2863,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3031,9 +3036,11 @@
         "current": {
           "selected": true,
           "text": [
+            "Padova, Piazza dei Signori",
             "Padova, Prato della Valle"
           ],
           "value": [
+            "Padova, Piazza dei Signori",
             "Padova, Prato della Valle"
           ]
         },
@@ -3060,10 +3067,14 @@
         "current": {
           "selected": true,
           "text": [
-            "Laghetto di Bosco"
+            "Laghetto di Bosco",
+            "Lago di Padova",
+            "Spazio 21"
           ],
           "value": [
-            "Laghetto di Bosco"
+            "Laghetto di Bosco",
+            "Lago di Padova",
+            "Spazio 21"
           ]
         },
         "datasource": {
@@ -3089,12 +3100,12 @@
         "current": {
           "selected": true,
           "text": [
-            "Stazione pr.à Giramele",
-            "Piazza delle Erbe Padova"
+            "Piazza delle Erbe Padova",
+            "Stazione pr.à Giramele"
           ],
           "value": [
-            "Stazione pr.à Giramele",
-            "Piazza delle Erbe Padova"
+            "Piazza delle Erbe Padova",
+            "Stazione pr.à Giramele"
           ]
         },
         "datasource": {
@@ -3127,6 +3138,6 @@
   "timezone": "browser",
   "title": "Environmental Planning",
   "uid": "cdn2oqslg9a80d",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
