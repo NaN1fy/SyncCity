@@ -13,6 +13,7 @@ public class HeatIndexFunction implements JoinFunction<Topic<TemperatureReading>
     @Override
     public Topic<HeatIndexReading> join(Topic<TemperatureReading> temp, Topic<HumidityReading> humidity) {
         HeatIndexReading heatIndexReading = new HeatIndexReading();
+        heatIndexReading.type = "Degrees Celsius";
         heatIndexReading.value = calculateHeatIndex(temp.readings.get(0).value, humidity.readings.get(0).value);
         Topic<HeatIndexReading> heatIndexTopic = new Topic<>();
         heatIndexTopic.sensor_id = "heat_index_flink_processing";

@@ -16,6 +16,7 @@ import org.nan1fy.synccity.functions.HeatIndexFunction;
 import org.nan1fy.synccity.schema.*;
 import org.nan1fy.synccity.serialization.KafkaJsonSerializationSchema;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class HeatIndexJob {
@@ -56,6 +57,7 @@ public class HeatIndexJob {
                 .setBootstrapServers(bootstrapServers)
                 .setTopics(TEMPERATURE_TOPIC)
                 .setGroupId(GROUP_ID)
+                .setClientIdPrefix(UUID.randomUUID().toString())
                 .setValueOnlyDeserializer(new KafkaJsonDeserializationSchema<TemperatureReading>())
                 .build();
 
@@ -64,6 +66,7 @@ public class HeatIndexJob {
                 .setBootstrapServers(bootstrapServers)
                 .setTopics(HUMIDITY_TOPIC)
                 .setGroupId(GROUP_ID)
+                .setClientIdPrefix(UUID.randomUUID().toString())
                 .setValueOnlyDeserializer(new KafkaJsonDeserializationSchema<HumidityReading>())
                 .build();
         
@@ -94,8 +97,8 @@ public class HeatIndexJob {
                 .equalTo((KeySelector<Topic<HumidityReading>, String>) value -> value.sensor_name)
                 .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.seconds(10)))
                 .apply(new HeatIndexFunction());
-
         heatIndexStream.sinkTo(heatIndexSink);
+        heatIndexStream.map(Topic::toString).print();
         env.execute("HeatIndexJob");
     }
 

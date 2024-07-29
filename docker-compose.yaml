@@ -42,8 +42,7 @@ services:
       interval: 10s
       timeout: 1m
       retries: 10
-    profiles: ["dev", "prod", "test"]
-
+    profiles: ["dev", "prod", "test", "flink"]
   grafana:
     image: "grafana/grafana-oss:latest"
     container_name: grafana
