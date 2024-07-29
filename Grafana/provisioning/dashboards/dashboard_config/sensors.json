@@ -352,7 +352,7 @@
               "showLegend": true,
               "style": {
                 "color": {
-                  "fixed": "dark-green"
+                  "fixed": "#adadad"
                 },
                 "opacity": 1,
                 "rotation": {
@@ -446,7 +446,7 @@
               "showLegend": true,
               "style": {
                 "color": {
-                  "fixed": "light-blue"
+                  "fixed": "#48eff8"
                 },
                 "opacity": 1,
                 "rotation": {
@@ -893,6 +893,6 @@
   "timezone": "browser",
   "title": "Sensors",
   "uid": "cdn2oqslg9a76d",
-  "version": 1,
+  "version": 3,
   "weekStart": ""
 }
