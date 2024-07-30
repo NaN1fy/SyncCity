@@ -26,7 +26,7 @@ class TemperatureSensor(SensorInterface):
     def _send_signal(self) -> None:
         sleep(self._temporal_second_delay)
         with signal_lock[SensorType.TEMPERATURE]:
-            signal_list[SensorType.TEMPERATURE].append( self._sensor_id)   
+            signal_list[SensorType.TEMPERATURE].append(self._sensor_id)   
 
     def simulate(self) -> str:
         now = self._gather_time.now()

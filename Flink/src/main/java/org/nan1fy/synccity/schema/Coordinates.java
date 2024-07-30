@@ -1,14 +1,16 @@
 package org.nan1fy.synccity.schema;
 
-public class HeatIndexReading  implements ReadingFieldInterface {
+import java.util.List;
+
+public class Coordinates {
     public String type;
-    public Double value;
+    public List<Double> coordinates;
 
     @Override
     public String toString() {
-        return "HeatIndexReading{" +
+        return "Coordinates{" +
                 "type='" + type + '\'' +
-                ", value=" + value +
+                ", coordinates=" + coordinates +
                 '}';
     }
 }

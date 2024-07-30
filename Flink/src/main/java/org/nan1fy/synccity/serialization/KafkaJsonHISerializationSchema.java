@@ -2,9 +2,9 @@ package org.nan1fy.synccity.serialization;
 
 import org.apache.flink.api.common.serialization.SerializationSchema;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
-import org.nan1fy.synccity.schema.HeatIndexReading;
+import org.nan1fy.synccity.schema.HeatIndexTopic;
 
-public class KafkaSerializationSchema implements SerializationSchema<HeatIndexReading> {
+public class KafkaJsonHISerializationSchema implements SerializationSchema<HeatIndexTopic> {
     private static final long serialVersionUID = 1L;
     
     private transient ObjectMapper objectMapper;
@@ -15,11 +15,11 @@ public class KafkaSerializationSchema implements SerializationSchema<HeatIndexRe
     }
 
     @Override
-    public byte[] serialize(HeatIndexReading element) {
+    public byte[] serialize(HeatIndexTopic element) {
         try {
             return objectMapper.writeValueAsBytes(element);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to serialize HeatIndexReading", e);
+            throw new RuntimeException("Failed to serialize", e);
         }
     }
 }
