@@ -2142,7 +2142,7 @@
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "showPoints": "auto",
+                "showPoints": "never",
                 "spanNulls": true,
                 "stacking": {
                   "group": "A",
@@ -2264,7 +2264,7 @@
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "showPoints": "auto",
+                "showPoints": "never",
                 "spanNulls": true,
                 "stacking": {
                   "group": "A",
@@ -2799,18 +2799,18 @@
         "current": {
           "selected": true,
           "text": [
-            "Parcheggio Colonnine - colonnina 2",
-            "Parcheggio Colonnine - colonnina 1",
             "Parcheggio Tesla - colonnina 1",
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 2"
+            "Parcheggio Colonnine - colonnina 1",
+            "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 2",
+            "Parcheggio Tesla - colonnina 3"
           ],
           "value": [
-            "Parcheggio Colonnine - colonnina 2",
-            "Parcheggio Colonnine - colonnina 1",
             "Parcheggio Tesla - colonnina 1",
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 2"
+            "Parcheggio Colonnine - colonnina 1",
+            "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 2",
+            "Parcheggio Tesla - colonnina 3"
           ]
         },
         "datasource": {
@@ -2841,6 +2841,6 @@
   "timezone": "browser",
   "title": "Urban Planning",
   "uid": "cdn1fqslg9a80d",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
