@@ -22,7 +22,7 @@ services:
       interval: 5s
       timeout: 1m
       retries: 10
-    profiles: ["prod", "test"]
+    profiles: ["prod", "test", "flink"]
 
   clickhouse:
     image: "clickhouse/clickhouse-server:latest"
@@ -42,8 +42,7 @@ services:
       interval: 10s
       timeout: 1m
       retries: 10
-    profiles: ["dev", "prod", "test"]
-
+    profiles: ["dev", "prod", "test", "flink"]
   grafana:
     image: "grafana/grafana-oss:latest"
     container_name: grafana
@@ -53,16 +52,8 @@ services:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
-      - ./Grafana/provisioning/alerting:/etc/grafana/provisioning/alerting
     environment:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
-      GF_SMTP_ENABLED: true
-      GF_SMTP_SKIP_VERIFY: true
-      GF_SMTP_HOST: smtp.gmail.com:465
-      GF_SMTP_USER: ${GF_SMTP_USER}
-      GF_SMTP_PASSWORD: ${GF_SMTP_PASSWORD}
-      GF_SMTP_FROM_ADDRESS: ${GF_SMTP_USER}
-      GF_SMTP_FRON_NAME: ${GF_SMTP_FROM_NAME}
       GF_AUTH_ORG_ROLE: ${GF_AUTH_ORG_ROLE}
       GF_AUTH_ANONYMOUS_ENABLED: ${GF_AUTH_ANONYMOUS_ENABLED}
       GF_AUTH_DISABLE_LOGIN_FORM: ${GF_AUTH_DISABLE_LOGIN_FORM}
@@ -81,10 +72,59 @@ services:
     environment:
       INDENT_JSON: True
       TZ: "Europe/Rome"
+      KAFKA_HOST: "kafka"
+      KAFKA_PORT: "9092"
     depends_on:
       kafka:
         condition: service_healthy
-    profiles: ["prod"]
+    profiles: ["prod", "flink"]
+
+  jobmanager:
+    image: flink:1.18.1-java17
+    container_name: jobmanager
+    command: jobmanager
+    ports:
+      - "9001:8081"
+      - "6123:6123"
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: jobmanager
+      BOOTSTRAP_SERVERS: kafka:9092
+      SCHEMA_REGISTRY_URL: http://kafka:8081  
+    volumes:
+      - ./Flink/conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
+      - ./Flink/target/flink-jobs-1.0-jar-with-dependencies.jar:/opt/flink/flink-job.jar 
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/" ]
+      interval: 5s
+      retries: 10
+    profiles: ["dev", "prod", "flink"]
+
+  taskmanager:
+    image: flink:1.18.1-java17
+    container_name: taskmanager
+    command: taskmanager
+    ports:
+      - "6121:6121"
+    volumes:
+      - ./Flink/conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
+    depends_on:
+      jobmanager:
+        condition: service_healthy
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: jobmanager
+      TASK_MANAGER_NUMBER_OF_TASK_SLOTS: 2
+    profiles: ["dev", "prod", "flink"]
+
+  flink-deployer:
+    build:
+      context: ./Flink/deployer
+    container_name: flink-deployer
+    depends_on:
+      jobmanager:
+        condition: service_healthy
+    volumes:
+      - ./Flink/target/flink-jobs-1.0-jar-with-dependencies.jar:/flink-job.jar
+    profiles: ["dev", "prod", "flink"]
 
   pymocksensors-test:
     build:
@@ -93,6 +133,8 @@ services:
     container_name: pymocksensors-tests
     environment:
       TZ: "Europe/Rome"
+      KAFKA_HOST: "kafka"
+      KAFKA_PORT: "9092"
     depends_on:
       kafka:
         condition: service_healthy
