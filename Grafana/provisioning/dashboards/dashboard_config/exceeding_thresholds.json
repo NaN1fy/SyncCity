@@ -19,7 +19,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 7,
   "links": [],
   "panels": [
     {
@@ -32,7 +31,7 @@
       },
       "id": 4,
       "panels": [],
-      "title": "Environmental",
+      "title": "Environmental Planning",
       "type": "row"
     },
     {
@@ -119,42 +118,6 @@
         "x": 0,
         "y": 9
       },
-      "id": 5,
-      "options": {
-        "alertInstanceLabelFilter": "",
-        "alertName": "",
-        "dashboardAlerts": false,
-        "folder": {
-          "title": "water_level_alert_folder",
-          "uid": "bdrm8sl5fjk74c"
-        },
-        "groupBy": [],
-        "groupMode": "default",
-        "maxItems": 20,
-        "sortOrder": 4,
-        "stateFilter": {
-          "error": true,
-          "firing": true,
-          "noData": true,
-          "normal": true,
-          "pending": true
-        },
-        "viewMode": "list"
-      },
-      "title": "Water Level Thresholds",
-      "type": "alertlist"
-    },
-    {
-      "datasource": {
-        "type": "grafana-clickhouse-datasource",
-        "uid": "PDEE91DDB90597936"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 9
-      },
       "id": 8,
       "options": {
         "alertInstanceLabelFilter": "",
@@ -178,6 +141,42 @@
         "viewMode": "list"
       },
       "title": "Air Pollution Thresholds",
+      "type": "alertlist"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 5,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "folder": {
+          "title": "water_level_alert_folder",
+          "uid": "bdrm8sl5fjk74c"
+        },
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 4,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "noData": true,
+          "normal": true,
+          "pending": true
+        },
+        "viewMode": "list"
+      },
+      "title": "Water Level Thresholds",
       "type": "alertlist"
     },
     {

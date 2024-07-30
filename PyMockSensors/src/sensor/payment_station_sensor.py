@@ -18,7 +18,7 @@ class PaymentStationSensor(SensorInterface):
 
     def __init__(self, sensor_name: str, gather_time: Type[datetime], coordinates: Coordinates, socrates: Random, temporal_second_delay: int):
         super().__init__(sensor_name, gather_time, coordinates, socrates, temporal_second_delay)
-        self.__price_per_kwh = self._socrates.uniform(0.4, 0.8)
+        self.__price_per_kwh = self._socrates.uniform(0.4, 0.8) 
 
     def getType(self) -> str:
         return SensorType.PAYMENT_STATION
