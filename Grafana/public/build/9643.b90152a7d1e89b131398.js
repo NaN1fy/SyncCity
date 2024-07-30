@@ -1,0 +1,3 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[9643],{59643:(c,r,e)=>{e.r(r),e.d(r,{default:()=>m});var n=e(74848),l=e(42418),o=e(51488),g=e(70383),i=e(33594);const f=({config:a,alertManagerSourceName:t})=>(0,n.jsx)(i.By,{config:a,alertManagerSourceName:t}),m=()=>{const{selectedAlertmanager:a}=(0,g.VI)(),{data:t,isLoading:u,error:s}=(0,o.f)(a);return u&&!t?"loading...":s?(0,n.jsx)(l.F,{severity:"error",title:"Failed to fetch notification template",children:String(s)}):t?(0,n.jsx)(f,{alertManagerSourceName:a,config:t}):null}}}]);
+
+//# sourceMappingURL=9643.b90152a7d1e89b131398.js.map

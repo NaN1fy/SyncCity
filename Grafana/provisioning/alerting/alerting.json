@@ -142,7 +142,7 @@
                         "__panelId__": "12"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -490,7 +490,7 @@
                         "__panelId__": "4"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -829,7 +829,7 @@
                         "__dashboardUid__": "cdn2oqslg9a80d",
                         "__panelId__": "4"
                     },
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -1065,7 +1065,7 @@
                         "__panelId__": "8"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -1217,7 +1217,7 @@
                         "__panelId__": "14"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -1487,7 +1487,7 @@
                         "__panelId__": "16"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -1749,7 +1749,7 @@
                         "__panelId__": "16"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -2011,7 +2011,7 @@
                         "__panelId__": "16"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }
@@ -2273,7 +2273,7 @@
                         "__panelId__": "16"
                     },
                     "labels": {},
-                    "isPaused": false,
+                    "isPaused": true,
                     "notification_settings": {
                         "receiver": "grafana-nan1fy-discord"
                     }

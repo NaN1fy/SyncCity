@@ -50,10 +50,27 @@ services:
       - "3000:3000"
     volumes:
       - ./Grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./Grafana/public/img/grafana_icon.svg:/usr/share/grafana/public/img/grafana_icon.svg
+      - ./Grafana/public/img/grafana_com_auth_icon.svg:/usr/share/grafana/public/img/grafana_com_auth_icon.svg
+      - ./Grafana/public/img/fav32.png:/usr/share/grafana/public/img/fav32.png
+      - ./Grafana/public/img/fav16.png:/usr/share/grafana/public/img/fav16.png
+      - ./Grafana/public/build:/usr/share/grafana/public/build
+      - ./Grafana/public/sass/_variables.dark.generated.scss:/usr/share/grafana/public/sass/_variables.dark.generated.scss
+      - ./Grafana/public/sass/_variables.light.generated.scss:/usr/share/grafana/public/sass/_variables.light.generated.scss
+      - ./Grafana/public/img/apple-touch-icon.png:/usr/share/grafana/public/img/apple-touch-icon.png
+      - ./Grafana/public/img/grafana_mask_icon.svg:/usr/share/grafana/public/img/grafana_mask_icon.svg
+      - ./Grafana/public/img/grafana_mask_icon_white.svg:/usr/share/grafana/public/img/grafana_mask_icon_white.svg
       - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
+      GF_SMTP_ENABLED: true
+      GF_SMTP_SKIP_VERIFY: true
+      GF_SMTP_HOST: smtp.gmail.com:465
+      GF_SMTP_USER: ${GF_SMTP_USER}
+      GF_SMTP_PASSWORD: ${GF_SMTP_PASSWORD}
+      GF_SMTP_FROM_ADDRESS: ${GF_SMTP_USER}
+      GF_SMTP_FROM_NAME: ${GF_SMTP_FROM_NAME}
       GF_AUTH_ORG_ROLE: ${GF_AUTH_ORG_ROLE}
       GF_AUTH_ANONYMOUS_ENABLED: ${GF_AUTH_ANONYMOUS_ENABLED}
       GF_AUTH_DISABLE_LOGIN_FORM: ${GF_AUTH_DISABLE_LOGIN_FORM}
