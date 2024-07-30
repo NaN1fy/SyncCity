@@ -57,6 +57,8 @@ public class HeatIndexJob {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setRuntimeMode(RuntimeExecutionMode.STREAMING);
         env.getConfig().setAutoWatermarkInterval(1000);
+        env.enableCheckpointing(5000);
+
 
         env.setRestartStrategy(RestartStrategies.fixedDelayRestart(
                 5, // number of restart attempts
@@ -88,7 +90,10 @@ public class HeatIndexJob {
                         .setValueSerializationSchema(new KafkaJsonHISerializationSchema())
                         .build()
                 )
-                .setDeliveryGuarantee(DeliveryGuarantee.AT_LEAST_ONCE)
+                .setTransactionalIdPrefix(UUID.randomUUID().toString())
+                .setProperty("transaction.timeout.ms","900000")
+                .setProperty("transaction.max.timeout.ms","1200000")
+                .setDeliveryGuarantee(DeliveryGuarantee.EXACTLY_ONCE)
                 .build();
 
         //WatermarkStrategy<TemperatureTopic> temperatureWatermark = WatermarkStrategy.noWatermarks();

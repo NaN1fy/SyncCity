@@ -1,7 +1,6 @@
 package org.nan1fy.synccity.schema;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HeatIndexTopic extends AbstractTopic {
     public ArrayList<HeatIndexReading> readings;
