@@ -69,8 +69,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#EAB839",
@@ -595,8 +594,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "green",
@@ -782,8 +780,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1127,8 +1124,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#EAB839",
@@ -1630,8 +1626,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "green",
@@ -1817,8 +1812,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2157,8 +2151,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2281,8 +2274,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#EAB839",
@@ -2435,6 +2427,7 @@
       "panels": [
         {
           "datasource": {
+            "default": true,
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2606,7 +2599,7 @@
               "zoom": 12.25
             }
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "datasource": {
@@ -2625,9 +2618,9 @@
                   "table": ""
                 }
               },
-              "pluginVersion": "4.3.0",
+              "pluginVersion": "4.3.1",
               "queryType": "table",
-              "rawSql": "SELECT sensor_name, latitude, longitude\r\nFROM sc_database.electrical_failure\r\nWHERE is_ok = false;\r\n",
+              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE s1.is_ok = false;",
               "refId": "A"
             },
             {
@@ -2648,9 +2641,9 @@
                   "table": ""
                 }
               },
-              "pluginVersion": "4.3.0",
+              "pluginVersion": "4.3.1",
               "queryType": "table",
-              "rawSql": "SELECT sensor_name, latitude, longitude\r\nFROM sc_database.electrical_failure\r\nWHERE is_ok = true;",
+              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE s1.is_ok = true;",
               "refId": "B"
             }
           ],
@@ -2799,18 +2792,18 @@
         "current": {
           "selected": true,
           "text": [
-            "Parcheggio Tesla - colonnina 1",
-            "Parcheggio Colonnine - colonnina 1",
             "Parcheggio Colonnine - colonnina 2",
             "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Tesla - colonnina 3"
+            "Parcheggio Tesla - colonnina 3",
+            "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Colonnine - colonnina 1"
           ],
           "value": [
-            "Parcheggio Tesla - colonnina 1",
-            "Parcheggio Colonnine - colonnina 1",
             "Parcheggio Colonnine - colonnina 2",
             "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Tesla - colonnina 3"
+            "Parcheggio Tesla - colonnina 3",
+            "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Colonnine - colonnina 1"
           ]
         },
         "datasource": {
@@ -2836,11 +2829,10 @@
     "from": "now-5m",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
   "title": "Urban Planning",
   "uid": "cdn1fqslg9a80d",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
