@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class HeatIndexTopic extends AbstractTopic {
     public ArrayList<HeatIndexReading> readings;
+    private static int instanceCounter = 0;
 
     @Override
     public String toString() {
@@ -15,5 +16,9 @@ public class HeatIndexTopic extends AbstractTopic {
                 ", readings=" + readings +
                 ", coordinates=" + coordinates +
                 '}';
+    }
+
+    public HeatIndexTopic() {
+        this.sensor_id = "heat_index_" + (++instanceCounter);
     }
 }

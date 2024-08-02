@@ -48,7 +48,9 @@ public class HeatIndexFunction implements JoinFunction<TemperatureTopic, Humidit
     public HeatIndexTopic join(TemperatureTopic temp, HumidityTopic humidity) {
         HeatIndexReading heatIndexReading = new HeatIndexReading();
         heatIndexReading.type = "Degrees Celsius";
-        heatIndexReading.value = calculateHeatIndex(temp.readings.get(0).value, humidity.readings.get(0).value);
+        double scale = Math.pow(10, 2);
+        double result  = calculateHeatIndex(temp.readings.get(0).value, humidity.readings.get(0).value);
+        heatIndexReading.value = Math.ceil(result * scale) / scale;
         HeatIndexTopic heatIndexTopic = new HeatIndexTopic();
         heatIndexTopic.sensor_id = "heat_index_flink_processing";
         heatIndexTopic.sensor_name = temp.sensor_name;

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class HeatIndexJob {
+public class  HeatIndexJob {
     private static final String TEMPERATURE_TOPIC = "temperature";
     private static final String HUMIDITY_TOPIC = "humidity";
 	private static final String HEAT_INDEX_TOPIC = "heat_index";
@@ -117,7 +117,7 @@ public class HeatIndexJob {
                 .join(humiditySource)
                 .where((KeySelector<TemperatureTopic, String>) value -> value.sensor_name)
                 .equalTo((KeySelector<HumidityTopic, String>) value -> value.sensor_name)
-                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.seconds(10)))
+                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.seconds(25)))
                 .apply(new HeatIndexFunction());
 
     /* public void execute(StreamExecutionEnvironment env) throws Exception {
