@@ -2,7 +2,7 @@
   {
     "type": "temperature",
     "name": "Padova, Piazza dei Signori",
-    "temporal_second_delay": 0.5,
+    "temporal_second_delay": 30,
     "coordinates": {
       "type": "geolocalization",
       "values": [
@@ -14,7 +14,7 @@
   {
     "type": "temperature",
     "name": "Padova, Prato della Valle",
-    "temporal_second_delay": 1,
+    "temporal_second_delay": 25,
     "coordinates": {
       "type": "geolocalization",
       "values": [
@@ -26,7 +26,7 @@
   {
     "type": "humidity",
     "name": "Padova, Piazza dei Signori",
-    "temporal_second_delay": 1.5,
+    "temporal_second_delay": 25,
     "coordinates": {
       "type": "geolocalization",
       "values": [
@@ -38,7 +38,7 @@
   {
     "type": "humidity",
     "name": "Padova, Prato della Valle",
-    "temporal_second_delay": 1.8,
+    "temporal_second_delay": 30,
     "coordinates": {
       "type": "geolocalization",
       "values": [
