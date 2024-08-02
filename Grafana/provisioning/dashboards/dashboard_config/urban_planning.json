@@ -69,7 +69,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "#EAB839",
@@ -386,7 +387,7 @@
               "zoom": 14
             }
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -594,7 +595,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -641,7 +643,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -1124,7 +1126,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "#EAB839",
@@ -1441,7 +1444,7 @@
               "zoom": 14
             }
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -1626,7 +1629,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -1673,7 +1677,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -1812,7 +1816,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1853,7 +1858,7 @@
             },
             "valueMode": "color"
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -2105,6 +2110,78 @@
         },
         {
           "datasource": {
+            "default": false,
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "description": "Displays the charging station sensors in Padua.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "thresholdsStyle": {
+                  "mode": "color",
+                  "thresholds": []
+                }
+              },
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 2,
+            "y": 35
+          },
+          "id": 27,
+          "options": {
+            "alwaysVisibleFilter": false,
+            "autoScroll": false,
+            "collapsedByDefault": false,
+            "customValue": false,
+            "displayMode": "table",
+            "emptyValue": false,
+            "favorites": false,
+            "filter": false,
+            "groupSelection": false,
+            "header": true,
+            "padding": 10,
+            "persistent": false,
+            "saveSelectedGroup": false,
+            "saveSelectedGroupKey": "",
+            "showGroupTotal": false,
+            "showLabel": false,
+            "showName": false,
+            "showResetButton": false,
+            "showTotal": false,
+            "statusSort": false,
+            "sticky": false,
+            "variable": "charging_station_sensor"
+          },
+          "pluginVersion": "3.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+              },
+              "queryType": "randomWalk",
+              "refId": "A"
+            }
+          ],
+          "title": "Charging Station Sensors in Padua, Italy",
+          "type": "volkovlabs-variable-panel"
+        },
+        {
+          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2121,6 +2198,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2151,7 +2229,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2166,7 +2245,7 @@
           "gridPos": {
             "h": 8,
             "w": 14,
-            "x": 5,
+            "x": 8,
             "y": 35
           },
           "id": 23,
@@ -2226,6 +2305,78 @@
       "panels": [
         {
           "datasource": {
+            "name": "-- Grafana --",
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "description": "Displays the waste fill sensors in the recicling depot in Padua.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "thresholdsStyle": {
+                  "mode": "color",
+                  "thresholds": []
+                }
+              },
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 2,
+            "y": 44
+          },
+          "id": 26,
+          "options": {
+            "alwaysVisibleFilter": false,
+            "autoScroll": false,
+            "collapsedByDefault": false,
+            "customValue": false,
+            "displayMode": "table",
+            "emptyValue": false,
+            "favorites": false,
+            "filter": false,
+            "groupSelection": false,
+            "header": true,
+            "padding": 10,
+            "persistent": false,
+            "saveSelectedGroup": false,
+            "saveSelectedGroupKey": "",
+            "showGroupTotal": false,
+            "showLabel": false,
+            "showName": false,
+            "showResetButton": false,
+            "showTotal": false,
+            "statusSort": false,
+            "sticky": false,
+            "variable": "waste_filling_sensor"
+          },
+          "pluginVersion": "3.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+              },
+              "queryType": "randomWalk",
+              "refId": "A"
+            }
+          ],
+          "title": "Waste Fill Sensors in Padua, Italy",
+          "type": "volkovlabs-variable-panel"
+        },
+        {
+          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2242,6 +2393,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2274,7 +2426,8 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "#EAB839",
@@ -2293,8 +2446,8 @@
           "gridPos": {
             "h": 8,
             "w": 14,
-            "x": 5,
-            "y": 3
+            "x": 8,
+            "y": 44
           },
           "id": 8,
           "options": {
@@ -2695,7 +2848,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "Parcheggio Colonnine",
             "Parcheggio Tesla"
@@ -2726,7 +2879,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "AcegasApsAmga - Centro Raccolta Stanga",
             "AcegasApsAmga - Centro Raccolta ZIP"
@@ -2792,17 +2945,17 @@
         "current": {
           "selected": true,
           "text": [
+            "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Tesla - colonnina 3",
             "Parcheggio Colonnine - colonnina 2",
             "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Colonnine - colonnina 1"
           ],
           "value": [
+            "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Tesla - colonnina 3",
             "Parcheggio Colonnine - colonnina 2",
             "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Colonnine - colonnina 1"
           ]
         },
