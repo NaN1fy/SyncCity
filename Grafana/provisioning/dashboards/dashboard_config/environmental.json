@@ -32,78 +32,6 @@
       "panels": [
         {
           "datasource": {
-            "name": "-- Grafana --",
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "description": "Display of temperature sensors in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "thresholdsStyle": {
-                  "mode": "color",
-                  "thresholds": []
-                }
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "semi-dark-blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 2,
-            "y": 1
-          },
-          "id": 31,
-          "options": {
-            "alwaysVisibleFilter": false,
-            "autoScroll": false,
-            "collapsedByDefault": false,
-            "customValue": false,
-            "displayMode": "table",
-            "emptyValue": false,
-            "favorites": false,
-            "filter": false,
-            "groupSelection": false,
-            "header": true,
-            "padding": 10,
-            "persistent": false,
-            "saveSelectedGroup": false,
-            "saveSelectedGroupKey": "",
-            "showGroupTotal": false,
-            "showLabel": false,
-            "showName": false,
-            "showResetButton": false,
-            "showTotal": false,
-            "statusSort": false,
-            "sticky": false,
-            "variable": "temperature_sensor"
-          },
-          "pluginVersion": "3.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-              },
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "title": "Temperature Sensors in Padua, Italy",
-          "type": "volkovlabs-variable-panel"
-        },
-        {
-          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -121,7 +49,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -186,7 +113,7 @@
           "gridPos": {
             "h": 8,
             "w": 14,
-            "x": 8,
+            "x": 5,
             "y": 1
           },
           "id": 2,
@@ -569,7 +496,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "builderOptions": {
@@ -685,78 +612,6 @@
       "panels": [
         {
           "datasource": {
-            "name": "-- Grafana --",
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "description": "Display of temperature sensors in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "thresholdsStyle": {
-                  "mode": "color",
-                  "thresholds": []
-                }
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "semi-dark-blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 2,
-            "y": 2
-          },
-          "id": 32,
-          "options": {
-            "alwaysVisibleFilter": false,
-            "autoScroll": false,
-            "collapsedByDefault": false,
-            "customValue": false,
-            "displayMode": "table",
-            "emptyValue": false,
-            "favorites": false,
-            "filter": false,
-            "groupSelection": false,
-            "header": true,
-            "padding": 10,
-            "persistent": false,
-            "saveSelectedGroup": false,
-            "saveSelectedGroupKey": "",
-            "showGroupTotal": false,
-            "showLabel": false,
-            "showName": false,
-            "showResetButton": false,
-            "showTotal": false,
-            "statusSort": false,
-            "sticky": false,
-            "variable": "temperature_sensor"
-          },
-          "pluginVersion": "3.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-              },
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "title": "Temperature Sensors in Padua, Italy",
-          "type": "volkovlabs-variable-panel"
-        },
-        {
-          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -775,7 +630,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -836,7 +690,7 @@
           "gridPos": {
             "h": 8,
             "w": 14,
-            "x": 8,
+            "x": 5,
             "y": 2
           },
           "id": 4,
@@ -1391,7 +1245,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -1470,78 +1324,6 @@
       "panels": [
         {
           "datasource": {
-            "name": "-- Grafana --",
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "description": "Display of temperature sensors in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "thresholdsStyle": {
-                  "mode": "color",
-                  "thresholds": []
-                }
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "semi-dark-blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 2,
-            "y": 3
-          },
-          "id": 36,
-          "options": {
-            "alwaysVisibleFilter": false,
-            "autoScroll": false,
-            "collapsedByDefault": false,
-            "customValue": false,
-            "displayMode": "table",
-            "emptyValue": false,
-            "favorites": false,
-            "filter": false,
-            "groupSelection": false,
-            "header": true,
-            "padding": 10,
-            "persistent": false,
-            "saveSelectedGroup": false,
-            "saveSelectedGroupKey": "",
-            "showGroupTotal": false,
-            "showLabel": false,
-            "showName": false,
-            "showResetButton": false,
-            "showTotal": false,
-            "statusSort": false,
-            "sticky": false,
-            "variable": "temperature_sensor"
-          },
-          "pluginVersion": "3.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-              },
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "title": "Temperature Sensors in Padua, Italy",
-          "type": "volkovlabs-variable-panel"
-        },
-        {
-          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -1558,7 +1340,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -1624,7 +1405,7 @@
           "gridPos": {
             "h": 8,
             "w": 14,
-            "x": 8,
+            "x": 2,
             "y": 3
           },
           "id": 6,
@@ -1784,8 +1565,8 @@
           "gridPos": {
             "h": 8,
             "w": 6,
-            "x": 9,
-            "y": 11
+            "x": 16,
+            "y": 3
           },
           "id": 10,
           "options": {
@@ -1803,7 +1584,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -1847,78 +1628,6 @@
       "panels": [
         {
           "datasource": {
-            "name": "-- Grafana --",
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "description": "Display of precipitation intensity sensors in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "thresholdsStyle": {
-                  "mode": "color",
-                  "thresholds": []
-                }
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "semi-dark-blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 2,
-            "y": 4
-          },
-          "id": 34,
-          "options": {
-            "alwaysVisibleFilter": false,
-            "autoScroll": false,
-            "collapsedByDefault": false,
-            "customValue": false,
-            "displayMode": "table",
-            "emptyValue": false,
-            "favorites": false,
-            "filter": false,
-            "groupSelection": false,
-            "header": true,
-            "padding": 10,
-            "persistent": false,
-            "saveSelectedGroup": false,
-            "saveSelectedGroupKey": "",
-            "showGroupTotal": false,
-            "showLabel": false,
-            "showName": false,
-            "showResetButton": false,
-            "showTotal": false,
-            "statusSort": false,
-            "sticky": false,
-            "variable": "precipitation_intensity_sensor"
-          },
-          "pluginVersion": "3.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-              },
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "title": "Precipitation Intensity Sensors in Padua, Italy",
-          "type": "volkovlabs-variable-panel"
-        },
-        {
-          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -1935,7 +1644,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -1996,7 +1704,7 @@
           "gridPos": {
             "h": 8,
             "w": 14,
-            "x": 8,
+            "x": 2,
             "y": 4
           },
           "id": 12,
@@ -2084,8 +1792,8 @@
           "gridPos": {
             "h": 8,
             "w": 6,
-            "x": 9,
-            "y": 12
+            "x": 16,
+            "y": 4
           },
           "id": 13,
           "options": {
@@ -2103,7 +1811,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -2147,78 +1855,6 @@
       "panels": [
         {
           "datasource": {
-            "name": "-- Grafana --",
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "description": "Display of air pollution sensors in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "thresholdsStyle": {
-                  "mode": "color",
-                  "thresholds": []
-                }
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "semi-dark-blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 9,
-            "y": 5
-          },
-          "id": 33,
-          "options": {
-            "alwaysVisibleFilter": false,
-            "autoScroll": false,
-            "collapsedByDefault": false,
-            "customValue": false,
-            "displayMode": "table",
-            "emptyValue": false,
-            "favorites": false,
-            "filter": false,
-            "groupSelection": false,
-            "header": true,
-            "padding": 10,
-            "persistent": false,
-            "saveSelectedGroup": false,
-            "saveSelectedGroupKey": "",
-            "showGroupTotal": false,
-            "showLabel": false,
-            "showName": false,
-            "showResetButton": false,
-            "showTotal": false,
-            "statusSort": false,
-            "sticky": false,
-            "variable": "air_pollution_sensor"
-          },
-          "pluginVersion": "3.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-              },
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "title": "Air Pollution Sensors in Padua, Italy",
-          "type": "volkovlabs-variable-panel"
-        },
-        {
-          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2235,7 +1871,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2283,7 +1918,7 @@
             "h": 13,
             "w": 24,
             "x": 0,
-            "y": 13
+            "y": 5
           },
           "id": 16,
           "options": {
@@ -2466,7 +2101,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2514,7 +2148,7 @@
             "h": 8,
             "w": 14,
             "x": 2,
-            "y": 26
+            "y": 18
           },
           "id": 21,
           "options": {
@@ -2593,7 +2227,7 @@
             "h": 8,
             "w": 6,
             "x": 16,
-            "y": 26
+            "y": 18
           },
           "id": 19,
           "options": {
@@ -2611,7 +2245,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -2657,7 +2291,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2688,7 +2321,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2704,7 +2338,7 @@
             "h": 8,
             "w": 14,
             "x": 2,
-            "y": 34
+            "y": 26
           },
           "id": 22,
           "options": {
@@ -2762,7 +2396,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "orange",
@@ -2782,7 +2417,7 @@
             "h": 8,
             "w": 6,
             "x": 16,
-            "y": 34
+            "y": 26
           },
           "id": 15,
           "options": {
@@ -2800,7 +2435,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -2846,7 +2481,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2877,7 +2511,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2893,7 +2528,7 @@
             "h": 8,
             "w": 14,
             "x": 2,
-            "y": 42
+            "y": 34
           },
           "id": 24,
           "options": {
@@ -2951,7 +2586,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "orange",
@@ -2971,7 +2607,7 @@
             "h": 8,
             "w": 6,
             "x": 16,
-            "y": 42
+            "y": 34
           },
           "id": 17,
           "options": {
@@ -2989,7 +2625,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -3035,7 +2671,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -3066,7 +2701,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3082,7 +2718,7 @@
             "h": 8,
             "w": 14,
             "x": 2,
-            "y": 50
+            "y": 42
           },
           "id": 23,
           "options": {
@@ -3140,7 +2776,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "orange",
@@ -3160,7 +2797,7 @@
             "h": 8,
             "w": 6,
             "x": 16,
-            "y": 50
+            "y": 42
           },
           "id": 20,
           "options": {
@@ -3178,7 +2815,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -3222,78 +2859,6 @@
       "panels": [
         {
           "datasource": {
-            "name": "-- Grafana --",
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "description": "Display of water level sensors in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "thresholdsStyle": {
-                  "mode": "color",
-                  "thresholds": []
-                }
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "semi-dark-blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 2,
-            "y": 6
-          },
-          "id": 35,
-          "options": {
-            "alwaysVisibleFilter": false,
-            "autoScroll": false,
-            "collapsedByDefault": false,
-            "customValue": false,
-            "displayMode": "table",
-            "emptyValue": false,
-            "favorites": false,
-            "filter": false,
-            "groupSelection": false,
-            "header": true,
-            "padding": 10,
-            "persistent": false,
-            "saveSelectedGroup": false,
-            "saveSelectedGroupKey": "",
-            "showGroupTotal": false,
-            "showLabel": false,
-            "showName": false,
-            "showResetButton": false,
-            "showTotal": false,
-            "statusSort": false,
-            "sticky": false,
-            "variable": "precipitation_intensity_sensor"
-          },
-          "pluginVersion": "3.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "datasource",
-                "uid": "grafana"
-              },
-              "queryType": "randomWalk",
-              "refId": "A"
-            }
-          ],
-          "title": "Water Level Sensors in Padua, Italy",
-          "type": "volkovlabs-variable-panel"
-        },
-        {
-          "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -3310,7 +2875,6 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
-                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -3364,7 +2928,7 @@
           "gridPos": {
             "h": 8,
             "w": 14,
-            "x": 8,
+            "x": 2,
             "y": 6
           },
           "id": 14,
@@ -3448,8 +3012,8 @@
           "gridPos": {
             "h": 8,
             "w": 6,
-            "x": 9,
-            "y": 14
+            "x": 16,
+            "y": 6
           },
           "id": 18,
           "options": {
@@ -3467,7 +3031,7 @@
             "showThresholdMarkers": true,
             "sizing": "auto"
           },
-          "pluginVersion": "11.1.3",
+          "pluginVersion": "11.0.1",
           "targets": [
             {
               "datasource": {
@@ -3507,7 +3071,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "Padova, Piazza dei Signori",
             "Padova, Prato della Valle"
@@ -3538,16 +3102,16 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
-            "Spazio 21",
+            "Laghetto di Bosco",
             "Lago di Padova",
-            "Laghetto di Bosco"
+            "Spazio 21"
           ],
           "value": [
-            "Spazio 21",
+            "Laghetto di Bosco",
             "Lago di Padova",
-            "Laghetto di Bosco"
+            "Spazio 21"
           ]
         },
         "datasource": {
@@ -3571,14 +3135,14 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
-            "Stazione pr.à Giramele",
-            "Piazza delle Erbe Padova"
+            "Piazza delle Erbe Padova",
+            "Stazione pr.à Giramele"
           ],
           "value": [
-            "Stazione pr.à Giramele",
-            "Piazza delle Erbe Padova"
+            "Piazza delle Erbe Padova",
+            "Stazione pr.à Giramele"
           ]
         },
         "datasource": {
@@ -3606,10 +3170,11 @@
     "from": "now-5m",
     "to": "now"
   },
+  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
   "title": "Environmental Planning",
   "uid": "cdn2oqslg9a80d",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
