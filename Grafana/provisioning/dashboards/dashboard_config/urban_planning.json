@@ -69,7 +69,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "#EAB839",
@@ -594,7 +595,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -2180,7 +2182,6 @@
         },
         {
           "datasource": {
-            "default": true,
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2279,7 +2280,7 @@
                   "table": ""
                 }
               },
-              "pluginVersion": "4.3.1",
+              "pluginVersion": "4.3.0",
               "queryType": "timeseries",
               "rawSql": "SELECT gather_time as time, kWh as \" \", sensor_name FROM \"sc_database\".\"charge_consumption\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${charge_consumption_sensor:singlequote})) ORDER BY time ASC",
               "refId": "A"
@@ -2376,7 +2377,6 @@
         },
         {
           "datasource": {
-            "default": true,
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2557,7 +2557,7 @@
               },
               "pluginVersion": "4.3.1",
               "queryType": "timeseries",
-              "rawSql": "SELECT gather_time as \"time\", readings as \" \", sensor_name FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${waste_filling_sensor:singlequote})) ORDER BY time ASC LIMIT 1000",
+              "rawSql": "SELECT gather_time as \"time\", readings as \" \", sensor_name FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC LIMIT 1000",
               "refId": "A"
             }
           ],
@@ -2618,7 +2618,7 @@
             "h": 14,
             "w": 24,
             "x": 0,
-            "y": 45
+            "y": 4
           },
           "id": 18,
           "options": {
@@ -2773,7 +2773,7 @@
               },
               "pluginVersion": "4.3.1",
               "queryType": "table",
-              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE (s1.is_ok = false AND s1.sensor_name IN (${electrical_failure_sensor:singlequote}));",
+              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE s1.is_ok = false;",
               "refId": "A"
             },
             {
@@ -2796,7 +2796,7 @@
               },
               "pluginVersion": "4.3.1",
               "queryType": "table",
-              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE (s1.is_ok = true AND s1.sensor_name IN (${electrical_failure_sensor:singlequote}));",
+              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE s1.is_ok = true;",
               "refId": "B"
             }
           ],
@@ -2848,7 +2848,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "Parcheggio Colonnine",
             "Parcheggio Tesla"
@@ -2945,17 +2945,17 @@
         "current": {
           "selected": true,
           "text": [
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 2",
             "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Tesla - colonnina 3",
             "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 2",
             "Parcheggio Colonnine - colonnina 1"
           ],
           "value": [
-            "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 2",
             "Parcheggio Tesla - colonnina 1",
+            "Parcheggio Tesla - colonnina 3",
             "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 2",
             "Parcheggio Colonnine - colonnina 1"
           ]
         },
