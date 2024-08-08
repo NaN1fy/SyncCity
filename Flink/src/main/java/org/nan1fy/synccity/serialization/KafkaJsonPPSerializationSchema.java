@@ -6,7 +6,7 @@ import org.nan1fy.synccity.schema.HeatIndexTopic;
 import org.nan1fy.synccity.schema.ParkingEfficiencyTopic;
 import org.nan1fy.synccity.schema.PaymentParkingTopic;
 
-public class KafkaJsonPPSerializationSchema implements SerializationSchema<PaymentParkingTopic> {
+public class KafkaJsonPPSerializationSchema implements SerializationSchema<ParkingEfficiencyTopic> {
     private static final long serialVersionUID = 1L;
 
     private transient ObjectMapper objectMapper;
@@ -17,7 +17,7 @@ public class KafkaJsonPPSerializationSchema implements SerializationSchema<Payme
     }
 
     @Override
-    public byte[] serialize(PaymentParkingTopic element) {
+    public byte[] serialize(ParkingEfficiencyTopic element) {
         try {
             return objectMapper.writeValueAsBytes(element);
         } catch (Exception e) {
