@@ -2,12 +2,12 @@ package org.nan1fy.synccity.schema;
 
 import java.util.ArrayList;
 
-public class HeatIndexTopic extends AbstractTopic {
-    public ArrayList<HeatIndexReading> readings;
+public class PaymentParkingTopic extends AbstractTopic {
+    public ArrayList<PaymentParkingReading> readings;
 
     @Override
     public String toString() {
-        return "HeatIndexTopic{" +
+        return "PaymentParkingTopic{" +
                 "sensor_type='" + sensor_type + '\'' +
                 ", sensor_name='" + sensor_name + '\'' +
                 ", sensor_id='" + sensor_id + '\'' +

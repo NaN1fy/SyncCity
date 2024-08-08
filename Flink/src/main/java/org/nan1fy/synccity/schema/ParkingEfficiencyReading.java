@@ -1,14 +1,12 @@
 package org.nan1fy.synccity.schema;
 
-import lombok.AllArgsConstructor;
-
-public class TemperatureReading implements ReadingFieldInterface {
+public class ParkingEfficiencyReading implements ReadingFieldInterface {
     public String type;
     public Double value;
 
     @Override
     public String toString() {
-        return "TemperatureReading{" +
+        return "HeatIndexReading{" +
                 "type='" + type + '\'' +
                 ", value=" + value +
                 '}';
