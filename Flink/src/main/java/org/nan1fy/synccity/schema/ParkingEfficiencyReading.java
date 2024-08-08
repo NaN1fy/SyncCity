@@ -6,7 +6,7 @@ public class ParkingEfficiencyReading implements ReadingFieldInterface {
 
     @Override
     public String toString() {
-        return "ParkingEfficiencyReading{" +
+        return "HeatIndexReading{" +
                 "type='" + type + '\'' +
                 ", value=" + value +
                 '}';

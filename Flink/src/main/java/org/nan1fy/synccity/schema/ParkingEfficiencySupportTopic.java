@@ -2,12 +2,12 @@ package org.nan1fy.synccity.schema;
 
 import java.util.ArrayList;
 
-public class ParkingTopic extends AbstractTopic {
-    public ArrayList<ParkingReading> readings;
+public class ParkingEfficiencySupportTopic extends AbstractTopic {
+    public ArrayList<ParkingEfficiencySupportReading> readings;
 
     @Override
     public String toString() {
-        return " ParkingTopic{" +
+        return "ParkingEfficiencySupportTopic{" +
                 "sensor_type='" + sensor_type + '\'' +
                 ", sensor_name='" + sensor_name + '\'' +
                 ", sensor_id='" + sensor_id + '\'' +

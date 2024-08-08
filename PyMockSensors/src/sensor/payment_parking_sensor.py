@@ -25,8 +25,8 @@ class PaymentParkingSensor(SensorInterface):
 
     def _send_signal(self) -> None:
         # sleeping_time = self._socrates.randint(120, SEC_IN_HOUR / 2)
-        sleeping_time = self._socrates.randint(100, 300)
-        sleep(sleeping_time)
+        #sleeping_time = self._socrates.randint(100, 300)
+        sleep(20)
         with signal_lock[SensorType.PAYMENT_PARKING]:
             signal_list[SensorType.PAYMENT_PARKING].append(self._sensor_id)
 

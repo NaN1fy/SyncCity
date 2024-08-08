@@ -12,14 +12,10 @@ import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsIni
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
-import org.nan1fy.synccity.deserialization.KafkaJsonHumidityDeserializationSchema;
 import org.nan1fy.synccity.deserialization.KafkaJsonParkingDeserializationSchema;
 import org.nan1fy.synccity.deserialization.KafkaJsonPaymentParkingDeserializationSchema;
-import org.nan1fy.synccity.deserialization.KafkaJsonTemperatureDeserializationSchema;
-import org.nan1fy.synccity.functions.HeatIndexFunction;
-import org.nan1fy.synccity.functions.ParkingEfficiencyFunction;
+import org.nan1fy.synccity.functions.*;
 import org.nan1fy.synccity.schema.*;
-import org.nan1fy.synccity.serialization.KafkaJsonHISerializationSchema;
 import org.nan1fy.synccity.serialization.KafkaJsonPPSerializationSchema;
 
 import java.time.Duration;
@@ -33,11 +29,10 @@ public class ParkingEfficiencyJob {
     private static final String GROUP_ID = "parking_efficiency_group";
     private DataStream<ParkingTopic> parkingSource;
     private DataStream<PaymentParkingTopic> paymentParkingSource;
-    private KafkaSink<ParkingEfficiencyTopic> parkingEfficiencySink;
-
+    private KafkaSink<PaymentParkingTopic> parkingEfficiencySink;
     public ParkingEfficiencyJob(DataStream<ParkingTopic> parkingSource,
                         DataStream<PaymentParkingTopic> paymentParkingSource,
-                        KafkaSink<ParkingEfficiencyTopic> parkingEfficiencySink) {
+                        KafkaSink<PaymentParkingTopic> parkingEfficiencySink) {
         this.parkingSource = parkingSource;
         this.paymentParkingSource = paymentParkingSource;
         this.parkingEfficiencySink = parkingEfficiencySink ;
@@ -81,7 +76,7 @@ public class ParkingEfficiencyJob {
                 .setValueOnlyDeserializer(new KafkaJsonPaymentParkingDeserializationSchema())
                 .build();
 
-        var sink = KafkaSink.<ParkingEfficiencyTopic>builder()
+        var sink = KafkaSink.<PaymentParkingTopic>builder()
                 .setBootstrapServers(bootstrapServers)
                 .setRecordSerializer(KafkaRecordSerializationSchema.builder()
                         .setTopic(PARKING_EFFICIENCY_TOPIC)
@@ -111,12 +106,50 @@ public class ParkingEfficiencyJob {
 
 
     public void execute(StreamExecutionEnvironment env) throws Exception {
-        DataStream<ParkingEfficiencyTopic> parkingEfficiencyStream = parkingSource
-                .join(paymentParkingSource)
-                .where((KeySelector<ParkingTopic, String>) value -> value.sensor_name)
+        WatermarkStrategy<PaymentParkingTopic> paymentParkingWatermark = WatermarkStrategy.<PaymentParkingTopic>forBoundedOutOfOrderness(Duration.ofSeconds(10));
+        WatermarkStrategy<ParkingTopic> parkingWatermark = WatermarkStrategy.<ParkingTopic>forBoundedOutOfOrderness(Duration.ofSeconds(10));
+
+        DataStream<PaymentParkingTopic> avgPaymentParkingStream = paymentParkingSource
+                .assignTimestampsAndWatermarks(paymentParkingWatermark)
+                .keyBy(PaymentParkingTopic::getSensor_name)
+                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
+                .apply(new AvgParkingPaymentFunction());
+
+        DataStream<PaymentParkingTopic> totalPaymentParkingStream = paymentParkingSource
+                .assignTimestampsAndWatermarks(paymentParkingWatermark)
+                .keyBy(PaymentParkingTopic::getSensor_name)
+                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
+                .apply(new TotalParkingPaymentFunction());
+
+        DataStream<TotalParkingTopic> totalCarsParking = parkingSource
+                .assignTimestampsAndWatermarks(parkingWatermark)
+                .keyBy(new KeySelector<ParkingTopic, String>() {
+                    @Override
+                    public String getKey(ParkingTopic value) {
+                        // Assumendo che il nome del parcheggio e lo stallo siano separati da " - "
+                        String sensorName = value.getSensor_name();
+                        String[] parts = sensorName.split(" - ");
+                        return parts[0]; // Restituisce solo il nome del parcheggio
+                    }
+                })
+                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
+                .apply(new CountCarsFunction());
+
+        DataStream<ParkingEfficiencySupportTopic> parkingEfficiencyFirstStepStream = avgPaymentParkingStream
+                .join(totalCarsParking)
+                .where((KeySelector<PaymentParkingTopic, String>) value -> value.sensor_name)
+                .equalTo((KeySelector<TotalParkingTopic, String>) value -> value.sensor_name)
+                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
+                .apply(new FirstParkingEfficiencyFunction());
+
+        DataStream<PaymentParkingTopic> parkingEfficiencySecondStepStream = parkingEfficiencyFirstStepStream
+                .join(totalPaymentParkingStream)
+                .where((KeySelector<ParkingEfficiencySupportTopic, String>) value -> value.sensor_name)
                 .equalTo((KeySelector<PaymentParkingTopic, String>) value -> value.sensor_name)
-                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.seconds(25)))
-                .apply(new ParkingEfficiencyFunction());
+                .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
+                .apply(new SecondParkingEfficiencyFunction());
+
+
 
     /* public void execute(StreamExecutionEnvironment env) throws Exception {
         DataStream<HeatIndexTopic> heatIndexStream = temperatureSource
@@ -125,10 +158,9 @@ public class ParkingEfficiencyJob {
                 .between(org.apache.flink.streaming.api.windowing.time.Time.seconds(-100), org.apache.flink.streaming.api.windowing.time.Time.seconds(100))
                 .process(new HeatIndexFunction());
     */
-        parkingEfficiencyStream.sinkTo(parkingEfficiencySink);
-        parkingEfficiencyStream
-                .map(ParkingEfficiencyTopic::toString)
-                .print();
+        //parkingEfficiencyStream.sinkTo(parkingEfficiencySink);
+
+        parkingEfficiencySecondStepStream.sinkTo(parkingEfficiencySink);
         env.execute("ParkingEfficiencyJob");
     }
 }
