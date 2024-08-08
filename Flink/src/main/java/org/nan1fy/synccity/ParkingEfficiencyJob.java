@@ -29,10 +29,11 @@ public class ParkingEfficiencyJob {
     private static final String GROUP_ID = "parking_efficiency_group";
     private DataStream<ParkingTopic> parkingSource;
     private DataStream<PaymentParkingTopic> paymentParkingSource;
-    private KafkaSink<PaymentParkingTopic> parkingEfficiencySink;
+    private KafkaSink<ParkingEfficiencyTopic> parkingEfficiencySink;
+
     public ParkingEfficiencyJob(DataStream<ParkingTopic> parkingSource,
                         DataStream<PaymentParkingTopic> paymentParkingSource,
-                        KafkaSink<PaymentParkingTopic> parkingEfficiencySink) {
+                        KafkaSink<ParkingEfficiencyTopic> parkingEfficiencySink) {
         this.parkingSource = parkingSource;
         this.paymentParkingSource = paymentParkingSource;
         this.parkingEfficiencySink = parkingEfficiencySink ;
@@ -76,7 +77,7 @@ public class ParkingEfficiencyJob {
                 .setValueOnlyDeserializer(new KafkaJsonPaymentParkingDeserializationSchema())
                 .build();
 
-        var sink = KafkaSink.<PaymentParkingTopic>builder()
+        var sink = KafkaSink.<ParkingEfficiencyTopic>builder()
                 .setBootstrapServers(bootstrapServers)
                 .setRecordSerializer(KafkaRecordSerializationSchema.builder()
                         .setTopic(PARKING_EFFICIENCY_TOPIC)
@@ -126,10 +127,9 @@ public class ParkingEfficiencyJob {
                 .keyBy(new KeySelector<ParkingTopic, String>() {
                     @Override
                     public String getKey(ParkingTopic value) {
-                        // Assumendo che il nome del parcheggio e lo stallo siano separati da " - "
                         String sensorName = value.getSensor_name();
                         String[] parts = sensorName.split(" - ");
-                        return parts[0]; // Restituisce solo il nome del parcheggio
+                        return parts[0];
                     }
                 })
                 .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
@@ -142,14 +142,12 @@ public class ParkingEfficiencyJob {
                 .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
                 .apply(new FirstParkingEfficiencyFunction());
 
-        DataStream<PaymentParkingTopic> parkingEfficiencySecondStepStream = parkingEfficiencyFirstStepStream
+        DataStream<ParkingEfficiencyTopic> parkingEfficiencySecondStepStream = parkingEfficiencyFirstStepStream
                 .join(totalPaymentParkingStream)
                 .where((KeySelector<ParkingEfficiencySupportTopic, String>) value -> value.sensor_name)
                 .equalTo((KeySelector<PaymentParkingTopic, String>) value -> value.sensor_name)
                 .window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.minutes(2)))
                 .apply(new SecondParkingEfficiencyFunction());
-
-
 
     /* public void execute(StreamExecutionEnvironment env) throws Exception {
         DataStream<HeatIndexTopic> heatIndexStream = temperatureSource
