@@ -32,6 +32,7 @@
       "panels": [
         {
           "datasource": {
+            "default": true,
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -387,7 +388,7 @@
               "zoom": 14
             }
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -549,7 +550,7 @@
               },
               "editorType": "sql",
               "format": 1,
-              "hide": false,
+              "hide": true,
               "meta": {
                 "builderOptions": {
                   "columns": [],
@@ -643,7 +644,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -797,7 +798,7 @@
           },
           "gridPos": {
             "h": 8,
-            "w": 14,
+            "w": 9,
             "x": 0,
             "y": 26
           },
@@ -824,7 +825,7 @@
             },
             "valueMode": "color"
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -982,8 +983,8 @@
           "description": "List of payments received from car parks in Padua.",
           "gridPos": {
             "h": 8,
-            "w": 10,
-            "x": 14,
+            "w": 7,
+            "x": 9,
             "y": 26
           },
           "id": 2,
@@ -1073,6 +1074,90 @@
           ],
           "title": "Parking payments received",
           "type": "logs"
+        },
+        {
+          "datasource": {
+            "default": true,
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 50
+                  },
+                  {
+                    "color": "green",
+                    "value": 85
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 26
+          },
+          "id": 27,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto",
+            "text": {}
+          },
+          "pluginVersion": "11.1.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "PDEE91DDB90597936"
+              },
+              "editorType": "sql",
+              "format": 1,
+              "meta": {
+                "builderOptions": {
+                  "columns": [],
+                  "database": "",
+                  "limit": 1000,
+                  "mode": "list",
+                  "queryType": "table",
+                  "table": ""
+                }
+              },
+              "pluginVersion": "4.3.1",
+              "queryType": "table",
+              "rawSql": "SELECT AVG(pe1.readings)\nFROM \n(SELECT readings from parking_efficiency\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime AND sensor_name IN (${parking_sensor:singlequote}))\nAND gather_time in (select max(gather_time) from parking_efficiency group by sensor_name)) pe1",
+              "refId": "A"
+            }
+          ],
+          "title": "Parking Efficiency of: ${parking_sensor}",
+          "type": "gauge"
         }
       ],
       "title": "Parking",
@@ -1127,8 +1212,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#EAB839",
@@ -1152,7 +1236,7 @@
             "h": 14,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 18
           },
           "id": 24,
           "options": {
@@ -1445,7 +1529,7 @@
               "zoom": 14
             }
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -1630,8 +1714,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "green",
@@ -1659,7 +1742,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 16
+            "y": 32
           },
           "id": 19,
           "options": {
@@ -1678,7 +1761,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -1817,8 +1900,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1834,7 +1916,7 @@
             "h": 8,
             "w": 14,
             "x": 0,
-            "y": 27
+            "y": 43
           },
           "id": 20,
           "options": {
@@ -1859,7 +1941,7 @@
             },
             "valueMode": "color"
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "builderOptions": {
@@ -2019,7 +2101,7 @@
             "h": 8,
             "w": 10,
             "x": 14,
-            "y": 27
+            "y": 43
           },
           "id": 21,
           "options": {
@@ -2111,6 +2193,7 @@
         },
         {
           "datasource": {
+            "default": true,
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2127,6 +2210,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2157,8 +2241,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2174,7 +2257,7 @@
             "h": 8,
             "w": 14,
             "x": 5,
-            "y": 35
+            "y": 51
           },
           "id": 23,
           "options": {
@@ -2208,7 +2291,7 @@
                   "table": ""
                 }
               },
-              "pluginVersion": "4.3.0",
+              "pluginVersion": "4.3.1",
               "queryType": "timeseries",
               "rawSql": "SELECT gather_time as time, kWh as \" \", sensor_name FROM \"sc_database\".\"charge_consumption\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${charge_consumption_sensor:singlequote})) ORDER BY time ASC",
               "refId": "A"
@@ -2233,6 +2316,7 @@
       "panels": [
         {
           "datasource": {
+            "default": true,
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2249,6 +2333,7 @@
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -2281,8 +2366,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#EAB839",
@@ -2302,7 +2386,7 @@
             "h": 8,
             "w": 14,
             "x": 5,
-            "y": 3
+            "y": 60
           },
           "id": 8,
           "options": {
@@ -2412,7 +2496,7 @@
               },
               "pluginVersion": "4.3.1",
               "queryType": "timeseries",
-              "rawSql": "SELECT gather_time as \"time\", readings as \" \", sensor_name FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime ) ORDER BY time ASC LIMIT 1000",
+              "rawSql": "SELECT gather_time as \"time\", readings as \" \", sensor_name FROM \"sc_database\".\"waste_filling\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${waste_filling_sensor:singlequote})) ORDER BY time ASC LIMIT 1000",
               "refId": "A"
             }
           ],
@@ -2435,6 +2519,7 @@
       "panels": [
         {
           "datasource": {
+            "default": true,
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
@@ -2456,8 +2541,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2472,7 +2556,7 @@
             "h": 14,
             "w": 24,
             "x": 0,
-            "y": 4
+            "y": 61
           },
           "id": 18,
           "options": {
@@ -2606,7 +2690,7 @@
               "zoom": 12.25
             }
           },
-          "pluginVersion": "11.0.1",
+          "pluginVersion": "11.1.3",
           "targets": [
             {
               "datasource": {
@@ -2625,9 +2709,9 @@
                   "table": ""
                 }
               },
-              "pluginVersion": "4.3.0",
+              "pluginVersion": "4.3.1",
               "queryType": "table",
-              "rawSql": "SELECT sensor_name, latitude, longitude\r\nFROM sc_database.electrical_failure\r\nWHERE is_ok = false;\r\n",
+              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE s1.is_ok = false AND s1.sensor_name IN (${electrical_failure_sensor:singlequote});",
               "refId": "A"
             },
             {
@@ -2648,9 +2732,9 @@
                   "table": ""
                 }
               },
-              "pluginVersion": "4.3.0",
+              "pluginVersion": "4.3.1",
               "queryType": "table",
-              "rawSql": "SELECT sensor_name, latitude, longitude\r\nFROM sc_database.electrical_failure\r\nWHERE is_ok = true;",
+              "rawSql": "WITH distinct_sensors AS (\r\n  SELECT sensor_name, MAX(gather_time) AS max_gather_time\r\n  FROM electrical_failure\r\n  GROUP BY sensor_name\r\n)\r\nSELECT s1.sensor_name, s1.latitude, s1.longitude\r\nFROM sc_database.electrical_failure s1\r\nJOIN distinct_sensors ds\r\n  ON s1.sensor_name = ds.sensor_name AND s1.gather_time = ds.max_gather_time\r\nWHERE s1.is_ok = true AND s1.sensor_name IN (${electrical_failure_sensor:singlequote});",
               "refId": "B"
             }
           ],
@@ -2800,17 +2884,17 @@
           "selected": true,
           "text": [
             "Parcheggio Tesla - colonnina 1",
-            "Parcheggio Colonnine - colonnina 1",
-            "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 3",
             "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Tesla - colonnina 3"
+            "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Colonnine - colonnina 1"
           ],
           "value": [
             "Parcheggio Tesla - colonnina 1",
-            "Parcheggio Colonnine - colonnina 1",
-            "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 3",
             "Parcheggio Tesla - colonnina 2",
-            "Parcheggio Tesla - colonnina 3"
+            "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Colonnine - colonnina 1"
           ]
         },
         "datasource": {
@@ -2836,11 +2920,10 @@
     "from": "now-5m",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
   "title": "Urban Planning",
   "uid": "cdn1fqslg9a80d",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
