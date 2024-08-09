@@ -85,8 +85,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "transparent",
-                    "value": null
+                    "color": "transparent"
                   },
                   {
                     "color": "semi-dark-blue",
@@ -269,8 +268,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "transparent",
-                    "value": null
+                    "color": "transparent"
                   }
                 ]
               },
@@ -449,8 +447,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "semi-dark-blue",
-                    "value": null
+                    "color": "semi-dark-blue"
                   },
                   {
                     "color": "#6ED0E0",
@@ -601,7 +598,7 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -609,708 +606,585 @@
         "y": 1
       },
       "id": 26,
-      "panels": [
-        {
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
+      "panels": [],
+      "title": "Heat Index",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Display of actual temperature vs heat index (apparent temperature).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "palette-classic",
+            "seriesBy": "last"
           },
-          "description": "Display of actual temperature vs heat index (apparent temperature).",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "blue",
-                "mode": "palette-classic",
-                "seriesBy": "last"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "dashed"
-                }
-              },
-              "decimals": 1,
-              "mappings": [],
-              "noValue": "No data in the specified interval",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "transparent",
-                    "value": null
-                  },
-                  {
-                    "color": "semi-dark-blue",
-                    "value": 0
-                  },
-                  {
-                    "color": "light-blue",
-                    "value": 4
-                  },
-                  {
-                    "color": "#ff8c00",
-                    "value": 30
-                  },
-                  {
-                    "color": "#ff0000",
-                    "value": 40
-                  }
-                ]
-              },
-              "unit": "celsius"
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 14,
-            "x": 5,
-            "y": 2
-          },
-          "id": 4,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
             },
-            "tooltip": {
-              "maxHeight": 600,
-              "mode": "single",
-              "sort": "none"
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
             }
           },
-          "targets": [
-            {
-              "builderOptions": {
-                "aggregates": [],
-                "columns": [
-                  {
-                    "custom": false,
-                    "name": "readings",
-                    "type": "Float64"
-                  },
-                  {
-                    "hint": "time",
-                    "name": "gather_time",
-                    "type": "DateTime64(3)"
-                  }
-                ],
-                "database": "sc_database",
-                "filters": [
-                  {
-                    "condition": "AND",
-                    "filterType": "custom",
-                    "hint": "time",
-                    "key": "",
-                    "operator": "WITH IN DASHBOARD TIME RANGE",
-                    "type": "datetime"
-                  }
-                ],
-                "groupBy": [],
-                "limit": 0,
-                "meta": {},
-                "mode": "aggregate",
-                "orderBy": [
-                  {
-                    "default": true,
-                    "dir": "ASC",
-                    "hint": "time",
-                    "name": ""
-                  }
-                ],
-                "queryType": "timeseries",
-                "table": "temperature"
-              },
-              "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-              },
-              "editorType": "sql",
-              "format": 0,
-              "hide": true,
-              "meta": {
-                "builderOptions": {
-                  "aggregates": [],
-                  "columns": [
-                    {
-                      "custom": false,
-                      "name": "readings",
-                      "type": "Float64"
-                    },
-                    {
-                      "hint": "time",
-                      "name": "gather_time",
-                      "type": "DateTime64(3)"
-                    }
-                  ],
-                  "database": "sc_database",
-                  "filters": [
-                    {
-                      "condition": "AND",
-                      "filterType": "custom",
-                      "hint": "time",
-                      "key": "",
-                      "operator": "WITH IN DASHBOARD TIME RANGE",
-                      "type": "datetime"
-                    }
-                  ],
-                  "groupBy": [],
-                  "limit": 0,
-                  "meta": {},
-                  "mode": "aggregate",
-                  "orderBy": [
-                    {
-                      "default": true,
-                      "dir": "ASC",
-                      "hint": "time",
-                      "name": ""
-                    }
-                  ],
-                  "queryType": "timeseries",
-                  "table": "temperature"
-                }
-              },
-              "pluginVersion": "4.3.1",
-              "queryType": "timeseries",
-              "rawSql": "SELECT gather_time as time, readings, sensor_name FROM \"sc_database\".\"temperature\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
-              "refId": "temp"
-            },
-            {
-              "builderOptions": {
-                "aggregates": [],
-                "columns": [
-                  {
-                    "custom": false,
-                    "name": "readings",
-                    "type": "Int32"
-                  },
-                  {
-                    "hint": "time",
-                    "name": "gather_time",
-                    "type": "DateTime64(3)"
-                  }
-                ],
-                "database": "sc_database",
-                "filters": [
-                  {
-                    "condition": "AND",
-                    "filterType": "custom",
-                    "hint": "time",
-                    "key": "",
-                    "operator": "WITH IN DASHBOARD TIME RANGE",
-                    "type": "datetime"
-                  }
-                ],
-                "groupBy": [],
-                "limit": 0,
-                "meta": {},
-                "mode": "aggregate",
-                "orderBy": [
-                  {
-                    "default": true,
-                    "dir": "ASC",
-                    "hint": "time",
-                    "name": ""
-                  }
-                ],
-                "queryType": "timeseries",
-                "table": "humidity"
-              },
-              "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-              },
-              "editorType": "sql",
-              "format": 0,
-              "hide": true,
-              "meta": {
-                "builderOptions": {
-                  "aggregates": [],
-                  "columns": [
-                    {
-                      "custom": false,
-                      "name": "readings",
-                      "type": "Int32"
-                    },
-                    {
-                      "hint": "time",
-                      "name": "gather_time",
-                      "type": "DateTime64(3)"
-                    }
-                  ],
-                  "database": "sc_database",
-                  "filters": [
-                    {
-                      "condition": "AND",
-                      "filterType": "custom",
-                      "hint": "time",
-                      "key": "",
-                      "operator": "WITH IN DASHBOARD TIME RANGE",
-                      "type": "datetime"
-                    }
-                  ],
-                  "groupBy": [],
-                  "limit": 0,
-                  "meta": {},
-                  "mode": "aggregate",
-                  "orderBy": [
-                    {
-                      "default": true,
-                      "dir": "ASC",
-                      "hint": "time",
-                      "name": ""
-                    }
-                  ],
-                  "queryType": "timeseries",
-                  "table": "humidity"
-                }
-              },
-              "pluginVersion": "4.3.1",
-              "queryType": "timeseries",
-              "rawSql": "SELECT gather_time as time, readings FROM \"sc_database\".\"humidity\" WHERE ( time >= $__fromTime AND time <= $__toTime AND sensor_name IN (${temperature_sensor:singlequote})) ORDER BY time ASC",
-              "refId": "hum"
-            },
-            {
-              "datasource": {
-                "name": "Expression",
-                "type": "__expr__",
-                "uid": "__expr__"
-              },
-              "expression": "(-8.78469475556)+((1.61139411)*${temp})+((2.338548839)*${hum})+((-0.146116050)*${temp}*${hum})+((-0.012308094)*(${temp}**2))+((-0.0164248277778)*(${hum}**2))+((0.002211732)*(${temp}**2)*${hum})+((0.00072546)*${temp}*(${hum}**2))+((-0.000003582)*(${temp}**2)*(${hum}**2))",
-              "hide": false,
-              "refId": "ㅤ",
-              "type": "math"
-            }
-          ],
-          "title": "Heat Index in Padua, Italy",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "PDEE91DDB90597936"
-          },
-          "description": "Display of statistics about apparent temperature in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "transparent",
-                "mode": "fixed"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "fillOpacity": 80,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineWidth": 1,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "decimals": 1,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "transparent",
-                    "value": null
-                  },
-                  {
-                    "color": "#ffff66",
-                    "value": 27
-                  },
-                  {
-                    "color": "#ffd700",
-                    "value": 33
-                  },
-                  {
-                    "color": "#ff8c00",
-                    "value": 40
-                  },
-                  {
-                    "color": "#ff0000",
-                    "value": 52
-                  }
-                ]
-              },
-              "unit": "celsius"
-            },
-            "overrides": [
+          "decimals": 1,
+          "mappings": [],
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "heat_index"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Heat Index"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "thresholds",
-                      "seriesBy": "last"
-                    }
-                  }
-                ]
+                "color": "transparent",
+                "value": null
               },
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "temp temp"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Temperature"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "semi-dark-blue",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
+                "color": "semi-dark-blue",
+                "value": 0
               },
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "MAX(heat_index)"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
+                "color": "light-blue",
+                "value": 4
               },
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Max Heat Index"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "light-red",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
+                "color": "#ff8c00",
+                "value": 30
               },
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Min Heat Index"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "light-blue",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Average Heat Index"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "light-green",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Average"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "light-green",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Max"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "light-red",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Min"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "light-blue",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
+                "color": "#ff0000",
+                "value": 40
               }
             ]
           },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 3,
-            "y": 10
-          },
-          "id": 5,
-          "options": {
-            "barRadius": 0,
-            "barWidth": 0.97,
-            "fullHighlight": false,
-            "groupWidth": 0.7,
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "right",
-              "showLegend": true
-            },
-            "orientation": "vertical",
-            "showValue": "auto",
-            "stacking": "none",
-            "tooltip": {
-              "maxHeight": 600,
-              "mode": "single",
-              "sort": "none"
-            },
-            "xTickLabelRotation": 0,
-            "xTickLabelSpacing": 0
-          },
-          "pluginVersion": "10.4.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-              },
-              "editorType": "sql",
-              "format": 1,
-              "hide": false,
-              "meta": {
-                "builderOptions": {
-                  "columns": [],
-                  "database": "",
-                  "mode": "list",
-                  "queryType": "table",
-                  "table": ""
-                }
-              },
-              "pluginVersion": "4.0.8",
-              "queryType": "table",
-              "rawSql": "SELECT h1.sensor_name as Sensor, AVG(h1.heat_index) as \"Average\", MAX(h1.heat_index) as \"Max\", MIN(h1.heat_index) as \"Min\"\r\nFROM\r\n(SELECT t.sensor_name, t.readings as temp, h.readings as hum, t.gather_time as time,\r\n(-8.78469475556)+((1.61139411)*temp)+((2.338548839)*hum)+((-0.146116050)*temp*hum)+((-0.012308094)*(POWER(temp,2)))+((-0.0164248277778)*(POWER(hum,2)))+((0.002211732)*(POWER(temp,2))*hum)+((0.00072546)*temp*(POWER(hum,2)))+((-0.000003582)*(POWER(temp,2))*(POWER(hum,2))) as heat_index\r\nFROM sc_database.temperature t\r\nJOIN sc_database.humidity h\r\nON h.sensor_name = t.sensor_name AND h.gather_time = t.gather_time) h1\r\nWHERE ( time >= $__fromTime AND time <= $__toTime )\r\nGROUP by h1.sensor_name",
-              "refId": "temp"
-            }
-          ],
-          "title": "Heat Index Statistics in Padua, Italy",
-          "type": "barchart"
+          "unit": "celsius"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 14,
+        "x": 5,
+        "y": 2
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "builderOptions": {
+            "aggregates": [],
+            "columns": [
+              {
+                "alias": "sensor_name",
+                "custom": false,
+                "name": "sensor_name",
+                "type": "String"
+              },
+              {
+                "alias": "readings",
+                "custom": false,
+                "name": "readings",
+                "type": "Float64"
+              },
+              {
+                "hint": "time",
+                "name": "gather_time",
+                "type": "DateTime64(3)"
+              }
+            ],
+            "database": "sc_database",
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "hint": "time",
+                "key": "",
+                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "type": "datetime"
+              }
+            ],
+            "groupBy": [],
+            "limit": null,
+            "meta": {},
+            "mode": "aggregate",
+            "orderBy": [
+              {
+                "default": true,
+                "dir": "ASC",
+                "hint": "time",
+                "name": ""
+              }
+            ],
+            "queryType": "timeseries",
+            "table": "heat_index"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 0,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "aggregates": [],
+              "columns": [
+                {
+                  "alias": "sensor_name",
+                  "custom": false,
+                  "name": "sensor_name",
+                  "type": "String"
+                },
+                {
+                  "alias": "readings",
+                  "custom": false,
+                  "name": "readings",
+                  "type": "Float64"
+                },
+                {
+                  "hint": "time",
+                  "name": "gather_time",
+                  "type": "DateTime64(3)"
+                }
+              ],
+              "database": "sc_database",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                }
+              ],
+              "groupBy": [],
+              "limit": null,
+              "meta": {},
+              "mode": "aggregate",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "ASC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "timeseries",
+              "table": "heat_index"
+            }
+          },
+          "pluginVersion": "4.3.1",
+          "queryType": "timeseries",
+          "rawSql": "SELECT gather_time as \"time\", sensor_name, readings FROM \"sc_database\".\"heat_index\" WHERE ( time >= $__fromTime AND time <= $__toTime ) AND sensor_name IN (${temperature_sensor:singlequote}) ORDER BY time ASC",
+          "refId": "A"
+        }
+      ],
+      "title": "Heat Index in Padua, Italy",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Display of statistics about apparent temperature in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": null
+              },
+              {
+                "color": "#ffff66",
+                "value": 27
+              },
+              {
+                "color": "#ffd700",
+                "value": 33
+              },
+              {
+                "color": "#ff8c00",
+                "value": 40
+              },
+              {
+                "color": "#ff0000",
+                "value": 52
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "heat_index"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Heat Index"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds",
+                  "seriesBy": "last"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "temp temp"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Temperature"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MAX(heat_index)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Heat Index"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Min Heat Index"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Average Heat Index"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Average"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 3,
+        "y": 10
+      },
+      "id": 5,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "orientation": "vertical",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
         {
           "datasource": {
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "description": "Display of average apparent temperature in Padua.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 1,
-              "mappings": [],
-              "max": 45,
-              "min": -10,
-              "noValue": "No data in the specified interval",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "semi-dark-blue",
-                    "value": null
-                  },
-                  {
-                    "color": "light-blue",
-                    "value": 0
-                  },
-                  {
-                    "color": "green",
-                    "value": 4
-                  },
-                  {
-                    "color": "#ff8c00",
-                    "value": 30
-                  },
-                  {
-                    "color": "#ff0000",
-                    "value": 40
-                  }
-                ]
-              },
-              "unit": "celsius"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 6,
-            "x": 15,
-            "y": 10
-          },
-          "id": 11,
-          "options": {
-            "minVizHeight": 75,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "11.0.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-              },
-              "editorType": "sql",
-              "format": 1,
-              "hide": true,
-              "meta": {
-                "builderOptions": {
-                  "columns": [],
-                  "database": "",
-                  "limit": 0,
-                  "mode": "list",
-                  "queryType": "table",
-                  "table": ""
-                }
-              },
-              "pluginVersion": "4.0.8",
+          "editorType": "sql",
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "mode": "list",
               "queryType": "table",
-              "rawSql": "SELECT AVG(t1.readings)\r\nFROM \r\n(SELECT readings from temperature\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from temperature group by sensor_name))t1",
-              "refId": "temp"
-            },
-            {
-              "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "PDEE91DDB90597936"
-              },
-              "editorType": "sql",
-              "format": 1,
-              "hide": true,
-              "meta": {
-                "builderOptions": {
-                  "columns": [],
-                  "database": "",
-                  "limit": 0,
-                  "mode": "list",
-                  "queryType": "table",
-                  "table": ""
-                }
-              },
-              "pluginVersion": "4.0.8",
-              "queryType": "table",
-              "rawSql": "SELECT AVG(h1.readings)\r\nFROM \r\n(SELECT readings from humidity\r\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\r\nAND gather_time in (select max(gather_time) from humidity group by sensor_name))h1",
-              "refId": "hum"
-            },
-            {
-              "datasource": {
-                "name": "Expression",
-                "type": "__expr__",
-                "uid": "__expr__"
-              },
-              "expression": "(-8.78469475556)+((1.61139411)*${temp})+((2.338548839)*${hum})+((-0.146116050)*${temp}*${hum})+((-0.012308094)*(${temp}**2))+((-0.0164248277778)*(${hum}**2))+((0.002211732)*(${temp}**2)*${hum})+((0.00072546)*${temp}*(${hum}**2))+((-0.000003582)*(${temp}**2)*(${hum}**2))",
-              "hide": false,
-              "refId": "heat_index",
-              "type": "math"
+              "table": ""
             }
-          ],
-          "title": "Average Heat Index in Padua, Italy",
-          "type": "gauge"
+          },
+          "pluginVersion": "4.3.1",
+          "queryType": "table",
+          "rawSql": "SELECT sensor_name as Sensor, AVG(readings) as \"Average\", MAX(readings) as \"Max\", MIN(readings) as \"Min\"\r\nFROM sc_database.heat_index\r\nWHERE ( gather_time >= $__fromTime AND gather_time <= $__toTime )\r\nGROUP by sensor_name",
+          "refId": "temp"
         }
       ],
-      "title": "Heat Index",
-      "type": "row"
+      "title": "Heat Index Statistics in Padua, Italy",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Display of average apparent temperature in Padua.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "max": 45,
+          "min": -10,
+          "noValue": "No data in the specified interval",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-blue",
+                "value": null
+              },
+              {
+                "color": "light-blue",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 4
+              },
+              {
+                "color": "#ff8c00",
+                "value": 30
+              },
+              {
+                "color": "#ff0000",
+                "value": 40
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 15,
+        "y": 10
+      },
+      "id": 11,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.3.1",
+          "queryType": "table",
+          "rawSql": "SELECT AVG(readings)\nFROM \n(SELECT readings from heat_index\nWHERE (gather_time >= $__fromTime AND gather_time <= $__toTime)\nAND gather_time in (select max(gather_time) from heat_index group by sensor_name))t1",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Heat Index in Padua, Italy",
+      "type": "gauge"
     },
     {
       "collapsed": true,
@@ -1318,7 +1192,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 18
       },
       "id": 27,
       "panels": [
@@ -1373,8 +1247,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1541,8 +1414,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#ffd700",
@@ -1622,7 +1494,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 19
       },
       "id": 28,
       "panels": [
@@ -1676,8 +1548,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#ffff66",
@@ -1768,8 +1639,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "#EAB839",
@@ -1849,7 +1719,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 20
       },
       "id": 29,
       "panels": [
@@ -1901,8 +1771,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2131,8 +2000,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2206,8 +2074,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -2321,8 +2188,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2396,8 +2262,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -2511,8 +2376,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2586,8 +2450,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -2701,8 +2564,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2776,8 +2638,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -2853,7 +2714,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 21
       },
       "id": 30,
       "panels": [
@@ -2908,8 +2769,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -2992,8 +2852,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -3073,11 +2932,9 @@
         "current": {
           "selected": true,
           "text": [
-            "Padova, Piazza dei Signori",
             "Padova, Prato della Valle"
           ],
           "value": [
-            "Padova, Piazza dei Signori",
             "Padova, Prato della Valle"
           ]
         },
@@ -3170,7 +3027,6 @@
     "from": "now-5m",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
   "title": "Environmental Planning",
