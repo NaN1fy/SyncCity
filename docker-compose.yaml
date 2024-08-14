@@ -60,6 +60,7 @@ services:
       - ./Grafana/public/img/apple-touch-icon.png:/usr/share/grafana/public/img/apple-touch-icon.png
       - ./Grafana/public/img/grafana_mask_icon.svg:/usr/share/grafana/public/img/grafana_mask_icon.svg
       - ./Grafana/public/img/grafana_mask_icon_white.svg:/usr/share/grafana/public/img/grafana_mask_icon_white.svg
+      - ./Grafana/provisioning/alerting:/etc/grafana/provisioning/alerting
       - ./Grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
