@@ -59,10 +59,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -112,6 +108,53 @@
                   "min": 2
                 },
                 "symbol": {
+                  "fixed": "img/icons/unicons/temperature-three-quarter.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "temperature"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Temperature & Humidity",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "dark-red"
+                },
+                "opacity": 0,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 30,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
                   "fixed": "img/icons/unicons/temperature-empty.svg",
                   "mode": "fixed"
                 },
@@ -146,12 +189,12 @@
           },
           {
             "config": {
-              "showLegend": true,
+              "showLegend": false,
               "style": {
                 "color": {
                   "fixed": "dark-blue"
                 },
-                "opacity": 1,
+                "opacity": 0,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -211,7 +254,54 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 32,
+                  "fixed": 30,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/unicons/parking-square.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "parking"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Parking & Payment",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "dark-orange"
+                },
+                "opacity": 0,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 30,
                   "max": 15,
                   "min": 2
                 },
@@ -250,12 +340,12 @@
           },
           {
             "config": {
-              "showLegend": true,
+              "showLegend": false,
               "style": {
                 "color": {
                   "fixed": "dark-purple"
                 },
-                "opacity": 1,
+                "opacity": 0,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -315,7 +405,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 32,
+                  "fixed": 30,
                   "max": 15,
                   "min": 2
                 },
@@ -446,9 +536,56 @@
               "showLegend": true,
               "style": {
                 "color": {
-                  "fixed": "#48eff8"
+                  "fixed": "semi-dark-blue"
                 },
                 "opacity": 1,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 30,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/unicons/water.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "water level"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Water Level & Precipitation Intensity",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "#48eff8"
+                },
+                "opacity": 0,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -490,12 +627,12 @@
           },
           {
             "config": {
-              "showLegend": true,
+              "showLegend": false,
               "style": {
                 "color": {
                   "fixed": "#1424b9"
                 },
-                "opacity": 1,
+                "opacity": 0,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -542,7 +679,7 @@
                 "color": {
                   "fixed": "#37872D"
                 },
-                "opacity": 0.4,
+                "opacity": 1,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -550,7 +687,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 32,
+                  "fixed": 30,
                   "max": 15,
                   "min": 2
                 },
@@ -561,6 +698,11 @@
                 "symbolAlign": {
                   "horizontal": "center",
                   "vertical": "center"
+                },
+                "text": {
+                  "field": "charging station Nome",
+                  "fixed": "",
+                  "mode": "fixed"
                 },
                 "textConfig": {
                   "fontSize": 12,
@@ -594,7 +736,7 @@
           "zoom": 14
         }
       },
-      "pluginVersion": "11.0.1",
+      "pluginVersion": "11.1.3",
       "targets": [
         {
           "builderOptions": {
@@ -888,11 +1030,10 @@
     "from": "now-6h",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
   "title": "Sensors",
   "uid": "cdn2oqslg9a76d",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
