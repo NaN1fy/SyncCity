@@ -1087,6 +1087,7 @@
                 "mode": "thresholds"
               },
               "mappings": [],
+              "noValue": "No Data",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -1212,7 +1213,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "#EAB839",
@@ -1236,7 +1238,7 @@
             "h": 14,
             "w": 24,
             "x": 0,
-            "y": 18
+            "y": 2
           },
           "id": 24,
           "options": {
@@ -1714,7 +1716,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -1742,7 +1745,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 32
+            "y": 16
           },
           "id": 19,
           "options": {
@@ -1900,7 +1903,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1916,7 +1920,7 @@
             "h": 8,
             "w": 14,
             "x": 0,
-            "y": 43
+            "y": 27
           },
           "id": 20,
           "options": {
@@ -2101,7 +2105,7 @@
             "h": 8,
             "w": 10,
             "x": 14,
-            "y": 43
+            "y": 27
           },
           "id": 21,
           "options": {
@@ -2227,7 +2231,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": true,
+                "spanNulls": 20000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -2241,7 +2245,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2257,7 +2262,7 @@
             "h": 8,
             "w": 14,
             "x": 5,
-            "y": 51
+            "y": 35
           },
           "id": 23,
           "options": {
@@ -2350,7 +2355,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": true,
+                "spanNulls": 20000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -2366,7 +2371,8 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "#EAB839",
@@ -2386,7 +2392,7 @@
             "h": 8,
             "w": 14,
             "x": 5,
-            "y": 60
+            "y": 44
           },
           "id": 8,
           "options": {
@@ -2541,7 +2547,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2556,7 +2563,7 @@
             "h": 14,
             "w": 24,
             "x": 0,
-            "y": 61
+            "y": 53
           },
           "id": 18,
           "options": {
@@ -2883,17 +2890,17 @@
         "current": {
           "selected": true,
           "text": [
-            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 2",
             "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 2",
+            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Colonnine - colonnina 1"
           ],
           "value": [
-            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Tesla - colonnina 3",
-            "Parcheggio Tesla - colonnina 2",
             "Parcheggio Colonnine - colonnina 2",
+            "Parcheggio Tesla - colonnina 2",
+            "Parcheggio Tesla - colonnina 1",
             "Parcheggio Colonnine - colonnina 1"
           ]
         },
@@ -2924,6 +2931,6 @@
   "timezone": "browser",
   "title": "Urban Planning",
   "uid": "cdn1fqslg9a80d",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
