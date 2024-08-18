@@ -71,7 +71,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 40000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -653,7 +653,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 40000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -1238,7 +1238,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 40000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -3067,6 +3067,6 @@
   "timezone": "browser",
   "title": "Environmental Planning",
   "uid": "cdn2oqslg9a80d",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
