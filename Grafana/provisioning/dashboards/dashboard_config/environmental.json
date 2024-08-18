@@ -71,7 +71,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 40000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -250,6 +250,7 @@
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
+                "axisSoftMin": 15,
                 "fillOpacity": 80,
                 "gradientMode": "none",
                 "hideFrom": {
@@ -653,7 +654,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 40000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -698,7 +699,7 @@
             "h": 8,
             "w": 14,
             "x": 5,
-            "y": 2
+            "y": 18
           },
           "id": 4,
           "options": {
@@ -845,6 +846,7 @@
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
+                "axisSoftMin": 15,
                 "fillOpacity": 80,
                 "gradientMode": "none",
                 "hideFrom": {
@@ -1039,7 +1041,7 @@
             "h": 8,
             "w": 12,
             "x": 3,
-            "y": 10
+            "y": 26
           },
           "id": 5,
           "options": {
@@ -1142,7 +1144,7 @@
             "h": 8,
             "w": 6,
             "x": 15,
-            "y": 10
+            "y": 26
           },
           "id": 11,
           "options": {
@@ -1238,7 +1240,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 40000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -1544,7 +1546,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 60000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -1772,7 +1774,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -2000,7 +2002,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -2195,7 +2197,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -2387,7 +2389,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -2579,7 +2581,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 20000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -2784,7 +2786,7 @@
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": 30000,
+                "spanNulls": 3600000,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -3067,6 +3069,6 @@
   "timezone": "browser",
   "title": "Environmental Planning",
   "uid": "cdn2oqslg9a80d",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
